@@ -12,11 +12,14 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     filename: '[name].js',
-    path: path.join(__dirname, '/dist')
+    path: path.join(__dirname, '/dist'),
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@shared': path.resolve(__dirname, './src/_shared'),
+    },
   },
   module: {
     rules: [
@@ -24,27 +27,27 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
         options: {
-          transpileOnly: !isProd
-        }
+          transpileOnly: !isProd,
+        },
       },
       {
         test: /\.css?$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(webp|jpg|png|jpeg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
-        }
-      }
-    ]
+          name: '[name].[ext]?[hash]',
+        },
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html'),
-      hash: false
-    })
+      hash: false,
+    }),
   ],
   devServer: {
     host: 'localhost',
@@ -52,6 +55,6 @@ module.exports = {
     open: true,
     hot: true,
     compress: true,
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+  },
 };

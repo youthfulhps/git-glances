@@ -12,7 +12,7 @@
     "noEmit":true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
+      "@shared/*": ["./src/_shared/*"]
     },
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
