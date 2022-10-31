@@ -12,13 +12,12 @@
     "noEmit":true,
     "baseUrl": "./",
     "paths": {
+      "@shared": ["./src/_shared"],
       "@shared/*": ["./src/_shared/*"]
     },
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src", "global.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
