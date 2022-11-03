@@ -2,7 +2,21 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateAreas: {
+        layout: [
+          'header header header',
+          'nav    main   main',
+          'nav    footer footer',
+        ],
+      },
+      gridTemplateColumns: {
+        layout: 'repeat(3, 1fr)',
+      },
+      gridTemplateRows: {
+        layout: 'repeat(3, 1fr)',
+      },
+    },
   },
-  plugins: [],
+  plugins: [require('@savvywombat/tailwindcss-grid-areas')],
 };
