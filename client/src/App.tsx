@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/Home';
-import LoginCallbackPage from './pages/LoginCallback';
+import HomePage from '@layout/pages/Home';
+import LoginCallbackPage from '@layout/pages/LoginCallback';
 
 function App() {
   return (
