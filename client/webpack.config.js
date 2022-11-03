@@ -20,6 +20,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       '@shared': path.resolve(__dirname, './src/_shared'),
+      '@layout': path.resolve(__dirname, './src/_layout'),
     },
   },
   module: {
