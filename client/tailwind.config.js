@@ -4,17 +4,13 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateAreas: {
-        layout: [
-          'header header header',
-          'nav    main   main',
-          'nav    footer footer',
-        ],
+        layout: ['login . .', '. . .', '. . .', '. . .', '. . .', '. . .'],
       },
       gridTemplateColumns: {
         layout: 'repeat(3, 1fr)',
       },
       gridTemplateRows: {
-        layout: 'repeat(3, 1fr)',
+        layout: 'repeat(6, 1fr)',
       },
     },
   },
