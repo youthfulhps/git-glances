@@ -25,7 +25,6 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "styled-components": "^5.3.6",
-    "tailwind-styled-components": "^2.2.0",
     "twin.macro": "^3.0.0"
   },
   "devDependencies": {
