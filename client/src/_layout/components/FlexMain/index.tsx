@@ -1,16 +1,13 @@
 import { ReactNode } from 'react';
-import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
+import tw from 'twin.macro';
 
 type FlexMainProps = {
   children: ReactNode;
 };
 
-const StyledFlexMain = tw.main`
-  flex 
-  h-screen 
-  w-screen 
-  items-center 
-  justify-center
+const StyledFlexMain = styled.main`
+  ${tw`flex h-screen w-screen items-center justify-center`}
 `;
 
 function FlexMain({ children }: FlexMainProps) {
