@@ -27,6 +27,7 @@ const useLogin = () => {
 
   return {
     getToken,
+    isLoggedIn: !!cookie.get('gitin:token'),
   };
 };
 
