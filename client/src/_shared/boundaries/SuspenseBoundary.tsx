@@ -5,13 +5,14 @@ import Spinner from '../components/Spinner';
 
 type SuspenseBoundaryProps = {
   children: ReactNode;
+  gridArea?: string;
 };
 
-function SuspenseBoundary({ children }: SuspenseBoundaryProps) {
+function SuspenseBoundary({ children, gridArea = '' }: SuspenseBoundaryProps) {
   const { reset } = useQueryErrorResetBoundary();
   return (
-    <ErrorBoundary reset={reset}>
-      <Suspense fallback={<Spinner />}>{children}</Suspense>
+    <ErrorBoundary reset={reset} gridArea={gridArea}>
+      <Suspense fallback={<Spinner gridArea={gridArea} />}>{children}</Suspense>
     </ErrorBoundary>
   );
 }
