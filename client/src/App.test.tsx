@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import App from '@/App';
+import App from './App';
 
 describe('App 컴포넌트의 랜더링을 확인한다.', () => {
   beforeAll(() => {
