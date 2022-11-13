@@ -1,10 +1,18 @@
 import React from 'react';
+import Section from '@layout/components/Section';
 
-function Spinner() {
+type SpinnerProps = {
+  gridArea?: string;
+};
+
+function Spinner({ gridArea = '' }: SpinnerProps) {
   return (
-    <div role="status">
+    <Section
+      gridArea={gridArea}
+      className="flex h-full w-full items-center justify-center"
+    >
       <svg
-        className="mr-2 inline h-16 w-16 animate-spin rounded-md fill-gray-200 text-center text-gray-900"
+        className="mr-2 inline h-16 w-16 animate-spin rounded-md bg-zinc-800 fill-gray-200 text-center text-gray-900"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +26,7 @@ function Spinner() {
           fill="currentFill"
         />
       </svg>
-    </div>
+    </Section>
   );
 }
 

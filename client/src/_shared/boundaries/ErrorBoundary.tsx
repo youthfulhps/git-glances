@@ -4,7 +4,7 @@ import Error from '../components/Error';
 type ErrorBoundaryProps = {
   children: ReactNode;
   reset?: (args?: unknown[]) => void;
-  className?: string;
+  gridArea?: string;
 };
 
 type ErrorBoundaryState = {
@@ -44,14 +44,14 @@ class ErrorBoundary extends React.Component<
 
   render() {
     const { hasError, error, errorMessage } = this.state;
-    const { children, className } = this.props;
+    const { children, gridArea } = this.props;
 
     if (hasError && error) {
       return (
         <Error
           errorMessage={errorMessage}
           reset={this.resetErrorBoundaryState}
-          className={className}
+          gridArea={gridArea}
         />
       );
     }
