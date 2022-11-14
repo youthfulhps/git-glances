@@ -6,8 +6,8 @@ type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement>;
 
 const StyledLink = styled.a`
   ${tw`rounded-2xl border border-solid border-zinc-300`};
-  ${tw`text-zinc-300`};
-  ${tw`p-2`};
+  ${tw`text-zinc-300 text-xs`};
+  ${tw`p-1.5`};
   ${tw`backdrop-blur`};
   ${tw`hover:text-zinc-400`};
 `;
