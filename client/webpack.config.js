@@ -20,6 +20,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       '@shared': path.resolve(__dirname, './src/_shared'),
+      '@layout': path.resolve(__dirname, './src/_layout'),
     },
   },
   module: {
@@ -41,6 +42,11 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]',
         },
+      },
+      {
+        test: /\.(ts|tsx|js|jsx)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
       },
     ],
   },

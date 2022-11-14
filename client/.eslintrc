@@ -23,6 +23,8 @@
     "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
     "no-unused-vars": "off",
+    "no-param-reassign": "off",
+    "arrow-body-style": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-var-requires": "off",
     "react/no-array-index-key" : "off",
