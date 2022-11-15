@@ -22,7 +22,7 @@ const StyledGridMain = styled.main<StyledGridMainProps>`
   } . . .'
     'user-profile . . .'
     'user-profile . . .'
-    '. . . .'
+    'language . . .'
     '. . . .'
     '. . . .'`};
 `;
