@@ -17,6 +17,8 @@ export const getDestructuredLanguageList: GetDestructuredLanguageList = (
 export const getMergedLanguageList: GetMergedLanguageList = (
   languageNodeList
 ) => {
+  if (!languageNodeList || !languageNodeList.length) return {};
+
   const mergedLanguageList: LanguageList = {};
 
   languageNodeList.forEach((languageNode) => {
