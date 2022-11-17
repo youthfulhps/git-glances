@@ -1,5 +1,5 @@
 export type LanguageList = {
-  [key: string]: string;
+  [key: string]: string | number;
 };
 
 export type GetMergedLanguageList = (languageNodeList: any[]) => LanguageList;
