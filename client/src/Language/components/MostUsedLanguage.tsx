@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 import { getLanguageColor } from '../utils/languageHelper';
 
-type StyledLanguageProps = {
+type StyledMostUsedLanguageProps = {
   gradientTo: string;
 };
 
@@ -12,7 +12,7 @@ type MostUsedLanguageProps = {
   lines: number;
 };
 
-const StyledLanguage = styled.div<StyledLanguageProps>`
+const StyledMostUsedLanguage = styled.div<StyledMostUsedLanguageProps>`
   ${tw`flex flex-col items-start justify-end`};
   ${tw`h-full w-full p-3 rounded-2xl`};
   ${tw`text-zinc-400 drop-shadow-lg`};
@@ -32,10 +32,13 @@ const LanguageLines = styled.div`
 
 function MostUsedLanguage({ name, lines }: MostUsedLanguageProps) {
   return (
-    <StyledLanguage gradientTo={getLanguageColor(name)} data-testid="language">
+    <StyledMostUsedLanguage
+      gradientTo={getLanguageColor(name)}
+      data-testid="language"
+    >
       <LanguageName>{name}</LanguageName>
       <LanguageLines>{`${lines} lines`}</LanguageLines>
-    </StyledLanguage>
+    </StyledMostUsedLanguage>
   );
 }
 
