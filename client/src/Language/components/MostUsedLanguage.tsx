@@ -32,7 +32,7 @@ const LanguageLines = styled.div`
 
 function MostUsedLanguage({ name, lines }: MostUsedLanguageProps) {
   return (
-    <StyledLanguage gradientTo={getLanguageColor(name)}>
+    <StyledLanguage gradientTo={getLanguageColor(name)} data-testid="language">
       <LanguageName>{name}</LanguageName>
       <LanguageLines>{`${lines} lines`}</LanguageLines>
     </StyledLanguage>
