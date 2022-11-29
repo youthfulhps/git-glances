@@ -3,6 +3,7 @@ import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 import Login from '../../../Login/components';
 import UserProfile from '../../../UserProfile/components';
 import Language from '../../../Language/components';
+import Repository from '../../../Repository/components';
 
 function HomePage() {
   return (
@@ -13,6 +14,9 @@ function HomePage() {
       </SuspenseBoundary>
       <SuspenseBoundary gridArea="language">
         <Language />
+      </SuspenseBoundary>
+      <SuspenseBoundary gridArea="repository">
+        <Repository />
       </SuspenseBoundary>
     </GridMain>
   );
