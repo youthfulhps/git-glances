@@ -16,6 +16,7 @@ query {
                 totalCount
                 nodes {
                   ... on Commit {
+                    url
                     committedDate
                     message
                     additions
