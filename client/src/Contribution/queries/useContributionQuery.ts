@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getContribution } from '@shared/apis/contribution';
 import { getDestructuredContribution } from '../utils/contributionHelper';
 
-const useContribution = (from: string, to: string) => {
+const useContributionQuery = (from: string, to: string) => {
   const { data: contribution } = useQuery({
     queryKey: ['contribution', from, to],
     queryFn: async () => {
@@ -16,4 +16,4 @@ const useContribution = (from: string, to: string) => {
   return { contribution };
 };
 
-export default useContribution;
+export default useContributionQuery;
