@@ -6,6 +6,9 @@ query {
         totalIssueContributions
         totalPullRequestContributions
         totalPullRequestReviewContributions
+        contributionCalendar{
+          totalContributions
+        }
       }
   }
 }
