@@ -19,6 +19,7 @@ const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>
   ${tw`hover:bg-indigo-500/[0.6]`}
   ${tw`duration-500 delay-500`}
   ${tw`bg-zinc-800`}
+  ${tw`text-zinc-100`}
 
   .inner {
     ${tw`absolute top-0 left-0 w-full h-[calc(100%_+_28px)] p-4`}
@@ -28,11 +29,11 @@ const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>
 
     h2 {
       ${tw`absolute top-4 left-4`}
-      ${tw`text-xl text-zinc-200 font-thin`}
+      ${tw`text-xl font-thin`}
     }
 
     h3 {
-      ${tw`text-5xl text-zinc-200 font-bold`}
+      ${tw`text-5xl font-bold`}
       ${tw`mb-6`}
       ${tw`opacity-80`}
     }
