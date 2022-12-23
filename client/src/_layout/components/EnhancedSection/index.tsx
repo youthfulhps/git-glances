@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 type StyledEnhancedEnhancedSectionProps = {
-  gridArea?: string;
+  gridArea: string;
+  backgroundClass?: string;
 };
 
 type EnhancedSectionProps = {
   children?: ReactNode;
   className?: string;
-  label: string;
-  mainContent: string;
+  summary: string;
 } & StyledEnhancedEnhancedSectionProps;
 
 const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>`
@@ -18,51 +18,62 @@ const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>
   grid-area: ${({ gridArea }) => `${gridArea}`};
   ${tw`hover:bg-indigo-500/[0.6]`}
   ${tw`duration-500 delay-500`}
-  ${tw`bg-zinc-800`}
+  ${({ backgroundClass }) => !backgroundClass && tw`bg-zinc-800`}
   ${tw`text-zinc-100`}
 
-  .inner {
-    ${tw`absolute top-0 left-0 w-full h-[calc(100%_+_28px)] p-4`}
-    ${tw`flex flex-col justify-end`}
+  h2 {
+    ${tw`absolute top-4 left-4`}
+    ${tw`text-xl font-thin`}
     ${tw`duration-500`}
-    ${tw`text-right`}
+  }
 
-    h2 {
-      ${tw`absolute top-4 left-4`}
-      ${tw`text-xl font-thin`}
-    }
+  .inner {
+    ${tw`absolute top-[calc(100%_-_72px)] left-0 w-full h-full p-4`}
+    ${tw`flex flex-col justify-between`}
+    ${tw`duration-700`}
+    ${tw`text-right`}
 
     h3 {
       ${tw`text-5xl font-bold`}
       ${tw`mb-6`}
       ${tw`opacity-80`}
+      ${tw`duration-500`}
     }
   }
 
   &:hover {
-    .inner {
+    h2 {
       ${tw`-top-10`}
+    }
 
-      h2 {
-        ${tw`opacity-100`}
+    .inner {
+      ${tw`top-0`}
+      ${tw`bg-zinc-700/[0.5]`}
+      
+      h3 {
+        ${tw`mb-1`}
       }
     }
   }
 `;
 
 function EnhancedSection({
+  gridArea,
   children,
   className,
-  label,
-  mainContent,
-  gridArea,
+  summary,
+  backgroundClass,
 }: EnhancedSectionProps) {
   return (
-    <StyledEnhancedSection className={className} gridArea={gridArea}>
+    <StyledEnhancedSection
+      gridArea={gridArea}
+      className={`${className} ${backgroundClass}`}
+      backgroundClass={backgroundClass}
+    >
+      <h2>{`# ${gridArea}`}</h2>
       <div className="inner">
-        <h2>{`# ${label}`}</h2>
-        <h3>{mainContent}</h3>
-        {children}
+        <h3>{summary}</h3>
+        <div>{children}</div>
       </div>
     </StyledEnhancedSection>
   );
