@@ -2,6 +2,7 @@ import { AsyncAxiosResponse } from '@shared/apis/types';
 
 export type ContributionsCollection = {
   totalIssueContributions: number;
+  totalCommitContributions: number;
   totalPullRequestContributions: number;
   totalPullRequestReviewContributions: number;
   restrictedContributionsCount: number;
