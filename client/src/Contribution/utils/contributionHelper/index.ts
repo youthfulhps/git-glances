@@ -1,7 +1,6 @@
-import { GetDestructuredContribution } from './types';
+import { GetDestructuredContributionsCollection } from './types';
 
-export const getDestructuredContribution: GetDestructuredContribution = (
-  contribution
-) => {
-  return contribution?.data?.viewer?.contributionsCollection ?? {};
-};
+export const getDestructuredContributionsCollection: GetDestructuredContributionsCollection =
+  (nestedContributionsCollection) => {
+    return nestedContributionsCollection.data.viewer.contributionsCollection;
+  };
