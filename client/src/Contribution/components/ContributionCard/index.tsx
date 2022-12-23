@@ -1,22 +1,23 @@
 import React from 'react';
 import EnhancedSection from '@layout/components/EnhancedSection';
+import { ContributionsCollection } from '@shared/apis/contribution';
 import { getContributionLevelBackgroundClass } from '../../utils/contributionStyleHelper';
 import ContributionDetail from './ContributionDetail';
 
 type ContributionCardProps = {
-  contribution: any;
+  contributionsCollection: ContributionsCollection;
 };
 
-function ContributionCard({ contribution }: ContributionCardProps) {
+function ContributionCard({ contributionsCollection }: ContributionCardProps) {
   return (
     <EnhancedSection
       gridArea="Contribution"
-      summary={contribution.contributionCalendar.totalContributions}
+      summary={contributionsCollection.contributionCalendar.totalContributions}
       backgroundClass={getContributionLevelBackgroundClass(
-        contribution.contributionCalendar.totalContributions
+        contributionsCollection.contributionCalendar.totalContributions
       )}
     >
-      <ContributionDetail contribution={contribution} />
+      <ContributionDetail contributionsCollection={contributionsCollection} />
     </EnhancedSection>
   );
 }
