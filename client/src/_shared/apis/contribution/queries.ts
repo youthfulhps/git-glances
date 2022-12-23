@@ -6,6 +6,7 @@ query {
         totalIssueContributions
         totalPullRequestContributions
         totalPullRequestReviewContributions
+        restrictedContributionsCount
         contributionCalendar{
           totalContributions
         }
