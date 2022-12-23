@@ -10,7 +10,7 @@ type StyledEnhancedEnhancedSectionProps = {
 type EnhancedSectionProps = {
   children?: ReactNode;
   className?: string;
-  summary: string;
+  summary: string | number;
 } & StyledEnhancedEnhancedSectionProps;
 
 const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>`
