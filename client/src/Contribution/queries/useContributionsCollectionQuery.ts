@@ -1,20 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
-import { getContributionsCollection } from '@shared/apis/contribution';
-import { getDestructuredContribution } from '../utils/contributionHelper';
+import {
+  ContributionsCollection,
+  getContributionsCollection,
+} from '@shared/apis/contribution';
+import { AxiosError } from 'axios';
+import { getDestructuredContributionsCollection } from '../utils/contributionHelper';
 
 const useContributionsCollectionQuery = (from: string, to: string) => {
-  const { data: contribution } = useQuery({
-    queryKey: ['contribution', from, to],
+  const { data: contributionsCollection } = useQuery<
+    ContributionsCollection,
+    AxiosError
+  >({
+    queryKey: ['contributionsCollection', from, to],
     refetchOnWindowFocus: true,
     queryFn: async () => {
       const { data } = await getContributionsCollection(from, to);
-      const destructuredContribution = getDestructuredContribution(data);
+      const destructuredContributionsCollection =
+        getDestructuredContributionsCollection(data);
 
-      return destructuredContribution;
+      return destructuredContributionsCollection;
     },
   });
 
-  return { contribution };
+  return contributionsCollection as ContributionsCollection;
 };
 
 export default useContributionsCollectionQuery;
