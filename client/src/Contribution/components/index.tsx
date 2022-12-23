@@ -1,7 +1,6 @@
-import Section from '@layout/components/Section';
 import { getDateTimeAfterDays, getTodayDateTime } from '@shared/utils/date';
+import ContributionCard from './ContributionCard';
 import useContributionQuery from '../queries/useContributionQuery';
-import TodayContribution from './TodayContribution';
 
 function Contribution() {
   const { contribution } = useContributionQuery(
@@ -9,11 +8,7 @@ function Contribution() {
     getDateTimeAfterDays(1)
   );
 
-  return (
-    <Section gridArea="contribution">
-      <TodayContribution contribution={contribution} />
-    </Section>
-  );
+  return <ContributionCard contribution={contribution} />;
 }
 
 export default Contribution;
