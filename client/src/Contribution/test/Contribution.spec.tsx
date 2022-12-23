@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import { ContributionsCollection } from '@shared/apis/contribution';
 import Contribution from '../components';
 import useContributionsCollectionQuery from '../queries/useContributionsCollectionQuery';
 import { mockedContributionCollection } from './mocks';
 
 const mockedUseContributionQuery =
-  useContributionsCollectionQuery as jest.Mock<any>;
+  useContributionsCollectionQuery as jest.Mock<ContributionsCollection>;
 
 jest.mock('../queries/useContributionsCollectionQuery');
 
