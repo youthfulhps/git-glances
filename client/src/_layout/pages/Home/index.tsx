@@ -16,7 +16,7 @@ function HomePage() {
       <SuspenseBoundary gridArea="language">
         <Language />
       </SuspenseBoundary>
-      <SuspenseBoundary gridArea="contribution">
+      <SuspenseBoundary gridArea="Contribution">
         <Contribution />
       </SuspenseBoundary>
       <SuspenseBoundary gridArea="repository">
