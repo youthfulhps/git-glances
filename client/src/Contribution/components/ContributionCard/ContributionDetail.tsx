@@ -8,9 +8,10 @@ import {
   CodeReviewIcon,
   LockIcon,
 } from '@primer/octicons-react';
+import { ContributionsCollection } from '@shared/apis/contribution';
 
 type ContributionDetailProps = {
-  contribution: any;
+  contributionsCollection: ContributionsCollection;
 };
 
 const StyledContributionDetail = styled.ul`
@@ -31,31 +32,33 @@ const StyledContributionDetail = styled.ul`
   }
 `;
 
-function ContributionDetail({ contribution }: ContributionDetailProps) {
+function ContributionDetail({
+  contributionsCollection,
+}: ContributionDetailProps) {
   const contributionDetailListContents = [
     {
       icon: <GitCommitIcon size={12} />,
-      count: contribution.totalCommitContributions,
+      count: contributionsCollection.totalCommitContributions,
       unit: 'Commits',
     },
     {
       icon: <GitPullRequestIcon size={12} />,
-      count: contribution.totalPullRequestContributions,
+      count: contributionsCollection.totalPullRequestContributions,
       unit: 'Pull Requests',
     },
     {
       icon: <CodeReviewIcon size={12} />,
-      count: contribution.totalPullRequestReviewContributions,
+      count: contributionsCollection.totalPullRequestReviewContributions,
       unit: 'Reviews',
     },
     {
       icon: <IssueOpenedIcon size={12} />,
-      count: contribution.totalIssueContributions,
+      count: contributionsCollection.totalIssueContributions,
       unit: 'Issues',
     },
     {
       icon: <LockIcon size={12} />,
-      count: contribution.restrictedContributionsCount,
+      count: contributionsCollection.restrictedContributionsCount,
       unit: 'Private Contributions',
     },
   ];
