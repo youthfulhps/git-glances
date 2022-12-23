@@ -3,12 +3,12 @@ import ContributionCard from './ContributionCard';
 import useContributionsCollectionQuery from '../queries/useContributionsCollectionQuery';
 
 function Contribution() {
-  const { contribution } = useContributionsCollectionQuery(
+  const contributionsCollection = useContributionsCollectionQuery(
     getTodayDateTime(),
     getDateTimeAfterDays(1)
   );
 
-  return <ContributionCard contribution={contribution} />;
+  return <ContributionCard contributionsCollection={contributionsCollection} />;
 }
 
 export default Contribution;
