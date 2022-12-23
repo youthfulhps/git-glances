@@ -1,9 +1,9 @@
 import { getDateTimeAfterDays, getTodayDateTime } from '@shared/utils/date';
 import ContributionCard from './ContributionCard';
-import useContributionQuery from '../queries/useContributionQuery';
+import useContributionsCollectionQuery from '../queries/useContributionsCollectionQuery';
 
 function Contribution() {
-  const { contribution } = useContributionQuery(
+  const { contribution } = useContributionsCollectionQuery(
     getTodayDateTime(),
     getDateTimeAfterDays(1)
   );
