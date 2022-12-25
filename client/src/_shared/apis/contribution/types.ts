@@ -1,4 +1,4 @@
-import { AsyncAxiosResponse } from '@shared/apis/types';
+import { AsyncNestedAxiosResponse } from '@shared/apis/types';
 
 export type ContributionsCollection = {
   totalIssueContributions: number;
@@ -14,4 +14,4 @@ export type ContributionsCollection = {
 export type GetContributionsCollection = (
   from: string,
   to: string
-) => AsyncAxiosResponse<ContributionsCollection>;
+) => AsyncNestedAxiosResponse<ContributionsCollection>;

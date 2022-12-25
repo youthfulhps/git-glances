@@ -5,6 +5,7 @@ import tw from 'twin.macro';
 type StyledEnhancedEnhancedSectionProps = {
   gridArea: string;
   backgroundClass?: string;
+  backgroundImage?: string;
 };
 
 type EnhancedSectionProps = {
@@ -16,15 +17,24 @@ type EnhancedSectionProps = {
 const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>`
   ${tw`relative h-full w-full p-4 rounded-2xl overflow-hidden`}
   grid-area: ${({ gridArea }) => `${gridArea}`};
-  ${tw`hover:bg-indigo-500/[0.6]`}
   ${tw`duration-500 delay-500`}
   ${({ backgroundClass }) => !backgroundClass && tw`bg-zinc-800`}
   ${tw`text-zinc-100`}
+  ${tw`hover:bg-indigo-500/[0.6]`}
+  ${tw`drop-shadow-md`}
+
+  background-image: ${({ backgroundImage }) =>
+    backgroundImage && `url(${backgroundImage})`};
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 
   h2 {
     ${tw`absolute top-4 left-4`}
     ${tw`text-xl font-thin`}
     ${tw`duration-500`}
+    ${tw`drop-shadow-md`}
   }
 
   .inner {
@@ -42,6 +52,7 @@ const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>
   }
 
   &:hover {
+    background-image: unset;
     h2 {
       ${tw`-top-10`}
     }
@@ -63,12 +74,14 @@ function EnhancedSection({
   className,
   summary,
   backgroundClass,
+  backgroundImage,
 }: EnhancedSectionProps) {
   return (
     <StyledEnhancedSection
       gridArea={gridArea}
       className={`${className} ${backgroundClass}`}
       backgroundClass={backgroundClass}
+      backgroundImage={backgroundImage}
     >
       <h2>{`# ${gridArea}`}</h2>
       <div className="inner">
