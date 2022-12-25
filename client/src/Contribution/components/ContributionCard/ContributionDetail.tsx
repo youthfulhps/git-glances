@@ -70,7 +70,9 @@ function ContributionDetail({
           {contributionDetailContent.icon}
           <div>
             <span>{contributionDetailContent.count}</span>
-            <span className="font-thin">{` ${contributionDetailContent.unit}`}</span>
+            <span className="text-xs font-thin">
+              {` ${contributionDetailContent.unit}`}
+            </span>
           </div>
         </li>
       ))}
