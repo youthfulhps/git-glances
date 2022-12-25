@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from '@shared/apis/user';
+import { getUser, User } from '@shared/apis/user';
 
 const useUserQuery = () => {
   const { data: user } = useQuery({
@@ -10,7 +10,7 @@ const useUserQuery = () => {
     },
   });
 
-  return { user };
+  return user as User;
 };
 
 export default useUserQuery;
