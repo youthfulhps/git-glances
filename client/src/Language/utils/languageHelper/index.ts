@@ -1,17 +1,16 @@
+import { LanguageEdge, MergedLanguages } from '@shared/apis/language';
 import {
-  LanguageList,
   GetMergedLanguageList,
   GetDestructuredLanguageList,
   SortedLanguageList,
   GetLanguageColor,
 } from './types';
-
 import { languageDetailList } from '../../constants/languageDetailList';
 
 export const getDestructuredLanguageList: GetDestructuredLanguageList = (
   rawLanguageList
 ) => {
-  return rawLanguageList?.data?.viewer?.repositories?.nodes ?? {};
+  return rawLanguageList.data.viewer.repositories.nodes;
 };
 
 export const getMergedLanguageList: GetMergedLanguageList = (
@@ -19,10 +18,10 @@ export const getMergedLanguageList: GetMergedLanguageList = (
 ) => {
   if (!languageNodeList || !languageNodeList.length) return {};
 
-  const mergedLanguageList: LanguageList = {};
+  const mergedLanguageList: MergedLanguages = {};
 
   languageNodeList.forEach((languageNode) => {
-    languageNode.languages.edges.forEach((edge: any) => {
+    languageNode.languages.edges.forEach((edge: LanguageEdge) => {
       const {
         node: { name },
         size,
