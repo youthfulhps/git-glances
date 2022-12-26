@@ -1,10 +1,9 @@
 import React from 'react';
-import Section from '@layout/components/Section';
-import useLanguageListQuery from '../queries/useLanguageListQuery';
-import MostUsedLanguage from './MostUsedLanguage';
+import useMostUsedLanguageQuery from '../queries/useMostUsedLanguageQuery';
+import LanguageCard from './LanguageCard';
 
 function Language() {
-  const { mostUsedLanguage } = useLanguageListQuery();
+  const mostUsedLanguage = useMostUsedLanguageQuery();
 
   return (
     <Section gridArea="language">
