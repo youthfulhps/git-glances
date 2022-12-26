@@ -5,11 +5,7 @@ import LanguageCard from './LanguageCard';
 function Language() {
   const mostUsedLanguage = useMostUsedLanguageQuery();
 
-  return (
-    <Section gridArea="language">
-      <MostUsedLanguage {...mostUsedLanguage} />
-    </Section>
-  );
+  return <LanguageCard mostUsedLanguage={mostUsedLanguage} />;
 }
 
 export default Language;
