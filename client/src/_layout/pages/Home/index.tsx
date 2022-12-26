@@ -13,7 +13,7 @@ function HomePage() {
       <SuspenseBoundary gridArea="Profile">
         <UserProfile />
       </SuspenseBoundary>
-      <SuspenseBoundary gridArea="language">
+      <SuspenseBoundary gridArea="Language">
         <Language />
       </SuspenseBoundary>
       <SuspenseBoundary gridArea="Contribution">
