@@ -22,7 +22,7 @@ const StyledGridMain = styled.main<StyledGridMainProps>`
   } Contribution . .'
     'Profile Contribution . .'
     'Profile repository . .'
-    'language repository . .'
+    'Language repository . .'
     '. . . .'
     '. . . .'`};
 `;
