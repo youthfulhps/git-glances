@@ -6,6 +6,8 @@ type StyledEnhancedEnhancedSectionProps = {
   gridArea: string;
   backgroundClass?: string;
   backgroundImage?: string;
+  backgroundColor?: string;
+  hasOverlay?: boolean;
 };
 
 type EnhancedSectionProps = {
@@ -15,13 +17,17 @@ type EnhancedSectionProps = {
 } & StyledEnhancedEnhancedSectionProps;
 
 const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>`
-  ${tw`relative h-full w-full p-4 rounded-2xl overflow-hidden`}
+  ${tw`relative h-full w-full rounded-2xl overflow-hidden`}
   grid-area: ${({ gridArea }) => `${gridArea}`};
   ${tw`duration-500 delay-500`}
-  ${({ backgroundClass }) => !backgroundClass && tw`bg-zinc-800`}
   ${tw`text-zinc-100`}
   ${tw`hover:bg-indigo-500/[0.6]`}
-  ${tw`drop-shadow-md`}
+  ${tw`drop-shadow-md backdrop-brightness-50`}
+
+  ${({ backgroundClass }) => !backgroundClass && tw`bg-zinc-800`}
+  
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor && backgroundColor};
 
   background-image: ${({ backgroundImage }) =>
     backgroundImage && `url(${backgroundImage})`};
@@ -35,6 +41,11 @@ const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>
     ${tw`text-xl font-thin`}
     ${tw`duration-500`}
     ${tw`drop-shadow-md`}
+  }
+
+  .overlay {
+    ${({ hasOverlay }) => hasOverlay && tw`backdrop-brightness-50`}
+    ${tw`h-full w-full p-4`}
   }
 
   .inner {
@@ -71,10 +82,12 @@ const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>
 function EnhancedSection({
   gridArea,
   children,
-  className,
+  className = '',
   summary,
-  backgroundClass,
-  backgroundImage,
+  backgroundClass = '',
+  backgroundImage = '',
+  backgroundColor = '',
+  hasOverlay = false,
 }: EnhancedSectionProps) {
   return (
     <StyledEnhancedSection
@@ -82,11 +95,15 @@ function EnhancedSection({
       className={`${className} ${backgroundClass}`}
       backgroundClass={backgroundClass}
       backgroundImage={backgroundImage}
+      backgroundColor={backgroundColor}
+      hasOverlay={hasOverlay}
     >
-      <h2>{`# ${gridArea}`}</h2>
-      <div className="inner">
-        <h3>{summary}</h3>
-        <div>{children}</div>
+      <div className="overlay">
+        <h2>{`# ${gridArea}`}</h2>
+        <div className="inner">
+          <h3>{summary}</h3>
+          <div>{children}</div>
+        </div>
       </div>
     </StyledEnhancedSection>
   );
