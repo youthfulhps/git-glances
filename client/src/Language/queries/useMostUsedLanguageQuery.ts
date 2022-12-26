@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getLanguageList } from '@shared/apis/language';
 import {
@@ -7,8 +6,8 @@ import {
   getSortedLanguageList,
 } from '../utils/languageHelper';
 
-const useLanguageListQuery = () => {
-  const { data: languageList } = useQuery({
+const useMostUsedLanguageQuery = () => {
+  const { data: mostUsedLanguage } = useQuery({
     queryKey: ['languageList'],
     staleTime: 1000 * 60 * 60 * 24,
     queryFn: async () => {
@@ -18,18 +17,16 @@ const useLanguageListQuery = () => {
       const mergedLanguageList = getMergedLanguageList(
         destructuredLanguageList
       );
-      return getSortedLanguageList(mergedLanguageList);
+      const sortedLanguageList = getSortedLanguageList(mergedLanguageList);
+
+      return {
+        name: Object.keys(sortedLanguageList ?? {})[0] ?? '',
+        lines: Object.values(sortedLanguageList ?? {}).map(Number)[0] ?? 0,
+      };
     },
   });
 
-  const mostUsedLanguage = useMemo(() => {
-    return {
-      name: Object.keys(languageList ?? {})[0] ?? '',
-      lines: Object.values(languageList ?? {}).map(Number)[0] ?? 0,
-    };
-  }, [languageList]);
-
-  return { languageList, mostUsedLanguage };
+  return mostUsedLanguage as { name: string; lines: number };
 };
 
-export default useLanguageListQuery;
+export default useMostUsedLanguageQuery;
