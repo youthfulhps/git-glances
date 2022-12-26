@@ -13,6 +13,7 @@ function UserProfileCard({ user }: UserProfileCardProps) {
       gridArea="Profile"
       summary={user.login}
       backgroundImage={user.avatar_url}
+      hasOverlay
     >
       <UserProfileDetail user={user} />
     </EnhancedSection>
