@@ -10,7 +10,7 @@ function HomePage() {
   return (
     <GridMain>
       <Login />
-      <SuspenseBoundary gridArea="user-profile">
+      <SuspenseBoundary gridArea="Profile">
         <UserProfile />
       </SuspenseBoundary>
       <SuspenseBoundary gridArea="language">
