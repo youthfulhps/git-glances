@@ -1,20 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import Language from '../components';
-import useLanguageListQuery from '../queries/useLanguageListQuery';
-import { mockedMergedLanguageList } from './mocks';
+import useMostUsedLanguageQuery from '../queries/useMostUsedLanguageQuery';
 
-const mockedUseLanguageListQuery = useLanguageListQuery as jest.Mock<any>;
+const mockedUseLanguageListQuery = useMostUsedLanguageQuery as jest.Mock<any>;
 
-jest.mock('../queries/useLanguageListQuery');
+jest.mock('../queries/useMostUsedLanguageQuery');
 
 describe('Language 컴포넌트는 유저의 언어 사용량 정보를 랜더링한다.', () => {
   beforeEach(() => {
     mockedUseLanguageListQuery.mockImplementation(() => ({
-      languageList: mockedMergedLanguageList,
-      mostUsedLanguage: {
-        name: 'Javascript',
-        lines: 1234,
-      },
+      name: 'Javascript',
+      lines: 1234,
     }));
   });
 
@@ -26,15 +22,7 @@ describe('Language 컴포넌트는 유저의 언어 사용량 정보를 랜더�
     render(<Language />);
     const languageName = await screen.findByText('Javascript');
     expect(languageName).toBeInTheDocument();
-    const languageLines = await screen.findByText('1234 lines');
+    const languageLines = await screen.findByText('1234');
     expect(languageLines).toBeInTheDocument();
-  });
-
-  it('유저가 가장 많이 사용한 언어의 대표 색상이 배경색으로 설정된다.', async () => {
-    render(<Language />);
-    const languageSection = await screen.findByTestId('language');
-    expect(languageSection).toHaveStyle(
-      'background: linear-gradient(45deg, #18181b, #f1e05a)'
-    );
   });
 });
