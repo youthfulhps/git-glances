@@ -3,9 +3,7 @@ import {
   GetMergedLanguageList,
   GetDestructuredLanguageList,
   SortedLanguageList,
-  GetLanguageColor,
 } from './types';
-import { languageDetailList } from '../../constants/languageDetailList';
 
 export const getDestructuredLanguageList: GetDestructuredLanguageList = (
   rawLanguageList
@@ -44,8 +42,4 @@ export const getSortedLanguageList: SortedLanguageList = (
   return Object.entries(mergedLanguageList)
     .sort(([, a], [, b]) => Number(b) - Number(a))
     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-};
-
-export const getLanguageColor: GetLanguageColor = (language) => {
-  return languageDetailList[language]?.color ?? '#000000';
 };
