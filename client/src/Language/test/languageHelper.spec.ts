@@ -12,9 +12,6 @@ import {
 
 describe('languageHelper는 최근 레포지토리들의 언어 사용량에 대한 전처리된 결과를 반환한다.', () => {
   it('getDestructuredLanguageList는 중첩된 객체에서 언어 사용량 객체를 반환한다.', () => {
-    expect(getDestructuredLanguageList(undefined)).toStrictEqual({});
-    expect(getDestructuredLanguageList(null)).toStrictEqual({});
-    expect(getDestructuredLanguageList({})).toStrictEqual({});
     expect(getDestructuredLanguageList(mockedRawLanguageList)).toStrictEqual(
       mockedDestructuredLanguageList
     );
