@@ -16,5 +16,3 @@ export type GetDestructuredLanguageList = (
 export type SortedLanguageList = (
   languageList: MergedLanguages
 ) => MergedLanguages;
-
-export type GetLanguageColor = (language: string) => string;
