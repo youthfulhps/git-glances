@@ -1,5 +1,5 @@
 import React from 'react';
-import EnhancedSection from '@layout/components/EnhancedSection';
+import FeatureSection from '@layout/components/FeatureSection';
 import { CheckCircleFillIcon, XCircleFillIcon } from '@primer/octicons-react';
 import { RefactorSuggestedRepoInfo } from '../../atoms/types';
 import RefactorDetail from './RefactorDetail';
@@ -16,7 +16,7 @@ function RefactorCard({ refactorSuggestedRepoInfo }: RefactorCardProps) {
   );
 
   return (
-    <EnhancedSection
+    <FeatureSection
       summary={summaryIcon}
       summaryType="icon"
       gridArea="Refactor"
@@ -28,7 +28,7 @@ function RefactorCard({ refactorSuggestedRepoInfo }: RefactorCardProps) {
           }
         />
       ) : null}
-    </EnhancedSection>
+    </FeatureSection>
   );
 }
 

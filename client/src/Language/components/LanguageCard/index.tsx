@@ -1,5 +1,5 @@
 import React from 'react';
-import EnhancedSection from '@layout/components/EnhancedSection';
+import FeatureSection from '@layout/components/FeatureSection';
 import { getLanguageBackgroundColor } from '../../utils/languageStyleHelper';
 import LanguageDetail from './LanguageDetail';
 
@@ -9,14 +9,14 @@ type LanguageCardProps = {
 
 function LanguageCard({ mostUsedLanguage }: LanguageCardProps) {
   return (
-    <EnhancedSection
+    <FeatureSection
       summary={mostUsedLanguage.name}
       gridArea="Language"
       backgroundColor={getLanguageBackgroundColor(mostUsedLanguage.name)}
       hasOverlay
     >
       <LanguageDetail mostUsedLanguageLines={mostUsedLanguage.lines} />
-    </EnhancedSection>
+    </FeatureSection>
   );
 }
 
