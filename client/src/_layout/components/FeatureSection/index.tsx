@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-type EnhancedSectionProps = {
+type FeatureSectionProps = {
   children?: ReactNode;
   className?: string;
   summary: ReactNode;
@@ -14,7 +14,7 @@ type EnhancedSectionProps = {
   hasOverlay?: boolean;
 };
 
-const StyledEnhancedSection = styled.section<EnhancedSectionProps>`
+const StyledFeatureSection = styled.section<FeatureSectionProps>`
   ${tw`relative h-full w-full rounded-2xl overflow-hidden`}
   grid-area: ${({ gridArea }) => `${gridArea}`};
   ${tw`duration-500 delay-500`}
@@ -83,7 +83,7 @@ const StyledEnhancedSection = styled.section<EnhancedSectionProps>`
   }
 `;
 
-function EnhancedSection({
+function FeatureSection({
   gridArea,
   children,
   className = '',
@@ -93,9 +93,9 @@ function EnhancedSection({
   backgroundImage = '',
   backgroundColor = '',
   hasOverlay = false,
-}: EnhancedSectionProps) {
+}: FeatureSectionProps) {
   return (
-    <StyledEnhancedSection
+    <StyledFeatureSection
       gridArea={gridArea}
       className={`${className} ${backgroundClass}`}
       backgroundClass={backgroundClass}
@@ -116,8 +116,8 @@ function EnhancedSection({
           <div>{children}</div>
         </div>
       </div>
-    </StyledEnhancedSection>
+    </StyledFeatureSection>
   );
 }
 
-export default EnhancedSection;
+export default FeatureSection;
