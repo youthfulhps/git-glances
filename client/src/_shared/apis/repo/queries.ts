@@ -23,6 +23,7 @@ query {
                     author {
                       name
                       email
+                      avatarUrl
                     }
                   }
                 }
