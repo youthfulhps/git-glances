@@ -2,7 +2,11 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-type StyledEnhancedEnhancedSectionProps = {
+type EnhancedSectionProps = {
+  children?: ReactNode;
+  className?: string;
+  summary: ReactNode;
+  summaryType?: 'string' | 'icon';
   gridArea: string;
   backgroundClass?: string;
   backgroundImage?: string;
@@ -10,13 +14,7 @@ type StyledEnhancedEnhancedSectionProps = {
   hasOverlay?: boolean;
 };
 
-type EnhancedSectionProps = {
-  children?: ReactNode;
-  className?: string;
-  summary: string | number;
-} & StyledEnhancedEnhancedSectionProps;
-
-const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>`
+const StyledEnhancedSection = styled.section<EnhancedSectionProps>`
   ${tw`relative h-full w-full rounded-2xl overflow-hidden`}
   grid-area: ${({ gridArea }) => `${gridArea}`};
   ${tw`duration-500 delay-500`}
@@ -53,12 +51,18 @@ const StyledEnhancedSection = styled.section<StyledEnhancedEnhancedSectionProps>
     ${tw`flex flex-col justify-between`}
     ${tw`duration-700`}
     ${tw`text-right`}
+    
+    ${({ summaryType }) =>
+      summaryType === 'icon' && tw`top-[calc(100%_-_80px)]`};
 
     h3 {
       ${tw`text-5xl font-bold`}
-      ${tw`mb-6`}
       ${tw`opacity-80`}
       ${tw`duration-500`}
+    }
+
+    .summary-icon {
+      ${tw`flex flex-col items-end`}
     }
   }
 
@@ -84,6 +88,7 @@ function EnhancedSection({
   children,
   className = '',
   summary,
+  summaryType = 'string',
   backgroundClass = '',
   backgroundImage = '',
   backgroundColor = '',
@@ -96,12 +101,18 @@ function EnhancedSection({
       backgroundClass={backgroundClass}
       backgroundImage={backgroundImage}
       backgroundColor={backgroundColor}
+      summary={summary}
+      summaryType={summaryType}
       hasOverlay={hasOverlay}
     >
       <div className="overlay">
         <h2>{`# ${gridArea}`}</h2>
         <div className="inner">
-          <h3>{summary}</h3>
+          {summaryType === 'string' ? (
+            <h3>{summary}</h3>
+          ) : (
+            <div className="summary-icon">{summary}</div>
+          )}
           <div>{children}</div>
         </div>
       </div>
