@@ -20,6 +20,7 @@ query {
                     committedDate
                     message
                     additions
+                    deletions
                     author {
                       name
                       email
