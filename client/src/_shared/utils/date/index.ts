@@ -2,6 +2,7 @@ import {
   GetDateAfterDays,
   GetDiffDaysFromNow,
   GetNow,
+  GetRelativeTimeFromNow,
   GetTodayDate,
   IsToday,
 } from '@shared/utils/date/types';
@@ -25,4 +26,8 @@ export const getNow: GetNow = () => {
 
 export const isToday: IsToday = (target) => {
   return moment(target).isSame(getNow(), 'd');
+};
+
+export const getRelativeTimeFromNow: GetRelativeTimeFromNow = (target) => {
+  return moment(target).fromNow();
 };
