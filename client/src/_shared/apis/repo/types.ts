@@ -10,7 +10,8 @@ type CommitNode = {
   url: string;
   committedDate: string;
   message: string;
-  additions: string;
+  additions: number;
+  deletions: number;
   author: GitActor;
 };
 
@@ -41,4 +42,4 @@ export type RepositoryNodes = {
   nodes: Repository[];
 };
 
-export type GetRepoList = () => AsyncNestedAxiosResponse<Repository[]>;
+export type GetRepoList = () => AsyncNestedAxiosResponse<RepositoryNodes>;
