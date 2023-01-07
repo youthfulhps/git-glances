@@ -1,5 +1,5 @@
 import React from 'react';
-import EnhancedSection from '@layout/components/EnhancedSection';
+import FeatureSection from '@layout/components/FeatureSection';
 import { ContributionsCollection } from '@shared/apis/contribution';
 import { getContributionLevelBackgroundClass } from '../../utils/contributionStyleHelper';
 import ContributionDetail from './ContributionDetail';
@@ -10,7 +10,7 @@ type ContributionCardProps = {
 
 function ContributionCard({ contributionsCollection }: ContributionCardProps) {
   return (
-    <EnhancedSection
+    <FeatureSection
       gridArea="Contribution"
       summary={contributionsCollection.contributionCalendar.totalContributions}
       backgroundClass={getContributionLevelBackgroundClass(
@@ -18,7 +18,7 @@ function ContributionCard({ contributionsCollection }: ContributionCardProps) {
       )}
     >
       <ContributionDetail contributionsCollection={contributionsCollection} />
-    </EnhancedSection>
+    </FeatureSection>
   );
 }
 
