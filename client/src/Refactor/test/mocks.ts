@@ -1,4 +1,7 @@
-export const mockedRawRepoList = {
+import { NestedFieldResponse } from '@shared/apis/types';
+import { Repository, RepositoryNodes } from '@shared/apis/repo';
+
+export const mockedRawRepoList: NestedFieldResponse<RepositoryNodes> = {
   data: {
     viewer: {
       repositories: {
@@ -6,7 +9,7 @@ export const mockedRawRepoList = {
           {
             url: 'https://github.com/youthfulhps/gitin',
             name: 'gitin',
-            description: null,
+            description: '',
             pushedAt: '2022-11-29T04:23:26Z',
             updatedAt: '2022-11-29T04:10:30Z',
             defaultBranchRef: {
@@ -18,12 +21,13 @@ export const mockedRawRepoList = {
                     {
                       url: 'https://github.com/youthfulhps/gitin/commit/9027aa0886b38f406f44653de8ff2f43de447777',
                       committedDate: '2022-11-23T07:47:41Z',
-                      message:
-                        'Merge pull request #14 from youthfulhps/develop\n\nv1.1.1',
+                      message: 'Update README',
                       additions: 6,
+                      deletions: 6,
                       author: {
                         name: 'Byeongho Yoo',
                         email: 'ybh942002@gmail.com',
+                        avatarUrl: '',
                       },
                     },
                   ],
@@ -49,9 +53,11 @@ export const mockedRawRepoList = {
                       message:
                         'Merge pull request #14 from youthfulhps/dependabot/pip/numpy-1.22.0\n\n⬆️ Bump numpy from 1.14.3 to 1.22.0',
                       additions: 1,
+                      deletions: 1,
                       author: {
                         name: 'Byeongho Yoo',
                         email: 'ybh942002@gmail.com',
+                        avatarUrl: '',
                       },
                     },
                   ],
@@ -76,9 +82,11 @@ export const mockedRawRepoList = {
                       committedDate: '2022-10-30T14:24:55Z',
                       message: 'WIP: temp commit for vercel deploy',
                       additions: 617,
+                      deletions: 617,
                       author: {
                         name: 'youthfulhps',
                         email: 'ybh942002@gmail.com',
+                        avatarUrl: '',
                       },
                     },
                   ],
@@ -103,9 +111,11 @@ export const mockedRawRepoList = {
                       committedDate: '2022-10-28T07:13:06Z',
                       message: 'Style: Update category container styles',
                       additions: 7,
+                      deletions: 7,
                       author: {
                         name: 'youthfulhps',
                         email: 'ybh942002@gmail.com',
+                        avatarUrl: '',
                       },
                     },
                   ],
@@ -130,9 +140,11 @@ export const mockedRawRepoList = {
                       committedDate: '2022-10-10T13:35:11Z',
                       message: 'Post development storybook',
                       additions: 334,
+                      deletions: 334,
                       author: {
                         name: 'youthfulhps',
                         email: 'ybh942002@gmail.com',
+                        avatarUrl: '',
                       },
                     },
                   ],
@@ -146,11 +158,11 @@ export const mockedRawRepoList = {
   },
 };
 
-export const mockedDestructuredRepoList = [
+export const mockedDestructuredRepoList: Repository[] = [
   {
     url: 'https://github.com/youthfulhps/gitin',
     name: 'gitin',
-    description: null,
+    description: '',
     pushedAt: '2022-11-29T04:23:26Z',
     updatedAt: '2022-11-29T04:10:30Z',
     defaultBranchRef: {
@@ -162,12 +174,13 @@ export const mockedDestructuredRepoList = [
             {
               url: 'https://github.com/youthfulhps/gitin/commit/9027aa0886b38f406f44653de8ff2f43de447777',
               committedDate: '2022-11-23T07:47:41Z',
-              message:
-                'Merge pull request #14 from youthfulhps/develop\n\nv1.1.1',
+              message: 'Update README',
               additions: 6,
+              deletions: 6,
               author: {
                 name: 'Byeongho Yoo',
                 email: 'ybh942002@gmail.com',
+                avatarUrl: '',
               },
             },
           ],
@@ -193,9 +206,11 @@ export const mockedDestructuredRepoList = [
               message:
                 'Merge pull request #14 from youthfulhps/dependabot/pip/numpy-1.22.0\n\n⬆️ Bump numpy from 1.14.3 to 1.22.0',
               additions: 1,
+              deletions: 1,
               author: {
                 name: 'Byeongho Yoo',
                 email: 'ybh942002@gmail.com',
+                avatarUrl: '',
               },
             },
           ],
@@ -220,9 +235,11 @@ export const mockedDestructuredRepoList = [
               committedDate: '2022-10-30T14:24:55Z',
               message: 'WIP: temp commit for vercel deploy',
               additions: 617,
+              deletions: 617,
               author: {
                 name: 'youthfulhps',
                 email: 'ybh942002@gmail.com',
+                avatarUrl: '',
               },
             },
           ],
@@ -247,9 +264,11 @@ export const mockedDestructuredRepoList = [
               committedDate: '2022-10-28T07:13:06Z',
               message: 'Style: Update category container styles',
               additions: 7,
+              deletions: 7,
               author: {
                 name: 'youthfulhps',
                 email: 'ybh942002@gmail.com',
+                avatarUrl: '',
               },
             },
           ],
@@ -274,9 +293,11 @@ export const mockedDestructuredRepoList = [
               committedDate: '2022-10-10T13:35:11Z',
               message: 'Post development storybook',
               additions: 334,
+              deletions: 334,
               author: {
                 name: 'youthfulhps',
                 email: 'ybh942002@gmail.com',
+                avatarUrl: '',
               },
             },
           ],
