@@ -14,15 +14,39 @@ const useRefactorSuggestedRepoQuery = () => {
   const [prevRefactorSuggestedRepoInfo, setPrevRefactorSuggestedRepoInfo] =
     useRecoilState(refactorSuggestedRepoInfoAtom);
 
-  const setNewRefactorSuggestedRepo = (repoList: Repository[]) => {
-    const newRefactorSuggestedRepoIndex =
-      getRefactorSuggestedRepoIndex(repoList);
-
-    setPrevRefactorSuggestedRepoInfo({
-      prevRefactorSuggestedRepo: repoList[newRefactorSuggestedRepoIndex],
+  const generateNewRefactorSuggestedRepoInfo = (
+    newRefactorSuggestedRepo: Repository
+  ) => {
+    return {
+      prevRefactorSuggestedRepo: newRefactorSuggestedRepo,
       updatedAt: moment().format(),
-      hasTodayCommit: isToday(repoList[newRefactorSuggestedRepoIndex].pushedAt),
-    });
+      hasTodayCommit: isToday(newRefactorSuggestedRepo.pushedAt),
+    };
+  };
+
+  const getNewRefactorSuggestedRepo = (repositories: Repository[]) => {
+    const { prevRefactorSuggestedRepo, updatedAt } =
+      prevRefactorSuggestedRepoInfo;
+
+    const newRefactorSuggestedRepoIndex =
+      getRefactorSuggestedRepoIndex(repositories);
+
+    const newRefactorSuggestedRepo =
+      repositories[newRefactorSuggestedRepoIndex];
+
+    if (prevRefactorSuggestedRepo && updatedAt && isToday(updatedAt)) {
+      const updatedRefactorSuggestedRepo = repositories.filter(
+        (repo) => repo.name === prevRefactorSuggestedRepo.name
+      );
+
+      if (updatedRefactorSuggestedRepo.length) {
+        return updatedRefactorSuggestedRepo[0];
+      }
+
+      return newRefactorSuggestedRepo;
+    }
+
+    return newRefactorSuggestedRepo;
   };
 
   const { data: refactorSuggestedRepoInfo } = useQuery({
@@ -30,34 +54,17 @@ const useRefactorSuggestedRepoQuery = () => {
     refetchOnWindowFocus: true,
     queryFn: async () => {
       const { data } = await getRepoList();
-
       const destructuredRepoList = getDestructuredRepoList(data);
 
-      const { prevRefactorSuggestedRepo, updatedAt } =
-        prevRefactorSuggestedRepoInfo;
-
-      if (!prevRefactorSuggestedRepo || (updatedAt && !isToday(updatedAt))) {
-        setNewRefactorSuggestedRepo(destructuredRepoList);
-        return prevRefactorSuggestedRepoInfo;
-      }
-
-      const updatedRefactorSuggestedRepo = destructuredRepoList.filter(
-        (repo) => repo.name === prevRefactorSuggestedRepo.name
+      const newRefactorSuggestedRepo =
+        getNewRefactorSuggestedRepo(destructuredRepoList);
+      const newRefactorSuggestedRepoInfo = generateNewRefactorSuggestedRepoInfo(
+        newRefactorSuggestedRepo
       );
 
-      if (updatedRefactorSuggestedRepo.length) {
-        setPrevRefactorSuggestedRepoInfo({
-          prevRefactorSuggestedRepo: updatedRefactorSuggestedRepo[0],
-          updatedAt: moment().format(),
-          hasTodayCommit: isToday(
-            updatedRefactorSuggestedRepo[0].pushedAt || ''
-          ),
-        });
-      } else {
-        setNewRefactorSuggestedRepo(destructuredRepoList);
-      }
+      setPrevRefactorSuggestedRepoInfo(newRefactorSuggestedRepoInfo);
 
-      return prevRefactorSuggestedRepoInfo;
+      return newRefactorSuggestedRepoInfo;
     },
   });
 
