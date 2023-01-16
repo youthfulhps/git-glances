@@ -43,3 +43,7 @@ export type RepositoryNodes = {
 };
 
 export type GetRepoList = () => AsyncNestedAxiosResponse<RepositoryNodes>;
+
+export type GetRepo = (
+  repoName: string
+) => AsyncNestedAxiosResponse<Repository>;
