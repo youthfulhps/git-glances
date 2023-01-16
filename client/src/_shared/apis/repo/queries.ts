@@ -37,3 +37,41 @@ query {
   }
 }
 `;
+
+export const getRepoQuery = (repoName: string) => `
+query {
+  viewer {
+    repository(name: "${repoName}") {
+      url
+      name
+      description
+      pushedAt
+      updatedAt
+      defaultBranchRef {
+        name
+        target {
+          ... on Commit {
+            history(first: 1) {
+              totalCount
+              nodes {
+                ... on Commit {
+                  url
+                  committedDate
+                  message
+                  additions
+                  deletions
+                  author {
+                    name
+                    email
+                    avatarUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
