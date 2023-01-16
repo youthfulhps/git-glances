@@ -5,6 +5,7 @@ import UserProfile from '../../../UserProfile/components';
 import Language from '../../../Language/components';
 import Contribution from '../../../Contribution/components';
 import Refactor from '../../../Refactor/components';
+import Daily from '../../../Daily/components';
 
 function HomePage() {
   return (
@@ -21,6 +22,9 @@ function HomePage() {
       </SuspenseBoundary>
       <SuspenseBoundary gridArea="Refactor">
         <Refactor />
+      </SuspenseBoundary>
+      <SuspenseBoundary gridArea="Daily">
+        <Daily />
       </SuspenseBoundary>
     </GridMain>
   );
