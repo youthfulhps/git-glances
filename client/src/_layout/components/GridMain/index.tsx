@@ -21,8 +21,8 @@ const StyledGridMain = styled.main<StyledGridMainProps>`
     isLoggedIn ? 'Profile' : 'login'
   } Contribution . .'
     'Profile Contribution . .'
-    'Profile Refactor . .'
-    'Language Refactor . .'
+    'Profile Refactor Daily .'
+    'Language Refactor Daily .'
     '. . . .'
     '. . . .'`};
 `;
