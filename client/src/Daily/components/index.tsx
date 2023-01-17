@@ -7,9 +7,10 @@ import DailyCard from './DailyCard';
 
 function Daily() {
   const {
-    resetAtomRepoState,
-    dailyRepoState,
+    resetTmpDailyRepoState,
+    tmpDailyRepoState,
     updateAtomRepoState,
+    resetDailyRepoState,
     onChange,
     searchInput,
   } = useDailyRepoQuery();
@@ -17,8 +18,8 @@ function Daily() {
   const atomDailyRepoState = useRecoilValue(dailyRepoAtom);
 
   const handleConfirmClick = () => {
-    if (dailyRepoState.prevRepo) {
-      updateAtomRepoState(dailyRepoState.prevRepo);
+    if (tmpDailyRepoState?.prevRepo) {
+      updateAtomRepoState(tmpDailyRepoState.prevRepo);
     }
   };
 
@@ -27,8 +28,8 @@ function Daily() {
       <DailyEmptyCard
         onChange={onChange}
         searchInput={searchInput}
-        dailyRepo={dailyRepoState?.prevRepo ?? null}
-        onCancel={resetAtomRepoState}
+        dailyRepo={tmpDailyRepoState?.prevRepo ?? null}
+        onCancel={resetTmpDailyRepoState}
         onConfirm={handleConfirmClick}
       />
     );
@@ -37,6 +38,7 @@ function Daily() {
   return (
     <DailyCard
       dailyRepo={atomDailyRepoState.prevRepo}
+      resetDailyRepo={resetDailyRepoState}
       hasTodayContribution={atomDailyRepoState.hasTodayContribution}
     />
   );
