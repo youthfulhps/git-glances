@@ -28,6 +28,7 @@ const useDailyRepoQuery = () => {
     queryKey: ['repo', debouncedSearchValue],
     suspense: false,
     enabled: !!debouncedSearchValue,
+    refetchOnWindowFocus: true,
     queryFn: async () => {
       const { data } = await getRepo(debouncedSearchValue);
       const repo = getDestructuredRepo(data);
