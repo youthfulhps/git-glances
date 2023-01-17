@@ -5,7 +5,7 @@ import useDebounce from '@shared/hooks/useDebounce';
 import useRepoRecoilState from '@shared/hooks/useRepoRecoilState';
 import { AtomRepoState } from '@shared/atoms/types';
 import { useState } from 'react';
-import { getDestructuredRepo } from '../utils/dailyRepoHelper';
+import { getDestructuredRepo } from '../utils/dailyHelper';
 import { dailyRepoAtom } from '../atoms';
 
 const useDailyRepoQuery = () => {
@@ -19,7 +19,7 @@ const useDailyRepoQuery = () => {
   const { value, setValue, onChange } = useInput(
     prevRepoState.prevRepo?.name ?? ''
   );
-  const debouncedSearchValue = useDebounce(value, 300);
+  const debouncedSearchValue = useDebounce(value, 700);
 
   const [tmpDailyRepoState, setTmpDailyRepoState] =
     useState<AtomRepoState | null>(null);
