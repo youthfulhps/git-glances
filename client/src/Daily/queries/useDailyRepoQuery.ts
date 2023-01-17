@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { getRepo } from '@shared/apis/repo';
+import { getRepo, Repository } from '@shared/apis/repo';
 import useInput from '@shared/hooks/useInput';
 import useDebounce from '@shared/hooks/useDebounce';
 import useRepoRecoilState from '@shared/hooks/useRepoRecoilState';
 import { AtomRepoState } from '@shared/atoms/types';
+import { useState } from 'react';
 import { getDestructuredRepo } from '../utils/dailyRepoHelper';
 import { dailyRepoAtom } from '../atoms';
 
@@ -15,10 +16,15 @@ const useDailyRepoQuery = () => {
     resetAtomRepoState,
   } = useRepoRecoilState(dailyRepoAtom);
 
-  const { value, onChange } = useInput(prevRepoState.prevRepo?.name ?? '');
+  const { value, setValue, onChange } = useInput(
+    prevRepoState.prevRepo?.name ?? ''
+  );
   const debouncedSearchValue = useDebounce(value, 300);
 
-  const { data: dailyRepoState } = useQuery({
+  const [tmpDailyRepoState, setTmpDailyRepoState] =
+    useState<AtomRepoState | null>(null);
+
+  useQuery<Repository>({
     queryKey: ['repo', debouncedSearchValue],
     suspense: false,
     enabled: !!debouncedSearchValue,
@@ -26,16 +32,33 @@ const useDailyRepoQuery = () => {
       const { data } = await getRepo(debouncedSearchValue);
       const repo = getDestructuredRepo(data);
 
-      return generateUpdatedRepoState(repo);
+      return repo;
+    },
+    onSuccess: (data) => {
+      if (prevRepoState.prevRepo) {
+        updateAtomRepoState(data);
+      }
+      setTmpDailyRepoState(generateUpdatedRepoState(data));
     },
   });
+
+  const resetTmpDailyRepoState = () => {
+    setValue('');
+    setTmpDailyRepoState(null);
+  };
+
+  const resetDailyRepoState = () => {
+    resetTmpDailyRepoState();
+    resetAtomRepoState();
+  };
 
   return {
     searchInput: value,
     onChange,
-    resetAtomRepoState,
+    resetDailyRepoState,
     updateAtomRepoState,
-    dailyRepoState: dailyRepoState as AtomRepoState,
+    tmpDailyRepoState,
+    resetTmpDailyRepoState,
   };
 };
 
