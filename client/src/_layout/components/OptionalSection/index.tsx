@@ -16,7 +16,7 @@ type OptionalSectionProps = {
 } & StyledOptionalSectionProps;
 
 const StyledOptionalSection = styled.section<StyledOptionalSectionProps>`
-  ${tw`flex flex-col h-full w-full p-4 rounded-2xl relative`}
+  ${tw`flex flex-col h-full w-full p-4 rounded-2xl relative overflow-hidden`}
   ${tw`bg-zinc-800 text-zinc-100`}
 
   grid-area: ${({ gridArea }) => `${gridArea}`};
@@ -66,7 +66,7 @@ function OptionalSection({
       <h2>{`# ${gridArea}`}</h2>
       <div className="inner">{children}</div>
       <div className="overlay">
-        <div className="flex items-center">
+        <div className="flex animate-rising items-center">
           <button onClick={onConfirm}>
             <CheckCircleFillIcon size={24} className="mr-1 fill-emerald-500" />
           </button>
