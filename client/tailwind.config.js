@@ -3,6 +3,15 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      keyframes: {
+        rising: {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0%)' },
+        },
+      },
+      animation: {
+        rising: 'rising 0.7s ease-in-out',
+      },
       colors: {
         'contribution-000': '#161b22',
         'contribution-100': '#0e4429',
