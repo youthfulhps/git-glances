@@ -32,9 +32,7 @@ const StyledContributionDetail = styled.ul`
   }
 `;
 
-function ContributionDetail({
-  contributionsCollection,
-}: ContributionDetailProps) {
+function ContributionDetail({ contributionsCollection }: ContributionDetailProps) {
   const contributionDetailListContents = [
     {
       icon: <GitCommitIcon size={12} />,
@@ -70,9 +68,7 @@ function ContributionDetail({
           {contributionDetailContent.icon}
           <div>
             <span>{contributionDetailContent.count}</span>
-            <span className="text-xs font-thin">
-              {` ${contributionDetailContent.unit}`}
-            </span>
+            <span className="text-xs font-thin">{` ${contributionDetailContent.unit}`}</span>
           </div>
         </li>
       ))}

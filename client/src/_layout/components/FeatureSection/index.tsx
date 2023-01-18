@@ -24,11 +24,9 @@ const StyledFeatureSection = styled.section<FeatureSectionProps>`
 
   ${({ backgroundClass }) => !backgroundClass && tw`bg-zinc-800`}
   
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor && backgroundColor};
+  background-color: ${({ backgroundColor }) => backgroundColor && backgroundColor};
 
-  background-image: ${({ backgroundImage }) =>
-    backgroundImage && `url(${backgroundImage})`};
+  background-image: ${({ backgroundImage }) => backgroundImage && `url(${backgroundImage})`};
 
   background-repeat: no-repeat;
   background-position: center;
@@ -52,8 +50,7 @@ const StyledFeatureSection = styled.section<FeatureSectionProps>`
     ${tw`duration-700`}
     ${tw`text-right`}
     
-    ${({ summaryType }) =>
-      summaryType === 'icon' && tw`top-[calc(100%_-_80px)]`};
+    ${({ summaryType }) => summaryType === 'icon' && tw`top-[calc(100%_-_80px)]`};
 
     h3 {
       ${tw`text-5xl font-bold`}

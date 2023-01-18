@@ -14,9 +14,7 @@ const useMostUsedLanguageQuery = () => {
       const { data } = await getLanguageList();
 
       const destructuredLanguageList = getDestructuredLanguageList(data);
-      const mergedLanguageList = getMergedLanguageList(
-        destructuredLanguageList
-      );
+      const mergedLanguageList = getMergedLanguageList(destructuredLanguageList);
       const sortedLanguageList = getSortedLanguageList(mergedLanguageList);
 
       return {

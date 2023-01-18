@@ -9,7 +9,7 @@
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "noEmit":true,
+    "noEmit": true,
     "baseUrl": "./",
     "paths": {
       "@shared": ["./src/_shared"],
@@ -18,7 +18,7 @@
       "@layout/*": ["./src/_layout/*"]
     },
     "typeRoots": ["node_modules/@types"],
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src", "global.d.ts"],
   "exclude": ["node_modules", "dist"]

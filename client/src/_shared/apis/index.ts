@@ -17,9 +17,7 @@ export const authAxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   if (!config || !config.headers) {
-    throw new Error(
-      "Expected 'config' and 'config.headers' not to be undefined"
-    );
+    throw new Error("Expected 'config' and 'config.headers' not to be undefined");
   }
 
   const accessToken = getAccessToken();
@@ -28,9 +26,7 @@ axiosInstance.interceptors.request.use((config) => {
     const { CancelToken } = axios;
     return {
       ...config,
-      cancelToken: new CancelToken((cancel) =>
-        cancel('Access token is required!')
-      ),
+      cancelToken: new CancelToken((cancel) => cancel('Access token is required!')),
     };
   }
 
