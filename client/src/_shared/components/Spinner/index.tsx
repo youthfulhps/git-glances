@@ -7,10 +7,7 @@ type SpinnerProps = {
 
 function Spinner({ gridArea = '' }: SpinnerProps) {
   return (
-    <Section
-      gridArea={gridArea}
-      className="flex h-full w-full items-center justify-center"
-    >
+    <Section gridArea={gridArea} className="flex h-full w-full items-center justify-center">
       <svg
         className="mr-2 inline h-16 w-16 animate-spin rounded-md bg-zinc-800 fill-gray-200 text-center text-gray-900"
         viewBox="0 0 100 101"

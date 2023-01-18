@@ -1,19 +1,11 @@
 import { LanguageEdge, MergedLanguages } from '@shared/apis/language';
-import {
-  GetMergedLanguageList,
-  GetDestructuredLanguageList,
-  SortedLanguageList,
-} from './types';
+import { GetMergedLanguageList, GetDestructuredLanguageList, SortedLanguageList } from './types';
 
-export const getDestructuredLanguageList: GetDestructuredLanguageList = (
-  rawLanguageList
-) => {
+export const getDestructuredLanguageList: GetDestructuredLanguageList = (rawLanguageList) => {
   return rawLanguageList.data.viewer.repositories.nodes;
 };
 
-export const getMergedLanguageList: GetMergedLanguageList = (
-  languageNodeList
-) => {
+export const getMergedLanguageList: GetMergedLanguageList = (languageNodeList) => {
   if (!languageNodeList || !languageNodeList.length) return {};
 
   const mergedLanguageList: MergedLanguages = {};
@@ -36,9 +28,7 @@ export const getMergedLanguageList: GetMergedLanguageList = (
   return mergedLanguageList;
 };
 
-export const getSortedLanguageList: SortedLanguageList = (
-  mergedLanguageList
-) => {
+export const getSortedLanguageList: SortedLanguageList = (mergedLanguageList) => {
   return Object.entries(mergedLanguageList)
     .sort(([, a], [, b]) => Number(b) - Number(a))
     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});

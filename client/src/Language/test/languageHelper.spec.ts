@@ -26,8 +26,6 @@ describe('languageHelper는 최근 레포지토리들의 언어 사용량에 대
 
   it('getSortedLanguageList는 병합된 언어별 사용량을 기준으로 내림차순 정렬하여 반환한다.', () => {
     expect(getSortedLanguageList({})).toStrictEqual({});
-    expect(getSortedLanguageList(mockedMergedLanguageList)).toStrictEqual(
-      mockedMergedLanguageList
-    );
+    expect(getSortedLanguageList(mockedMergedLanguageList)).toStrictEqual(mockedMergedLanguageList);
   });
 });
