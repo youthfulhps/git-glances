@@ -11,9 +11,7 @@ jest.mock('../queries/useContributionsCollectionQuery');
 
 describe('Contribution 컴포넌트는 유저의 오늘 기여도 정보를 랜더링한다.', () => {
   beforeEach(() => {
-    mockedUseContributionQuery.mockImplementation(
-      () => mockedContributionCollection
-    );
+    mockedUseContributionQuery.mockImplementation(() => mockedContributionCollection);
   });
 
   afterEach(() => {

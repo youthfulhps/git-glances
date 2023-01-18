@@ -2,12 +2,7 @@ import React from 'react';
 import { User } from '@shared/apis/user';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import {
-  LocationIcon,
-  OrganizationIcon,
-  HomeIcon,
-  LinkIcon,
-} from '@primer/octicons-react';
+import { LocationIcon, OrganizationIcon, HomeIcon, LinkIcon } from '@primer/octicons-react';
 import { getURLWithProtocol, isValidURL } from '@shared/utils/url';
 
 type UserProfileDetailProps = {

@@ -9,7 +9,5 @@ export const refactorSuggestedRepoInfoAtom = atom<RefactorSuggestedRepoInfo>({
     updatedAt: null,
     hasTodayCommit: false,
   },
-  effects: [
-    localStorageEffect<RefactorSuggestedRepoInfo>('refactorSuggestedRepo'),
-  ],
+  effects: [localStorageEffect<RefactorSuggestedRepoInfo>('refactorSuggestedRepo')],
 });

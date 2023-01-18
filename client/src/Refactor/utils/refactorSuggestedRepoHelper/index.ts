@@ -1,16 +1,9 @@
-import {
-  GetDestructuredRepoList,
-  GetRefactorSuggestedRepoIndex,
-} from './types';
+import { GetDestructuredRepoList, GetRefactorSuggestedRepoIndex } from './types';
 
-export const getDestructuredRepoList: GetDestructuredRepoList = (
-  rawRepoList
-) => {
+export const getDestructuredRepoList: GetDestructuredRepoList = (rawRepoList) => {
   return rawRepoList.data.viewer.repositories.nodes;
 };
 
-export const getRefactorSuggestedRepoIndex: GetRefactorSuggestedRepoIndex = (
-  repoList
-) => {
+export const getRefactorSuggestedRepoIndex: GetRefactorSuggestedRepoIndex = (repoList) => {
   return Math.floor(Math.random() * repoList.length);
 };

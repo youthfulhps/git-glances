@@ -23,8 +23,7 @@ const StyledRefactorDetail = styled.div`
 `;
 
 function RefactorDetail({ refactorSuggestedRepo }: RefactorDetailProps) {
-  const latestCommit =
-    refactorSuggestedRepo.defaultBranchRef.target.history.nodes[0];
+  const latestCommit = refactorSuggestedRepo.defaultBranchRef.target.history.nodes[0];
 
   return (
     <StyledRefactorDetail>
@@ -50,13 +49,9 @@ function RefactorDetail({ refactorSuggestedRepo }: RefactorDetailProps) {
           </div>
           <div className="mb-1 ml-6 flex items-center text-xs text-zinc-400">
             with
-            <span className="pl-1 pr-[2px] text-emerald-500">
-              {latestCommit.additions}
-            </span>
+            <span className="pl-1 pr-[2px] text-emerald-500">{latestCommit.additions}</span>
             additions and
-            <span className="pl-1 pr-[2px] text-red-500">
-              {latestCommit.deletions}
-            </span>
+            <span className="pl-1 pr-[2px] text-red-500">{latestCommit.deletions}</span>
             deletions.
           </div>
         </div>

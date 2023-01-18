@@ -11,12 +11,11 @@ import { refactorSuggestedRepoInfoAtom } from '../atoms';
 import { RefactorSuggestedRepoInfo } from '../atoms/types';
 
 const useRefactorSuggestedRepoQuery = () => {
-  const [prevRefactorSuggestedRepoInfo, setPrevRefactorSuggestedRepoInfo] =
-    useRecoilState(refactorSuggestedRepoInfoAtom);
+  const [prevRefactorSuggestedRepoInfo, setPrevRefactorSuggestedRepoInfo] = useRecoilState(
+    refactorSuggestedRepoInfoAtom
+  );
 
-  const generateNewRefactorSuggestedRepoInfo = (
-    newRefactorSuggestedRepo: Repository
-  ) => {
+  const generateNewRefactorSuggestedRepoInfo = (newRefactorSuggestedRepo: Repository) => {
     return {
       prevRefactorSuggestedRepo: newRefactorSuggestedRepo,
       updatedAt: moment().format(),
@@ -25,14 +24,11 @@ const useRefactorSuggestedRepoQuery = () => {
   };
 
   const getNewRefactorSuggestedRepo = (repositories: Repository[]) => {
-    const { prevRefactorSuggestedRepo, updatedAt } =
-      prevRefactorSuggestedRepoInfo;
+    const { prevRefactorSuggestedRepo, updatedAt } = prevRefactorSuggestedRepoInfo;
 
-    const newRefactorSuggestedRepoIndex =
-      getRefactorSuggestedRepoIndex(repositories);
+    const newRefactorSuggestedRepoIndex = getRefactorSuggestedRepoIndex(repositories);
 
-    const newRefactorSuggestedRepo =
-      repositories[newRefactorSuggestedRepoIndex];
+    const newRefactorSuggestedRepo = repositories[newRefactorSuggestedRepoIndex];
 
     if (prevRefactorSuggestedRepo && updatedAt && isToday(updatedAt)) {
       const updatedRefactorSuggestedRepo = repositories.filter(
@@ -56,11 +52,9 @@ const useRefactorSuggestedRepoQuery = () => {
       const { data } = await getRepoList();
       const destructuredRepoList = getDestructuredRepoList(data);
 
-      const newRefactorSuggestedRepo =
-        getNewRefactorSuggestedRepo(destructuredRepoList);
-      const newRefactorSuggestedRepoInfo = generateNewRefactorSuggestedRepoInfo(
-        newRefactorSuggestedRepo
-      );
+      const newRefactorSuggestedRepo = getNewRefactorSuggestedRepo(destructuredRepoList);
+      const newRefactorSuggestedRepoInfo =
+        generateNewRefactorSuggestedRepoInfo(newRefactorSuggestedRepo);
 
       setPrevRefactorSuggestedRepoInfo(newRefactorSuggestedRepoInfo);
 
