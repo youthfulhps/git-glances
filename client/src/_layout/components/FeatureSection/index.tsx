@@ -106,7 +106,7 @@ function FeatureSection({
         <h2>{`# ${gridArea}`}</h2>
         <div className="inner">
           {summaryType === 'string' ? (
-            <h3>{summary}</h3>
+            <h3 className="font-alfa">{summary}</h3>
           ) : (
             <div className="summary-icon">{summary}</div>
           )}
