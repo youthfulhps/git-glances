@@ -2,6 +2,10 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    fontFamily: {
+      alfa: ['Montagu Slab', 'sans-serif'],
+      fira: ['Fira Sans', 'sans-serif'],
+    },
     extend: {
       keyframes: {
         rising: {
