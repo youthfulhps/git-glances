@@ -15,8 +15,8 @@ function TrendsRepoCard({ trendsRepo }: TrendsRepoCardProps) {
         className="mb-1 flex w-full items-center justify-between py-2 text-start text-sm hover:text-zinc-400"
         rel="noreferrer"
       >
-        <div className="w-[calc(100%_-_48px)]">
-          {trendsRepo.name}
+        <div className="w-[calc(100%_-_70px)]">
+          <p className="truncate">{trendsRepo.name}</p>
           <p className="truncate text-xs text-zinc-400">{trendsRepo.description}</p>
         </div>
         <div className="flex items-center text-xs">

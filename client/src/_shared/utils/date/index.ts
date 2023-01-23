@@ -34,7 +34,7 @@ export const getRelativeTimeFromNow: GetRelativeTimeFromNow = (target) => {
 };
 
 export const getDailyRange: GetDailyRange = () => {
+  const monthStartDay = moment().startOf('month').format();
   const today = moment().startOf('day').format();
-  const yesterday = moment().startOf('day').add(-1, 'days').format();
-  return `${yesterday}..${today}`;
+  return `${monthStartDay}..${today}`;
 };
