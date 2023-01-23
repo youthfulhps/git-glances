@@ -5,6 +5,7 @@ import {
   GetRelativeTimeFromNow,
   GetTodayDate,
   IsToday,
+  GetDailyRange,
 } from '@shared/utils/date/types';
 import moment from 'moment';
 
@@ -30,4 +31,10 @@ export const isToday: IsToday = (target) => {
 
 export const getRelativeTimeFromNow: GetRelativeTimeFromNow = (target) => {
   return moment(target).fromNow();
+};
+
+export const getDailyRange: GetDailyRange = () => {
+  const today = moment().startOf('day').format();
+  const yesterday = moment().startOf('day').add(-1, 'days').format();
+  return `${yesterday}..${today}`;
 };
