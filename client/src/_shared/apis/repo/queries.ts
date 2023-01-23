@@ -75,3 +75,27 @@ query {
   }
 }
 `;
+
+export const getTrendsRepoListQuery = (created: string) => `
+query {
+  search(query: "language:JavaScript created:${created}", type: REPOSITORY, first: 10) {
+    edges {
+      node {
+        ... on Repository {
+          url
+          name
+          description
+          pushedAt
+          updatedAt
+          stargazers {
+            totalCount
+          }
+          forks {
+            totalCount
+          }
+        }
+      }
+    }
+  }
+}
+`;

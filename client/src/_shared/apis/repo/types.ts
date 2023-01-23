@@ -1,4 +1,4 @@
-import { AsyncNestedAxiosResponse } from '@shared/apis/types';
+import { AsyncListSearchNestedFieldResponse, AsyncNestedAxiosResponse } from '@shared/apis/types';
 
 type GitActor = {
   name: string;
@@ -38,12 +38,21 @@ export type Repository = {
   defaultBranchRef: RepositoryDefaultBranchRef;
 };
 
+export type TrendsRepository = Omit<Repository, 'defaultBranchRef'> & {
+  forks: {
+    totalCount: number;
+  };
+  stargazers: {
+    totalCount: number;
+  };
+};
+
 export type RepositoryNodes = {
   nodes: Repository[];
 };
 
 export type GetRepoList = () => AsyncNestedAxiosResponse<RepositoryNodes>;
 
-export type GetRepo = (
-  repoName: string
-) => AsyncNestedAxiosResponse<Repository>;
+export type GetRepo = (repoName: string) => AsyncNestedAxiosResponse<Repository>;
+
+export type GetTrendsRepoList = () => AsyncListSearchNestedFieldResponse<TrendsRepository>;
