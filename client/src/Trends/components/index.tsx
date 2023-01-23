@@ -8,6 +8,7 @@ function Trends() {
 
   return (
     <FeatureSection summary={trendsRepoList[0].name} gridArea="Trends">
+      <div className="h-2" />
       <TrendsRepoList trendsRepoList={trendsRepoList} />
     </FeatureSection>
   );
