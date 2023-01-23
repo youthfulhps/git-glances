@@ -8,7 +8,7 @@ type TrendsCardProps = {
 
 function TrendsCard({ trendsRepoList }: TrendsCardProps) {
   return (
-    <ul className="my-1 h-[156px] overflow-y-scroll">
+    <ul className="my-1 h-[148px] overflow-y-scroll">
       {trendsRepoList.map((trendsRepo) => (
         <TrendsRepoCard key={trendsRepo.name} trendsRepo={trendsRepo} />
       ))}
