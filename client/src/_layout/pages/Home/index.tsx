@@ -7,6 +7,7 @@ import Contribution from '../../../Contribution/components';
 import Refactor from '../../../Refactor/components';
 import Daily from '../../../Daily/components';
 import Trends from '../../../Trends/components';
+import Notification from '../../../Notification/components';
 
 function HomePage() {
   return (
@@ -29,6 +30,9 @@ function HomePage() {
       </SuspenseBoundary>
       <SuspenseBoundary gridArea="Trends">
         <Trends />
+      </SuspenseBoundary>
+      <SuspenseBoundary gridArea="Notification">
+        <Notification />
       </SuspenseBoundary>
     </GridMain>
   );
