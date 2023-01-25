@@ -19,8 +19,8 @@ const StyledGridMain = styled.main<StyledGridMainProps>`
   grid-template-rows: repeat(6, 1fr);
   grid-template-areas: ${({ isLoggedIn }) => `'${
     isLoggedIn ? 'Profile' : 'login'
-  } Contribution . Trends'
-    'Profile Contribution . Trends'
+  } Contribution Notification Trends'
+    'Profile Contribution Notification Trends'
     'Profile Refactor Daily .'
     'Language Refactor Daily .'
     '. . . .'
