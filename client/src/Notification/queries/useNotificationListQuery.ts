@@ -17,9 +17,14 @@ const useNotificationListQuery = () => {
     return notificationList?.filter((notification) => notification.unread).length ?? 0;
   }, [notificationList]);
 
+  const isNotificationEmpty = useMemo(() => {
+    return !notificationList?.length;
+  }, [notificationList]);
+
   return {
     notificationList: notificationList as Notification[],
     notificationUnreadCount,
+    isNotificationEmpty,
   };
 };
 
