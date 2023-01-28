@@ -4,11 +4,15 @@ import useNotificationListQuery from '../queries/useNotificationListQuery';
 import NotificationList from './NotificationList';
 
 function Notification() {
-  const { notificationList, notificationUnreadCount } = useNotificationListQuery();
+  const { notificationList, notificationUnreadCount, isNotificationEmpty } =
+    useNotificationListQuery();
 
   return (
     <FeatureSection summary={notificationUnreadCount} gridArea="Notification">
-      <NotificationList notificationList={notificationList} />
+      <NotificationList
+        notificationList={notificationList}
+        isNotificationEmpty={isNotificationEmpty}
+      />
     </FeatureSection>
   );
 }
