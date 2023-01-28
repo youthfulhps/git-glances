@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getNotificationList, Notification } from '@shared/apis/notification';
-import { getTodayDateTime } from '@shared/utils/date';
+import { getDateTimeAfterDays } from '@shared/utils/date';
 import { useMemo } from 'react';
 
 const useNotificationListQuery = () => {
@@ -8,7 +8,7 @@ const useNotificationListQuery = () => {
     queryKey: ['notificationList'],
     refetchOnWindowFocus: true,
     queryFn: async () => {
-      const { data } = await getNotificationList(getTodayDateTime());
+      const { data } = await getNotificationList(getDateTimeAfterDays(-1));
       return data;
     },
   });
