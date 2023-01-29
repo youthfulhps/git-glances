@@ -12,7 +12,7 @@ function NotificationList({ notificationList, isNotificationEmpty }: Notificatio
   if (isNotificationEmpty) return <EmptyNotification />;
 
   return (
-    <ul className="my-1 h-[130px] overflow-y-scroll">
+    <ul className="my-1 h-[130px] overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-300 scrollbar-thumb-rounded-full">
       {notificationList.map((notification) => (
         <NotificationCard key={notification.id} notification={notification} />
       ))}
