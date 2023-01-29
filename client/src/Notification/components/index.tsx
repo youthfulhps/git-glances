@@ -9,6 +9,7 @@ function Notification() {
 
   return (
     <FeatureSection summary={notificationUnreadCount} gridArea="Notification">
+      <div className="h-2" />
       <NotificationList
         notificationList={notificationList}
         isNotificationEmpty={isNotificationEmpty}

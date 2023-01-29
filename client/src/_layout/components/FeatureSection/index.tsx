@@ -53,7 +53,8 @@ const StyledFeatureSection = styled.section<FeatureSectionProps>`
     ${({ summaryType }) => summaryType === 'icon' && tw`top-[calc(100%_-_80px)]`};
 
     h3 {
-      ${tw`text-5xl font-bold text-clip overflow-hidden whitespace-pre-wrap`}
+      ${tw`text-5xl font-bold text-clip overflow-hidden`}
+      ${tw`min-h-[48px]`}
       ${tw`opacity-80`}
       ${tw`duration-500`}
     }
