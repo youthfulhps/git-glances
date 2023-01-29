@@ -21,8 +21,8 @@ const StyledGridMain = styled.main<StyledGridMainProps>`
     isLoggedIn ? 'Profile' : 'login'
   } Contribution Notification Trends'
     'Profile Contribution Notification Trends'
-    'Profile Refactor Daily .'
-    'Language Refactor Daily .'
+    'Profile Refactor Daily Enhance'
+    'Language Refactor Daily Enhance'
     '. . . .'
     '. . . .'`};
 `;
