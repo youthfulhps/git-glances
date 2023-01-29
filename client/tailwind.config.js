@@ -1,6 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+/* eslint-disable */
+
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  plugins: [require('tailwind-scrollbar')],
+  variants: {
+    scrollbar: ['rounded'],
+  },
   theme: {
     fontFamily: {
       alfa: ['Montagu Slab', 'sans-serif'],
