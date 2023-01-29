@@ -76,9 +76,9 @@ query {
 }
 `;
 
-export const getTrendsRepoListQuery = (created: string) => `
+export const getTrendsRepoListQuery = (language: string, created: string) => `
 query {
-  search(query: "language:JavaScript created:${created}", type: REPOSITORY, first: 10) {
+  search(query: "language:${language} created:${created}", type: REPOSITORY, first: 10) {
     edges {
       node {
         ... on Repository {
