@@ -25,7 +25,7 @@ function NotificationCard({ notification }: NotificationCardProps) {
     <StyledNotificationCard
       role="link"
       unread={notification.unread}
-      className="relative mb-1 flex w-full cursor-pointer items-center justify-between py-2 text-start text-sm"
+      className="relative mb-1 flex w-[calc(100%_-_16px)] cursor-pointer items-center justify-between py-2 text-start text-sm"
       onClick={() => routeNotificationThread(notification.subject.url)}
     >
       {notification.unread ? (

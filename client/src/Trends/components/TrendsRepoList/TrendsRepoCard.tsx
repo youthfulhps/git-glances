@@ -12,7 +12,7 @@ function TrendsRepoCard({ trendsRepo }: TrendsRepoCardProps) {
       <a
         href={trendsRepo.url}
         target="_blank"
-        className="mb-1 flex w-full items-center justify-between py-2 text-start text-sm hover:text-zinc-400"
+        className="mb-1 flex w-[calc(100%_-_16px)] items-center justify-between py-2 text-start text-sm hover:text-zinc-400"
         rel="noreferrer"
       >
         <div className="w-[calc(100%_-_70px)]">

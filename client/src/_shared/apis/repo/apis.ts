@@ -19,9 +19,9 @@ export const getRepo: GetRepo = (repoName) => {
   return axiosInstance.post('/graphql', body);
 };
 
-export const getTrendsRepoList: GetTrendsRepoList = () => {
+export const getTrendsRepoList: GetTrendsRepoList = (language: string) => {
   const body = {
-    query: getTrendsRepoListQuery(getDailyRange()),
+    query: getTrendsRepoListQuery(language, getDailyRange()),
   };
 
   return axiosInstance.post('/graphql', body);
