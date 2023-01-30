@@ -3,10 +3,17 @@ import cookie from 'cookiejs';
 import qs from 'qs';
 import { getAuthToken } from '@shared/apis/auth';
 import { hasAuthCookie } from '@shared/utils/cookie';
+import { useEffect, useState } from 'react';
 
 const useLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(hasAuthCookie());
+  }, [setIsLoggedIn, hasAuthCookie]);
 
   const getToken = async () => {
     const { code } = qs.parse(location.search, {
@@ -28,7 +35,7 @@ const useLogin = () => {
 
   return {
     getToken,
-    isLoggedIn: hasAuthCookie(),
+    isLoggedIn,
   };
 };
 
