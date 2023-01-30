@@ -1,9 +1,5 @@
 import axios from 'axios';
-import cookie from 'cookiejs';
-
-export const getAccessToken = () => {
-  return cookie.get('gitin:token');
-};
+import { getAuthCookie } from '@shared/utils/cookie';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.API_BASE_PATH,
@@ -20,7 +16,7 @@ axiosInstance.interceptors.request.use((config) => {
     throw new Error("Expected 'config' and 'config.headers' not to be undefined");
   }
 
-  const accessToken = getAccessToken();
+  const accessToken = getAuthCookie();
 
   if (!accessToken) {
     const { CancelToken } = axios;
