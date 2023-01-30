@@ -1,4 +1,8 @@
-import { AsyncListSearchNestedFieldResponse, AsyncNestedAxiosResponse } from '@shared/apis/types';
+import {
+  AsyncAxiosResponse,
+  AsyncListSearchNestedFieldResponse,
+  AsyncNestedAxiosResponse,
+} from '@shared/apis/types';
 
 type GitActor = {
   name: string;
@@ -58,3 +62,10 @@ export type GetRepo = (repoName: string) => AsyncNestedAxiosResponse<Repository>
 export type GetTrendsRepoList = (
   language: string
 ) => AsyncListSearchNestedFieldResponse<TrendsRepository>;
+
+type PostRepoIssuePayload = {
+  issueTitle: string;
+  issueBody: string;
+};
+
+export type PostRepoIssue = (issue: PostRepoIssuePayload) => AsyncAxiosResponse<any>;
