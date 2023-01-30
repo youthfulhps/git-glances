@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import cookie from 'cookiejs';
 import qs from 'qs';
 import { getAuthToken } from '@shared/apis/auth';
+import { hasAuthCookie } from '@shared/utils/cookie';
 
 const useLogin = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ const useLogin = () => {
 
   return {
     getToken,
-    isLoggedIn: !!cookie.get('gitin:token'),
+    isLoggedIn: hasAuthCookie(),
   };
 };
 
