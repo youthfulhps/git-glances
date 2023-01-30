@@ -1,4 +1,6 @@
 import React, { ReactNode } from 'react';
+import PulseSection from '@layout/components/PulseSection';
+import { hasAuthCookie } from '@shared/utils/cookie';
 import Error from '../components/Error';
 
 type ErrorBoundaryProps = {
@@ -42,6 +44,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() {
     const { hasError, error, errorMessage } = this.state;
     const { children, gridArea } = this.props;
+
+    if (!hasAuthCookie()) {
+      return <PulseSection gridArea={gridArea} />;
+    }
 
     if (hasError && error) {
       return (
