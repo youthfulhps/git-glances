@@ -1,6 +1,5 @@
 import React from 'react';
 import { LogoGithub } from '@carbon/icons-react';
-import Section from '@layout/components/Section';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import useLogin from '@shared/hooks/useLogin';
@@ -24,11 +23,11 @@ function Login() {
   if (isLoggedIn) return null;
 
   return (
-    <Section gridArea="login">
+    <section className="flex h-full w-full flex-col items-center justify-center rounded-2xl">
       <StyledLogoGithub href={loginURL}>
         <LogoGithub size={32} />
       </StyledLogoGithub>
-    </Section>
+    </section>
   );
 }
 
