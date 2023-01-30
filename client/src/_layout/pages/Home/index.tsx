@@ -8,6 +8,7 @@ import Refactor from '../../../Refactor/components';
 import Daily from '../../../Daily/components';
 import Trends from '../../../Trends/components';
 import Notification from '../../../Notification/components';
+import Enhance from '../../../Enhance/components';
 
 function HomePage() {
   return (
@@ -33,6 +34,9 @@ function HomePage() {
       </SuspenseBoundary>
       <SuspenseBoundary gridArea="Notification">
         <Notification />
+      </SuspenseBoundary>
+      <SuspenseBoundary gridArea="Enhance">
+        <Enhance />
       </SuspenseBoundary>
     </GridMain>
   );
