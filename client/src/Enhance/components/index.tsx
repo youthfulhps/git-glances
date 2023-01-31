@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import OptionalSection from '@layout/components/OptionalSection';
-import Spinner from '@shared/components/Spinner';
+import SectionSpinner from '@shared/components/Spinner/SectionSpinner';
 import { CheckCircleFillIcon } from '@primer/octicons-react';
 import Check from '@shared/components/Check';
 import Error from '@shared/components/Error';
@@ -42,7 +42,7 @@ function Enhance() {
     }
   }, [reset, isSuccess, resetIssueTitle, resetIssueBody]);
 
-  if (isLoading) return <Spinner gridArea="Enhance" />;
+  if (isLoading) return <SectionSpinner gridArea="Enhance" />;
   if (isSuccess) return <Check gridArea="Enhance" />;
   if (isError)
     return (
