@@ -3,33 +3,31 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 import useLogin from '@shared/hooks/useLogin';
 
-type GridMainProps = {
+type GridProps = {
   children: ReactNode;
 };
 
-type StyledGridMainProps = {
+type StyledGridProps = {
   isLoggedIn: boolean;
 };
 
-const StyledGridMain = styled.main<StyledGridMainProps>`
-  ${tw`h-screen w-screen gap-4`}
-  ${tw`p-32`};
+const StyledGrid = styled.div<StyledGridProps>`
+  ${tw`h-[460px] w-full gap-4`}
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   grid-template-areas: ${({ isLoggedIn }) => `'${
     isLoggedIn ? 'Profile' : 'login'
   } Contribution Notification Trends'
     'Profile Contribution Notification Trends'
     'Profile Refactor Daily Enhance'
     'Language Refactor Daily Enhance'
-    '. . . .'
-    '. . . .'`};
+    `};
 `;
 
-function GridMain({ children }: GridMainProps) {
+function Grid({ children }: GridProps) {
   const { isLoggedIn } = useLogin();
-  return <StyledGridMain isLoggedIn={isLoggedIn}>{children}</StyledGridMain>;
+  return <StyledGrid isLoggedIn={isLoggedIn}>{children}</StyledGrid>;
 }
 
-export default GridMain;
+export default Grid;
