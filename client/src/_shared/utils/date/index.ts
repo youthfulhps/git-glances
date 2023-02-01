@@ -5,7 +5,7 @@ import {
   GetRelativeTimeFromNow,
   GetTodayDate,
   IsToday,
-  GetDailyRange,
+  GetMonthRange,
 } from '@shared/utils/date/types';
 import moment from 'moment';
 
@@ -33,8 +33,8 @@ export const getRelativeTimeFromNow: GetRelativeTimeFromNow = (target) => {
   return moment(target).fromNow();
 };
 
-export const getDailyRange: GetDailyRange = () => {
-  const monthStartDay = moment().startOf('month').format();
+export const getMonthRange: GetMonthRange = () => {
+  const monthAgo = getDateTimeAfterDays(-30);
   const today = moment().startOf('day').format();
-  return `${monthStartDay}..${today}`;
+  return `${monthAgo}..${today}`;
 };
