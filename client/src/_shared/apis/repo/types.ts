@@ -60,7 +60,8 @@ export type GetRepoList = () => AsyncNestedAxiosResponse<RepositoryNodes>;
 export type GetRepo = (repoName: string) => AsyncNestedAxiosResponse<Repository>;
 
 export type GetTrendsRepoList = (
-  language: string
+  language: string,
+  created: string
 ) => AsyncListSearchNestedFieldResponse<TrendsRepository>;
 
 type PostRepoIssuePayload = {

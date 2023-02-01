@@ -10,4 +10,4 @@ export type IsToday = (target: string | Date) => boolean;
 
 export type GetRelativeTimeFromNow = (target: string | Date) => string;
 
-export type GetDailyRange = () => string;
+export type GetMonthRange = () => string;
