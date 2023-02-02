@@ -70,6 +70,12 @@ module.exports = {
             return '[name][ext]';
           },
         },
+        {
+          from: path.resolve(__dirname, 'public/icons'),
+          to() {
+            return 'icons/[name][ext]';
+          },
+        },
       ],
     }),
   ],
