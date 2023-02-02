@@ -41,6 +41,7 @@ function SearchBadge({
         onKeyDown={onSearchInputKeyDown}
         isArrowShowing={!!searchInput}
         onArrowClick={() => onSubmitSearch(searchInput)}
+        placeholder={`Search on ${target}...`}
       />
     </StyledSearchBadge>
   );
