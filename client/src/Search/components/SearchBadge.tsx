@@ -31,7 +31,7 @@ function SearchBadge({
   return (
     <StyledSearchBadge
       hasSearchInput={!!searchInput}
-      className={`flex h-[52px] items-center rounded-2xl bg-zinc-800 p-2 duration-500 overflow-x-hidden hover:w-[236px] ${className}`}
+      className={`flex items-center overflow-hidden rounded-2xl bg-zinc-800 p-2 duration-500 scrollbar-track-transparent hover:w-[236px] ${className}`}
     >
       <img src={`icons/${target}.svg`} alt={`${target} logo for searching`} className="h-8 w-8" />
       <Input
