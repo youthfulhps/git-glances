@@ -7,3 +7,7 @@ export const getAuthCookie = () => {
 export const hasAuthCookie = () => {
   return !!getAuthCookie();
 };
+
+export const removeAuthCookie = () => {
+  return cookie.remove('gitin:token');
+};
