@@ -7,7 +7,7 @@ type FlexMainProps = {
 };
 
 const StyledFlexMain = styled.main`
-  ${tw`flex h-screen w-screen items-center justify-center`}
+  ${tw`flex h-screen w-screen items-center justify-center bg-zinc-800`}
 `;
 
 function FlexMain({ children }: FlexMainProps) {

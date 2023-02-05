@@ -3,6 +3,8 @@ const webpack = require('webpack');
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 const PORT = process.env.PORT || 3000;
@@ -52,12 +54,29 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html'),
       hash: false,
     }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public/*.png'),
+          to() {
+            return '[name][ext]';
+          },
+        },
+        {
+          from: path.resolve(__dirname, 'public/icons'),
+          to() {
+            return 'icons/[name][ext]';
+          },
+        },
+      ],
     }),
   ],
   devServer: {

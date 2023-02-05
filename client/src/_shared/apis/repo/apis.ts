@@ -1,6 +1,5 @@
 import { axiosInstance } from '@shared/apis';
 import { GetRepo, GetRepoList, GetTrendsRepoList, PostRepoIssue } from '@shared/apis/repo/types';
-import { getDailyRange } from '@shared/utils/date';
 import { GET_REPO_LIST_QUERY, getRepoQuery, getTrendsRepoListQuery } from './queries';
 
 export const getRepoList: GetRepoList = () => {
@@ -19,9 +18,9 @@ export const getRepo: GetRepo = (repoName) => {
   return axiosInstance.post('/graphql', body);
 };
 
-export const getTrendsRepoList: GetTrendsRepoList = (language: string) => {
+export const getTrendsRepoList: GetTrendsRepoList = (language: string, created: string) => {
   const body = {
-    query: getTrendsRepoListQuery(language, getDailyRange()),
+    query: getTrendsRepoListQuery(language, created),
   };
 
   return axiosInstance.post('/graphql', body);

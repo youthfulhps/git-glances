@@ -1,6 +1,10 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import GuideSection from '@layout/components/GuideSection';
+import { useRecoilValue } from 'recoil';
+import { isGuideShowingAtom } from '../../../Guide/atoms';
+import { sectionGuideDescriptions } from '../../../Guide/constants';
 
 type FeatureSectionProps = {
   children?: ReactNode;
@@ -92,6 +96,11 @@ function FeatureSection({
   backgroundColor = '',
   hasOverlay = false,
 }: FeatureSectionProps) {
+  const isGuideShowing = useRecoilValue(isGuideShowingAtom);
+
+  if (isGuideShowing) {
+    return <GuideSection descriptions={sectionGuideDescriptions[gridArea]} gridArea={gridArea} />;
+  }
   return (
     <StyledFeatureSection
       gridArea={gridArea}

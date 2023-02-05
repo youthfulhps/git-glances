@@ -2,6 +2,10 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { CheckCircleFillIcon, XCircleFillIcon } from '@primer/octicons-react';
+import { useRecoilValue } from 'recoil';
+import GuideSection from '@layout/components/GuideSection';
+import { isGuideShowingAtom } from '../../../Guide/atoms';
+import { sectionGuideDescriptions } from '../../../Guide/constants';
 
 type StyledOptionalSectionProps = {
   gridArea?: string;
@@ -36,8 +40,7 @@ const StyledOptionalSection = styled.section<StyledOptionalSectionProps>`
       hasOverlay &&
       tw`absolute bottom-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-zinc-700`};
     ${({ hasOverlay }) =>
-      hasOverlay &&
-      tw`block flex flex-col justify-end items-end w-full h-full p-4`};
+      hasOverlay && tw`block flex flex-col justify-end items-end w-full h-full p-4`};
 
     svg {
       ${tw`cursor-pointer`}
@@ -57,12 +60,19 @@ function OptionalSection({
   onConfirm,
   onCancel,
 }: OptionalSectionProps) {
+  const isGuideShowing = useRecoilValue(isGuideShowingAtom);
+
+  if (isGuideShowing) {
+    return (
+      <GuideSection
+        descriptions={sectionGuideDescriptions[gridArea ?? '']}
+        gridArea={gridArea ?? ''}
+      />
+    );
+  }
+
   return (
-    <StyledOptionalSection
-      className={className}
-      gridArea={gridArea}
-      hasOverlay={hasOverlay}
-    >
+    <StyledOptionalSection className={className} gridArea={gridArea} hasOverlay={hasOverlay}>
       <h2>{`# ${gridArea}`}</h2>
       <div className="inner">{children}</div>
       <div className="overlay">
