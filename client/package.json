@@ -6,8 +6,10 @@
   "author": "youthfulhps <ybh942002@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack serve --config webpack.config.js --env=env='development'",
-    "build": "webpack --config webpack.config.js --env=env='production'",
+    "dev:web": "webpack serve --config webpack.config.js --env ENV=development --env TARGET=web",
+    "dev:extension": "webpack serve --config webpack.config.js --env ENV=development --env TARGET=extension",
+    "build:web": "webpack --config webpack.config.js --env ENV=production TARGET=web",
+    "build:extension": "webpack --config webpack.config.js --env ENV=production --env TARGET=extension",
     "test": "jest --watchAll"
   },
   "dependencies": {
