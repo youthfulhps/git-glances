@@ -1,8 +1,11 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+/* eslint-disable react-hooks/rules-of-hooks */
 import cookie from 'cookiejs';
 import qs from 'qs';
 import { getAuthToken } from '@shared/apis/auth';
 import { hasAuthCookie } from '@shared/utils/cookie';
+import useRouterHooks from '@shared/libs/useRouterHooks';
+
+const { useLocation, useNavigate } = await useRouterHooks();
 
 const useLogin = () => {
   const location = useLocation();
