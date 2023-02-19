@@ -10,11 +10,12 @@ const PORT = process.env.PORT || 3000;
 
 module.exports = ({ ENV, TARGET }) => {
   const isProd = ENV === 'production';
+  const isWeb = TARGET === 'web';
 
   return {
     mode: isProd ? 'production' : 'development',
     devtool: isProd ? 'hidden-source-map' : 'source-map',
-    entry: './src/index.tsx',
+    entry: isWeb ? './src/Web.tsx' : './src/Extension.tsx',
     output: {
       filename: '[name].js',
       path: path.join(__dirname, '/dist'),
@@ -34,7 +35,7 @@ module.exports = ({ ENV, TARGET }) => {
           test: /\.(ts|tsx)$/,
           loader: 'ts-loader',
           options: {
-            transpileOnly: !isProd,
+            transpileOnly: true,
           },
         },
         {
@@ -63,7 +64,7 @@ module.exports = ({ ENV, TARGET }) => {
       }),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(process.env),
-        'process.env.TARGET': JSON.stringify(TARGET),
+        'process.env.IS_WEB': JSON.stringify(isWeb),
       }),
       new CopyWebpackPlugin({
         patterns: [
