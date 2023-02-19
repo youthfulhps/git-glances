@@ -1,0 +1,11 @@
+{
+  "name": "GitGlances",
+  "description": "Today's GitHub Log at a glance.",
+  "version": "2.0.0",
+  "short_name": "GitGlances",
+  "icons": {},
+  "manifest_version": 3,
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
+}

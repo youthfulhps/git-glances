@@ -80,6 +80,10 @@ module.exports = ({ ENV, TARGET }) => {
               return 'icons/[name][ext]';
             },
           },
+          {
+            from: path.resolve(__dirname, 'public/manifest.json'),
+            to: 'manifest.json',
+          },
         ],
       }),
     ],
