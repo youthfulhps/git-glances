@@ -18,7 +18,8 @@
       "@layout/*": ["./src/_layout/*"]
     },
     "typeRoots": ["node_modules/@types"],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "types": ["chrome", "node"]
   },
   "include": ["src", "global.d.ts"],
   "exclude": ["node_modules", "dist"]
