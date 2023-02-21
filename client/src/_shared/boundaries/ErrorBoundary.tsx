@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import PulseSection from '@layout/components/PulseSection';
-import { hasAuthCookie } from '@shared/utils/cookie';
+import { getChromeStorageItem } from '@shared/utils/chrome';
 import Error from '../components/Error';
 
 type ErrorBoundaryProps = {
@@ -13,12 +13,14 @@ type ErrorBoundaryState = {
   hasError: boolean;
   error: any;
   errorMessage: string | null;
+  hasToken: boolean;
 };
 
 const initialState: ErrorBoundaryState = {
   hasError: false,
   error: null,
   errorMessage: null,
+  hasToken: false,
 };
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -35,6 +37,18 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     };
   }
 
+  componentDidMount() {
+    if (process.env.IS_WEB) {
+      const localStorageToken = localStorage.getItem('gitGlances:token');
+      this.setState({ ...initialState, hasToken: !!localStorageToken });
+      return;
+    }
+    getChromeStorageItem<string>('gitGlances:token').then((value) => {
+      const chromeStorageToken = JSON.parse(value);
+      this.setState({ ...initialState, hasToken: !!chromeStorageToken });
+    });
+  }
+
   resetErrorBoundaryState = () => {
     const { reset } = this.props;
     this.setState({ ...initialState });
@@ -42,10 +56,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   };
 
   render() {
-    const { hasError, error, errorMessage } = this.state;
+    const { hasError, error, errorMessage, hasToken } = this.state;
     const { children, gridArea } = this.props;
 
-    if (!hasAuthCookie()) {
+    if (!hasToken) {
       return <PulseSection gridArea={gridArea} />;
     }
 

@@ -2,12 +2,28 @@
 import cookie from 'cookiejs';
 import qs from 'qs';
 import { getAuthToken } from '@shared/apis/auth';
-import { hasAuthCookie } from '@shared/utils/cookie';
 import useRouterHooks from '@shared/libs/useRouterHooks';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { tokenAtom } from '@shared/atoms/common';
+import useInput from '@shared/hooks/useInput';
 
 const { useLocation, useNavigate } = await useRouterHooks();
 
 const useLogin = () => {
+  const gitGlancesTokenValue = useRecoilValue(tokenAtom);
+  const setGitGlancesTokenState = useSetRecoilState(tokenAtom);
+
+  const submitInputToken = () => {
+    setGitGlancesTokenState(inputToken);
+    window.location.reload();
+  };
+
+  const {
+    value: inputToken,
+    onChange: onInputTokenChange,
+    onKeyDown: onInputTokenKeyDown,
+  } = useInput('', submitInputToken);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -20,6 +36,7 @@ const useLogin = () => {
       const { data: accessToken } = await getAuthToken(code as string);
 
       if (accessToken) {
+        setGitGlancesTokenState(accessToken);
         cookie.set('gitin:token', accessToken);
       }
 
@@ -30,8 +47,12 @@ const useLogin = () => {
   };
 
   return {
+    inputToken,
+    onInputTokenChange,
+    submitInputToken,
+    onInputTokenKeyDown,
     getToken,
-    isLoggedIn: hasAuthCookie(),
+    isLoggedIn: !!gitGlancesTokenValue,
   };
 };
 

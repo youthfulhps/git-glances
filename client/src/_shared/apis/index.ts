@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAuthCookie } from '@shared/utils/cookie';
+import { getChromeStorageItem } from '@shared/utils/chrome';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.API_BASE_PATH,
@@ -11,12 +11,19 @@ export const authAxiosInstance = axios.create({
   headers: {},
 });
 
-axiosInstance.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use(async (config) => {
   if (!config || !config.headers) {
     throw new Error("Expected 'config' and 'config.headers' not to be undefined");
   }
 
-  const accessToken = getAuthCookie();
+  let accessToken = null;
+
+  if (process.env.IS_WEB) {
+    accessToken = JSON.parse(localStorage.getItem('gitGlances:token') || '');
+  } else {
+    const token = await getChromeStorageItem<string>('gitGlances:token');
+    accessToken = JSON.parse(token);
+  }
 
   if (!accessToken) {
     const { CancelToken } = axios;
