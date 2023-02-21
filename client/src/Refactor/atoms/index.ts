@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import localStorageEffect from '@shared/atoms/effects';
+import storageEffect from '@shared/atoms/effects';
 import { RefactorSuggestedRepoInfo } from './types';
 
 export const refactorSuggestedRepoInfoAtom = atom<RefactorSuggestedRepoInfo>({
@@ -9,5 +9,5 @@ export const refactorSuggestedRepoInfoAtom = atom<RefactorSuggestedRepoInfo>({
     updatedAt: null,
     hasTodayCommit: false,
   },
-  effects: [localStorageEffect<RefactorSuggestedRepoInfo>('refactorSuggestedRepo')],
+  effects: [storageEffect<RefactorSuggestedRepoInfo>('refactorSuggestedRepo')],
 });
