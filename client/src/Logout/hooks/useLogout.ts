@@ -1,8 +1,11 @@
-import { removeAuthCookie } from '@shared/utils/cookie';
+import { useResetRecoilState } from 'recoil';
+import { tokenAtom } from '@shared/atoms/common';
 
 const useLogout = () => {
+  const resetGitGlancesTokenState = useResetRecoilState(tokenAtom);
+
   const submitLogout = async () => {
-    removeAuthCookie();
+    resetGitGlancesTokenState();
     window.location.reload();
   };
 

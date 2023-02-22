@@ -1,4 +1,5 @@
 import { AtomEffect } from 'recoil';
+import { getChromeStorageItem, setChromeStorageItem } from '@shared/utils/chrome';
 
 const localStorageEffect = <AtomDataType>(key: string) => {
   const effects: AtomEffect<AtomDataType> = ({ setSelf, onSet }) => {
@@ -19,4 +20,22 @@ const localStorageEffect = <AtomDataType>(key: string) => {
   return effects;
 };
 
-export default localStorageEffect;
+const chromeStorageEffect = <AtomDataType>(key: string) => {
+  const effects: AtomEffect<AtomDataType> = ({ setSelf, onSet }) => {
+    getChromeStorageItem<string>(key).then((value) => {
+      if (value) {
+        setSelf(JSON.parse(value));
+      }
+    });
+
+    onSet(async (newValue) => {
+      await setChromeStorageItem({ [key]: JSON.stringify(newValue) });
+    });
+  };
+
+  return effects;
+};
+
+const storageEffect = process.env.IS_WEB ? localStorageEffect : chromeStorageEffect;
+
+export default storageEffect;

@@ -13,8 +13,6 @@ type SearchBadgeProps = {
 };
 
 const StyledSearchBadge = styled.div<{ hasSearchInput: boolean }>`
-  ${({ hasSearchInput }) => (hasSearchInput ? tw`w-[70px]` : tw`w-[48px]`)};
-
   img {
     ${({ hasSearchInput }) => hasSearchInput && tw`mr-2`};
   }
@@ -31,7 +29,7 @@ function SearchBadge({
   return (
     <StyledSearchBadge
       hasSearchInput={!!searchInput}
-      className={`flex items-center overflow-hidden rounded-2xl bg-zinc-800 p-2 duration-500 scrollbar-track-transparent hover:w-[236px] ${className}`}
+      className={`flex w-[48px] items-center overflow-hidden rounded-2xl bg-zinc-800 p-2 duration-500 scrollbar-track-transparent hover:w-[236px] ${className}`}
     >
       <img src={`icons/${target}.svg`} alt={`${target} logo for searching`} className="h-8 w-8" />
       <Input
