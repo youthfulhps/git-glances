@@ -1,11 +1,9 @@
-# react-boilerplate
+# GitGlances
 
-### SetUp List
+#### Today's GitHub Log at a glance.
 
-- [x] module installation environment
-- [x] react
-- [x] typescript
-- [x] webpack
-- [x] eslint, prettier
-- [x] babel
-- [x] jest
+![GitGlances main view](client/public/gitglances-main.png)
+
+
+
+
