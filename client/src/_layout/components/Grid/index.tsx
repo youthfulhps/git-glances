@@ -38,6 +38,7 @@ const StyledGrid = styled.div<StyledGridProps>`
 
   @media only screen and (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, 111px);
     grid-template-areas: ${({ isLoggedIn }) => `'${isLoggedIn ? 'Profile' : 'login'} Contribution'
     'Profile Contribution'
     'Profile Notification'
