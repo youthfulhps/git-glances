@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import cookie from 'cookiejs';
 import qs from 'qs';
 import { getAuthToken } from '@shared/apis/auth';
 import useRouterHooks from '@shared/libs/useRouterHooks';
@@ -15,7 +14,6 @@ const useLogin = () => {
 
   const submitInputToken = () => {
     setGitGlancesTokenState(inputToken);
-    window.location.reload();
   };
 
   const {
@@ -37,7 +35,6 @@ const useLogin = () => {
 
       if (accessToken) {
         setGitGlancesTokenState(accessToken);
-        cookie.set('gitin:token', accessToken);
       }
 
       navigate('/');
