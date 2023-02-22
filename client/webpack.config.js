@@ -84,6 +84,14 @@ module.exports = ({ ENV, TARGET }) => {
             from: path.resolve(__dirname, 'public/manifest.json'),
             to: 'manifest.json',
           },
+          ...(!isWeb
+            ? [
+                {
+                  from: path.resolve(__dirname, 'public/favicon.png'),
+                  to: 'icons/icon16.png',
+                },
+              ]
+            : []),
         ],
       }),
     ],
