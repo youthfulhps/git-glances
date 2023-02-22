@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import localStorageEffect from '@shared/atoms/effects';
+import storageEffect from '@shared/atoms/effects';
 import { AtomRepoState } from '@shared/atoms/types';
 
 export const dailyRepoAtom = atom<AtomRepoState>({
@@ -9,5 +9,5 @@ export const dailyRepoAtom = atom<AtomRepoState>({
     updatedAt: '',
     hasTodayContribution: false,
   },
-  effects: [localStorageEffect<AtomRepoState>('dailyRepo')],
+  effects: [storageEffect<AtomRepoState>('dailyRepo')],
 });
