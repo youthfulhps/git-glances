@@ -1,0 +1,12 @@
+{
+  "name": "git-glances",
+  "version": "1.0.0",
+  "repository": "git@github.com:youthfulhps/git-glances.git",
+  "author": "youthfulhps <ybh942002@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "husky": "^8.0.3"
+  }
+}
