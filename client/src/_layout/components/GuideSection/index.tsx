@@ -11,7 +11,7 @@ function GuideSection({ descriptions, gridArea }: GuideSectionProps) {
     <Section gridArea={gridArea}>
       <div className="flex h-full w-full flex-col justify-end">
         {descriptions.map((description) => (
-          <p key={description} className="block w-full truncate text-left text-xs text-zinc-400">
+          <p key={description} className="block w-full text-left text-xs text-zinc-400">
             {description}
           </p>
         ))}
