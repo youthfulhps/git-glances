@@ -19,7 +19,8 @@ const useDailyRepoQuery = () => {
   const { value, setValue, onChange } = useInput(
     prevRepoState.prevRepo?.name ?? ''
   );
-  const debouncedSearchValue = useDebounce(value, 700);
+
+  const debouncedSearchValue = useDebounce(value, 700) || prevRepoState.prevRepo?.name || '';
 
   const [tmpDailyRepoState, setTmpDailyRepoState] =
     useState<AtomRepoState | null>(null);
@@ -36,7 +37,7 @@ const useDailyRepoQuery = () => {
       return repo;
     },
     onSuccess: (data) => {
-      if (prevRepoState.prevRepo) {
+      if (prevRepoState.prevRepo && data) {
         updateAtomRepoState(data);
       }
       setTmpDailyRepoState(generateUpdatedRepoState(data));
