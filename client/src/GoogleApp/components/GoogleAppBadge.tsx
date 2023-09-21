@@ -1,6 +1,6 @@
 type GoogleAppBadgeProps = {
   className?: string;
-  target: 'mail' | 'calendar';
+  target: 'mail' | 'calendar' | 'meet';
   onClick: () => void;
 };
 
