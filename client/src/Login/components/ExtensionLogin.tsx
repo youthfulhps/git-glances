@@ -24,7 +24,7 @@ function ExtensionLogin() {
       <div className="ml-9 p-2 text-xs font-thin text-zinc-300">
         you&apos;ll need to{' '}
         <a
-          href={`https://github.com/settings/tokens/new?scopes=user,repo&description=${encodeURIComponent(
+          href={`https://github.com/settings/tokens/new?scopes=notifications,user,repo&description=${encodeURIComponent(
             'Token for GitGlances Extension'
           )}`}
           target="_blank"
