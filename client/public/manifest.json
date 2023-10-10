@@ -1,7 +1,7 @@
 {
   "name": "GitGlances",
   "description": "Today's GitHub Log at a glance.",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "short_name": "GitGlances",
   "icons": {
     "16": "icons/icon16.png",
