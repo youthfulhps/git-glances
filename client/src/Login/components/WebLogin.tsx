@@ -8,7 +8,7 @@ const loginURL =
   `https://github.com/login/oauth/authorize` +
   `?client_id=${process.env.GITHUB_OAUTH_CLIENT_ID}` +
   `&redirect_uri=${process.env.GITHUB_OAUTH_REDIRECT_URL}` +
-  '&scope=repo,user';
+  '&scope=notifications,repo,user';
 
 const StyledLogoGithub = styled.a`
   ${tw`flex items-center justify-center`}
