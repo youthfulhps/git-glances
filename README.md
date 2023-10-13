@@ -11,9 +11,9 @@ Dashboard app extension where you can see today's Github log at a glance.
 <img src='https://img.shields.io/badge/PROD_EXTENSION / GitGlances-093b74?style=for-the-badge&logo=google chrome&logoColor=white'>
 </a>
 
+![GitGlances main view](client/public/main.png)
 
-
-![GitGlances main view](client/public/gitglances-main.png)
+![GitGlances hover view](client/public/hover.png)
 
 
 
