@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import Modal from '@shared/components/Modal';
 import useDailyRepoQuery from '../queries/useDailyRepoQuery';
 import DailyEmptyCard from './EmptyDailyCard';
 import { dailyRepoAtom } from '../atoms';
@@ -13,6 +14,8 @@ function Daily() {
     resetDailyRepoState,
     onChange,
     searchInput,
+    isPrivateRepo,
+    setIsPrivateRepo,
   } = useDailyRepoQuery();
 
   const atomDailyRepoState = useRecoilValue(dailyRepoAtom);
@@ -25,13 +28,30 @@ function Daily() {
 
   if (!atomDailyRepoState.prevRepo) {
     return (
-      <DailyEmptyCard
-        onChange={onChange}
-        searchInput={searchInput}
-        dailyRepo={tmpDailyRepoState?.prevRepo ?? null}
-        onCancel={resetTmpDailyRepoState}
-        onConfirm={handleConfirmClick}
-      />
+      <>
+        <Modal isOpen={isPrivateRepo} onConfirm={() => setIsPrivateRepo(false)}>
+          {tmpDailyRepoState?.prevRepo?.name} is a private repository. If you want to access it,
+          please{' '}
+          <a
+            href={`https://github.com/settings/tokens/new?scopes=notifications,user,repo&description=${encodeURIComponent(
+              'Token for GitGlances Extension'
+            )}`}
+            target="_blank"
+            className="text-emerald-300"
+            rel="noreferrer"
+          >
+            create a token
+          </a>{' '}
+          with permission for user, repo, notification.
+        </Modal>
+        <DailyEmptyCard
+          onChange={onChange}
+          searchInput={searchInput}
+          dailyRepo={tmpDailyRepoState?.prevRepo ?? null}
+          onCancel={resetTmpDailyRepoState}
+          onConfirm={handleConfirmClick}
+        />
+      </>
     );
   }
 
