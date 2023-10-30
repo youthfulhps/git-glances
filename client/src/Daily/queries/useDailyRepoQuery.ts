@@ -9,21 +9,15 @@ import { getDestructuredRepo } from '../utils/dailyHelper';
 import { dailyRepoAtom } from '../atoms';
 
 const useDailyRepoQuery = () => {
-  const {
-    prevRepoState,
-    updateAtomRepoState,
-    generateUpdatedRepoState,
-    resetAtomRepoState,
-  } = useRepoRecoilState(dailyRepoAtom);
+  const { prevRepoState, updateAtomRepoState, generateUpdatedRepoState, resetAtomRepoState } =
+    useRepoRecoilState(dailyRepoAtom);
 
-  const { value, setValue, onChange } = useInput(
-    prevRepoState.prevRepo?.name ?? ''
-  );
+  const { value, setValue, onChange } = useInput(prevRepoState.prevRepo?.name ?? '');
 
   const debouncedSearchValue = useDebounce(value, 700) || prevRepoState.prevRepo?.name || '';
 
-  const [tmpDailyRepoState, setTmpDailyRepoState] =
-    useState<AtomRepoState | null>(null);
+  const [tmpDailyRepoState, setTmpDailyRepoState] = useState<AtomRepoState | null>(null);
+  const [isPrivateRepo, setIsPrivateRepo] = useState<boolean>(false);
 
   useQuery<Repository>({
     queryKey: ['repo', debouncedSearchValue],
@@ -33,6 +27,11 @@ const useDailyRepoQuery = () => {
     queryFn: async () => {
       const { data } = await getRepo(debouncedSearchValue);
       const repo = getDestructuredRepo(data);
+
+      if (!repo.defaultBranchRef) {
+        setIsPrivateRepo(true);
+        setValue('');
+      }
 
       return repo;
     },
@@ -61,6 +60,8 @@ const useDailyRepoQuery = () => {
     updateAtomRepoState,
     tmpDailyRepoState,
     resetTmpDailyRepoState,
+    isPrivateRepo,
+    setIsPrivateRepo,
   };
 };
 
