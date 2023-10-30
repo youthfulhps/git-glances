@@ -32,7 +32,7 @@ function Login() {
     <section className="flex h-full w-full flex-col items-center justify-center rounded-2xl text-xs">
       <StyledLogoGithub href={loginUrlWithPublicOnly} className="mb-2">
         <LogoGithub size={32} className="mr-2" />
-        <span>Public repository only</span>
+        <span>Read public repositories only</span>
       </StyledLogoGithub>
       <StyledLogoGithub href={loginURLWithFullAccess}>
         <LogoGithub size={32} className="mr-2" />
