@@ -19,21 +19,19 @@ function EmptyDailyCardCard({
   onConfirm,
   dailyRepo,
 }: EmptyDailyCardProps) {
+  const hasRepo = !!dailyRepo && !!dailyRepo.defaultBranchRef;
+
   return (
     <OptionalSection
       gridArea="Daily"
-      hasOverlay={!!dailyRepo}
+      hasOverlay={hasRepo}
       onCancel={onCancel}
       onConfirm={onConfirm}
     >
-      {dailyRepo ? (
+      {hasRepo ? (
         <RepositoryDetail repository={dailyRepo} />
       ) : (
-        <Input
-          placeholder="Search repository..."
-          onChange={onChange}
-          value={searchInput}
-        />
+        <Input placeholder="Search repository..." onChange={onChange} value={searchInput} />
       )}
     </OptionalSection>
   );
