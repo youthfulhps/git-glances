@@ -22,7 +22,7 @@ function ExtensionLogin() {
         />
       </div>
       <div className="ml-9 p-2 text-xs font-thin text-zinc-300">
-        you&apos;ll need to{' '}
+        Please create and enter a{' '}
         <a
           href={`https://github.com/settings/tokens/new?scopes=notifications,user,repo&description=${encodeURIComponent(
             'Token for GitGlances Extension'
@@ -31,9 +31,19 @@ function ExtensionLogin() {
           className="text-emerald-300"
           rel="noreferrer"
         >
-          create a token
-        </a>{' '}
-        with the user and repo permissions.
+          token that can be fully controlled of private repositories
+        </a>
+        , or a{' '}
+        <a
+          href={`https://github.com/settings/tokens/new?scopes=notifications,public_repo,read:user,user:email,user:follow&description=${encodeURIComponent(
+            'Token for GitGlances Extension'
+          )}`}
+          target="_blank"
+          className="text-emerald-300"
+          rel="noreferrer"
+        >
+          token that can only access public repositories.
+        </a>
       </div>
     </section>
   );
