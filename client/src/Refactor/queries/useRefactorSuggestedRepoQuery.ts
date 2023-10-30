@@ -24,14 +24,15 @@ const useRefactorSuggestedRepoQuery = () => {
   };
 
   const getNewRefactorSuggestedRepo = (repositories: Repository[]) => {
+    const filteredRepositories = repositories.filter((repository) => !!repository.defaultBranchRef);
     const { prevRefactorSuggestedRepo, updatedAt } = prevRefactorSuggestedRepoInfo;
 
-    const newRefactorSuggestedRepoIndex = getRefactorSuggestedRepoIndex(repositories);
+    const newRefactorSuggestedRepoIndex = getRefactorSuggestedRepoIndex(filteredRepositories);
 
-    const newRefactorSuggestedRepo = repositories[newRefactorSuggestedRepoIndex];
+    const newRefactorSuggestedRepo = filteredRepositories[newRefactorSuggestedRepoIndex];
 
     if (prevRefactorSuggestedRepo && updatedAt && isToday(updatedAt)) {
-      const updatedRefactorSuggestedRepo = repositories.filter(
+      const updatedRefactorSuggestedRepo = filteredRepositories.filter(
         (repo) => repo.name === prevRefactorSuggestedRepo.name
       );
 
