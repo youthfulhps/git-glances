@@ -42,7 +42,7 @@ function ExtensionLogin() {
           className="text-emerald-300"
           rel="noreferrer"
         >
-          token that can only access public repositories.
+          token that can only read public repositories.
         </a>
       </div>
     </section>
