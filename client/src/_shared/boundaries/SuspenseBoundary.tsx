@@ -2,8 +2,8 @@ import { ReactNode, Suspense } from 'react';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '@shared/atoms/common';
+import PulseSection from '@layout/components/PulseSection';
 import ErrorBoundary from './ErrorBoundary';
-import SectionSpinner from '../components/Spinner/SectionSpinner';
 
 type SuspenseBoundaryProps = {
   children: ReactNode;
@@ -16,7 +16,7 @@ function SuspenseBoundary({ children, gridArea = '' }: SuspenseBoundaryProps) {
 
   return (
     <ErrorBoundary reset={reset} gridArea={gridArea} hasToken={!!gitGlancesTokenValue}>
-      <Suspense fallback={<SectionSpinner gridArea={gridArea} />}>{children}</Suspense>
+      <Suspense fallback={<PulseSection gridArea={gridArea} />}>{children}</Suspense>
     </ErrorBoundary>
   );
 }
