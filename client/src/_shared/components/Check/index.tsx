@@ -9,7 +9,7 @@ type CheckProps = {
 function Check({ gridArea = '' }: CheckProps) {
   return (
     <Section gridArea={gridArea} className="flex h-full w-full items-center justify-center">
-      <CheckCircleFillIcon size={48} className="animate-rising fill-emerald-500" />
+      <CheckCircleFillIcon size={40} className="animate-rising fill-emerald-500" />
     </Section>
   );
 }

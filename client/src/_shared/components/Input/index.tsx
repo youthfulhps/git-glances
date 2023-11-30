@@ -10,7 +10,7 @@ function Input({ isArrowShowing = false, onArrowClick, className, ...rest }: Inp
   return (
     <div className="relative flex w-full items-center">
       <input
-        className={`w-full rounded-xl bg-zinc-800 p-3 pr-[32px] font-light text-zinc-400 shadow-lg outline-0 ${className}`}
+        className={`w-full rounded-xl bg-zinc-900 p-3 pr-[32px] font-light text-zinc-400 shadow-lg outline-0 ${className}`}
         {...rest}
       />
       {isArrowShowing && onArrowClick ? (
