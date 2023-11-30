@@ -51,7 +51,7 @@ const StyledGrid = styled.div<StyledGridProps>`
   }
 
   @media only screen and (min-width: 1024px) {
-    height: 460px;
+    height: 520px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     grid-template-areas: ${({ isLoggedIn }) => `'${
