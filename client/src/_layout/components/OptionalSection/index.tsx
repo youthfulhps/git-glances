@@ -21,7 +21,8 @@ type OptionalSectionProps = {
 
 const StyledOptionalSection = styled.section<StyledOptionalSectionProps>`
   ${tw`flex flex-col h-full w-full p-4 rounded-2xl relative overflow-hidden`}
-  ${tw`bg-zinc-800 text-zinc-100`}
+  ${tw`text-zinc-100`}
+  ${tw`border border-solid border-zinc-500`}
 
   grid-area: ${({ gridArea }) => `${gridArea}`};
 

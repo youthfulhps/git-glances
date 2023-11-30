@@ -23,14 +23,12 @@ const StyledFeatureSection = styled.section<FeatureSectionProps>`
   grid-area: ${({ gridArea }) => `${gridArea}`};
   ${tw`duration-500 delay-500`}
   ${tw`text-zinc-100`}
-  ${tw`hover:bg-indigo-500/[0.6]`}
-  ${tw`drop-shadow-md backdrop-brightness-50`}
-
-  ${({ backgroundClass }) => !backgroundClass && tw`bg-zinc-800`}
+  ${tw`shadow-lg`}
+  ${tw`border border-solid border-zinc-500`}
   
-  background-color: ${({ backgroundColor }) => backgroundColor && backgroundColor};
+  // background-color: ${({ backgroundColor }) => backgroundColor && backgroundColor};
 
-  background-image: ${({ backgroundImage }) => backgroundImage && `url(${backgroundImage})`};
+  // background-image: ${({ backgroundImage }) => backgroundImage && `url(${backgroundImage})`};
 
   background-repeat: no-repeat;
   background-position: center;
@@ -49,38 +47,30 @@ const StyledFeatureSection = styled.section<FeatureSectionProps>`
   }
 
   .inner {
-    ${tw`absolute top-[calc(100%_-_72px)] left-0 w-full h-full p-4`}
+    ${tw`absolute top-[28px] left-0 w-full h-[calc(100%_-_28px)] p-4`}
     ${tw`flex flex-col justify-between`}
     ${tw`duration-700`}
     ${tw`text-right`}
-    
-    ${({ summaryType }) => summaryType === 'icon' && tw`top-[calc(100%_-_80px)]`};
 
     h3 {
-      ${tw`text-5xl font-bold text-clip overflow-hidden`}
-      ${tw`min-h-[48px]`}
+      ${tw`text-4xl font-bold text-clip overflow-hidden`}
+      ${tw`min-h-[40px]`}
       ${tw`opacity-80`}
       ${tw`duration-500`}
     }
 
-    .summary-icon {
-      ${tw`flex flex-col items-end`}
-    }
+    // .summary-icon {
+    //   ${tw`flex flex-col items-end`}
+    // }
   }
 
   &:hover {
-    background-image: unset;
     h2 {
       ${tw`-top-10`}
     }
 
     .inner {
-      ${tw`top-0`}
-      ${tw`bg-zinc-700/[0.5]`}
-      
-      h3 {
-        ${tw`mb-1`}
-      }
+      ${tw`top-0 h-full`};
     }
   }
 `;
@@ -101,6 +91,7 @@ function FeatureSection({
   if (isGuideShowing) {
     return <GuideSection descriptions={sectionGuideDescriptions[gridArea]} gridArea={gridArea} />;
   }
+
   return (
     <StyledFeatureSection
       gridArea={gridArea}
@@ -118,7 +109,12 @@ function FeatureSection({
           {summaryType === 'string' ? (
             <h3 className="font-alfa">{summary}</h3>
           ) : (
-            <div className="summary-icon">{summary}</div>
+            <div className="summary-icon relative flex items-center justify-end">
+              <div className="absolute right-[-12px] z-0 opacity-20 blur-xl [&>svg]:h-[68px] [&>svg]:w-[68px]">
+                {summary}
+              </div>
+              <div className="z-10">{summary}</div>
+            </div>
           )}
           <div>{children}</div>
         </div>

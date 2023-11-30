@@ -9,6 +9,7 @@ type PulseProps = {
 const StyledSection = styled.section<PulseProps>`
   ${tw`relative flex flex-col h-full w-full p-4 rounded-2xl overflow-hidden animate-pulse`}
   ${tw`bg-zinc-800 text-zinc-100`}
+  ${tw`border border-solid border-zinc-500`}
   
   grid-area: ${({ gridArea }) => `${gridArea}`};
 
