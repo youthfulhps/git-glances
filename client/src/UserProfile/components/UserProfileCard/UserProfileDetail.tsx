@@ -13,7 +13,7 @@ const StyledUserProfileDetail = styled.div`
   ${tw`text-start`}
 
   img {
-    ${tw`w-12 h-12`}
+    ${tw`w-16 h-16`}
     ${tw`rounded-full`}
     ${tw`mb-2`}
   }
@@ -54,7 +54,14 @@ function UserProfileDetail({ user }: UserProfileDetailProps) {
 
   return (
     <StyledUserProfileDetail>
-      <img src={user.avatar_url} alt="User avatar" />
+      <div className="relative flex items-center justify-start">
+        <img
+          className="absolute left-[-14px] z-0 !h-24 !w-24 opacity-30 blur-xl"
+          src={user.avatar_url}
+          alt="User avatar"
+        />
+        <img className="z-10" src={user.avatar_url} alt="User avatar" />
+      </div>
       <p className="mb-1">{user.name}</p>
       <p className="mb-2 text-xs text-zinc-400">{user.bio}</p>
       <ul>
