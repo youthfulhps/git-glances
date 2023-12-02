@@ -35,7 +35,7 @@ function UserProfileDetail({ user }: UserProfileDetailProps) {
           src={user.avatar_url}
           alt="User avatar"
         />
-        <img className="z-10 mb-2 h-16 w-16 rounded-full" src={user.avatar_url} alt="User avatar" />
+        <img className="z-10 mb-4 h-16 w-16 rounded-full" src={user.avatar_url} alt="User avatar" />
       </div>
       <p className="mb-1">{user.name}</p>
       <p className="mb-2 text-xs text-zinc-400">{user.bio}</p>

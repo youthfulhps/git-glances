@@ -20,7 +20,7 @@ function DailyCard({ dailyRepo, hasTodayContribution, resetDailyRepo }: DailyPro
   );
 
   return (
-    <FeatureSection summary={summaryIcon} summaryType="icon" gridArea="Daily">
+    <FeatureSection summary={summaryIcon} gridArea="Daily">
       <div className="flex items-end">
         <RepositoryDetail repository={dailyRepo} className="w-[calc(100%_-_42px)]" />
         <button
