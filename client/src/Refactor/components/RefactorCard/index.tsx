@@ -10,9 +10,9 @@ type RefactorCardProps = {
 
 function RefactorCard({ refactorSuggestedRepoInfo }: RefactorCardProps) {
   const summaryIcon = refactorSuggestedRepoInfo.hasTodayCommit ? (
-    <CheckCircleFillIcon size={48} className="fill-emerald-500" />
+    <CheckCircleFillIcon size={40} className="fill-emerald-500" />
   ) : (
-    <XCircleFillIcon size={48} className="fill-red-400" />
+    <XCircleFillIcon size={40} className="fill-red-400" />
   );
 
   return (

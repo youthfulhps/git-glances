@@ -7,6 +7,7 @@ import { getRelativeTimeFromNow } from '@shared/utils/date';
 
 type RepositoryDetailProps = {
   repository: Repository;
+  className?: string;
 };
 
 const StyledRepositoryDetail = styled.div`
@@ -22,11 +23,11 @@ const StyledRepositoryDetail = styled.div`
   }
 `;
 
-function RepositoryDetail({ repository }: RepositoryDetailProps) {
+function RepositoryDetail({ repository, className = '' }: RepositoryDetailProps) {
   const latestCommit = repository.defaultBranchRef.target.history.nodes[0];
 
   return (
-    <StyledRepositoryDetail>
+    <StyledRepositoryDetail className={className}>
       <div className="mb-3 flex">
         <RepoIcon />
         <a href={repository.url}>{repository.name}</a>
@@ -52,13 +53,9 @@ function RepositoryDetail({ repository }: RepositoryDetailProps) {
           <div className="mb-1 ml-6 flex items-center text-xs text-zinc-400">
             <p className="truncate">
               with
-              <span className="pl-1 pr-[2px] text-emerald-500">
-                {latestCommit.additions}
-              </span>
+              <span className="pl-1 pr-[2px] text-emerald-500">{latestCommit.additions}</span>
               additions and
-              <span className="pl-1 pr-[2px] text-red-500">
-                {latestCommit.deletions}
-              </span>
+              <span className="pl-1 pr-[2px] text-red-500">{latestCommit.deletions}</span>
               deletions.
             </p>
           </div>

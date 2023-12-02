@@ -15,7 +15,10 @@ function LanguageCard({ mostUsedLanguage }: LanguageCardProps) {
       backgroundColor={getLanguageBackgroundColor(mostUsedLanguage.name)}
       hasOverlay
     >
-      <LanguageDetail mostUsedLanguageLines={mostUsedLanguage.lines} />
+      <LanguageDetail
+        mostUsedLanguageLines={mostUsedLanguage.lines}
+        backgroundColor={getLanguageBackgroundColor(mostUsedLanguage.name)}
+      />
     </FeatureSection>
   );
 }
