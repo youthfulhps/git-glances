@@ -1,12 +1,13 @@
 import React from 'react';
 import { Repository } from '@shared/apis/repo';
-import { RepoIcon, CommitIcon } from '@primer/octicons-react';
+import { RepoIcon, CommitIcon, RepoDeletedIcon } from '@primer/octicons-react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { getRelativeTimeFromNow } from '@shared/utils/date';
 
 type RepositoryDetailProps = {
   repository: Repository;
+  onReset?: () => void;
 };
 
 const StyledRepositoryDetail = styled.div`
@@ -22,7 +23,7 @@ const StyledRepositoryDetail = styled.div`
   }
 `;
 
-function RepositoryDetail({ repository }: RepositoryDetailProps) {
+function RepositoryDetail({ repository, onReset }: RepositoryDetailProps) {
   const latestCommit = repository.defaultBranchRef.target.history.nodes[0];
 
   return (
@@ -30,6 +31,15 @@ function RepositoryDetail({ repository }: RepositoryDetailProps) {
       <div className="mb-3 flex">
         <RepoIcon />
         <a href={repository.url}>{repository.name}</a>
+        {onReset ? (
+          <button
+            onClick={onReset}
+            className="ml-1 cursor-pointer text-[8px] hover:!text-zinc-400 [&:hover>svg]:!fill-zinc-400"
+          >
+            <RepoDeletedIcon className="!mr-1 h-3 w-3 !fill-zinc-200" />
+            Reset
+          </button>
+        ) : null}
       </div>
       <div>
         <div className="mb-1 flex text-xs">
@@ -52,13 +62,9 @@ function RepositoryDetail({ repository }: RepositoryDetailProps) {
           <div className="mb-1 ml-6 flex items-center text-xs text-zinc-400">
             <p className="truncate">
               with
-              <span className="pl-1 pr-[2px] text-emerald-500">
-                {latestCommit.additions}
-              </span>
+              <span className="pl-1 pr-[2px] text-emerald-500">{latestCommit.additions}</span>
               additions and
-              <span className="pl-1 pr-[2px] text-red-500">
-                {latestCommit.deletions}
-              </span>
+              <span className="pl-1 pr-[2px] text-red-500">{latestCommit.deletions}</span>
               deletions.
             </p>
           </div>

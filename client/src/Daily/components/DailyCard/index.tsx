@@ -20,15 +20,8 @@ function DailyCard({ dailyRepo, hasTodayContribution, resetDailyRepo }: DailyPro
   );
 
   return (
-    <FeatureSection summary={summaryIcon} summaryType="icon" gridArea="Daily">
-      <RepositoryDetail repository={dailyRepo} />
-      <button
-        onClick={resetDailyRepo}
-        className="mt-3 flex w-full cursor-pointer items-center justify-end text-[8px] text-zinc-400 hover:text-zinc-200"
-      >
-        <RepoDeletedIcon size={12} className="mr-1" />
-        <span>Reset daily repository</span>
-      </button>
+    <FeatureSection summary={summaryIcon} summaryType="icon" gridArea="Daily" className="relative">
+      <RepositoryDetail repository={dailyRepo} onReset={resetDailyRepo} />
     </FeatureSection>
   );
 }
