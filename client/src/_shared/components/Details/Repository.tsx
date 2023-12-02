@@ -1,41 +1,29 @@
 import React from 'react';
 import { Repository } from '@shared/apis/repo';
 import { RepoIcon, CommitIcon } from '@primer/octicons-react';
-import styled from 'styled-components';
-import tw from 'twin.macro';
 import { getRelativeTimeFromNow } from '@shared/utils/date';
+import classNames from 'classnames';
 
 type RepositoryDetailProps = {
   repository: Repository;
   className?: string;
 };
 
-const StyledRepositoryDetail = styled.div`
-  ${tw`text-start`};
-
-  svg {
-    ${tw`fill-emerald-300`}
-    ${tw`mr-2`}
-  }
-
-  a {
-    ${tw`hover:text-zinc-400`}
-  }
-`;
-
 function RepositoryDetail({ repository, className = '' }: RepositoryDetailProps) {
   const latestCommit = repository.defaultBranchRef.target.history.nodes[0];
 
   return (
-    <StyledRepositoryDetail className={className}>
+    <div className={classNames('text-start', className)}>
       <div className="mb-3 flex">
-        <RepoIcon />
-        <a href={repository.url}>{repository.name}</a>
+        <RepoIcon className="mr-2 fill-emerald-300" />
+        <a className="hover:text-zinc-400" href={repository.url}>
+          {repository.name}
+        </a>
       </div>
       <div>
         <div className="mb-1 flex text-xs">
-          <CommitIcon />
-          <a href={latestCommit.url} className="block w-full truncate">
+          <CommitIcon className="mr-2 fill-emerald-300" />
+          <a href={latestCommit.url} className="block w-full truncate hover:text-zinc-400">
             {latestCommit.message}
           </a>
         </div>
@@ -61,7 +49,7 @@ function RepositoryDetail({ repository, className = '' }: RepositoryDetailProps)
           </div>
         </div>
       </div>
-    </StyledRepositoryDetail>
+    </div>
   );
 }
 
