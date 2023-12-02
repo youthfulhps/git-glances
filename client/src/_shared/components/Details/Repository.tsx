@@ -1,13 +1,13 @@
 import React from 'react';
 import { Repository } from '@shared/apis/repo';
-import { RepoIcon, CommitIcon, RepoDeletedIcon } from '@primer/octicons-react';
+import { RepoIcon, CommitIcon } from '@primer/octicons-react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { getRelativeTimeFromNow } from '@shared/utils/date';
 
 type RepositoryDetailProps = {
   repository: Repository;
-  onReset?: () => void;
+  className?: string;
 };
 
 const StyledRepositoryDetail = styled.div`
@@ -23,23 +23,14 @@ const StyledRepositoryDetail = styled.div`
   }
 `;
 
-function RepositoryDetail({ repository, onReset }: RepositoryDetailProps) {
+function RepositoryDetail({ repository, className = '' }: RepositoryDetailProps) {
   const latestCommit = repository.defaultBranchRef.target.history.nodes[0];
 
   return (
-    <StyledRepositoryDetail>
+    <StyledRepositoryDetail className={className}>
       <div className="mb-3 flex">
         <RepoIcon />
         <a href={repository.url}>{repository.name}</a>
-        {onReset ? (
-          <button
-            onClick={onReset}
-            className="ml-1 cursor-pointer text-[8px] hover:!text-zinc-400 [&:hover>svg]:!fill-zinc-400"
-          >
-            <RepoDeletedIcon className="!mr-1 h-3 w-3 !fill-zinc-200" />
-            Reset
-          </button>
-        ) : null}
       </div>
       <div>
         <div className="mb-1 flex text-xs">
