@@ -1,40 +1,29 @@
 import React from 'react';
 import { Repository } from '@shared/apis/repo';
 import { RepoIcon, CommitIcon } from '@primer/octicons-react';
-import styled from 'styled-components';
-import tw from 'twin.macro';
 import { getRelativeTimeFromNow } from '@shared/utils/date';
+import classNames from 'classnames';
 
 type RepositoryDetailProps = {
   repository: Repository;
+  className?: string;
 };
 
-const StyledRepositoryDetail = styled.div`
-  ${tw`text-start`};
-
-  svg {
-    ${tw`fill-emerald-300`}
-    ${tw`mr-2`}
-  }
-
-  a {
-    ${tw`hover:text-zinc-400`}
-  }
-`;
-
-function RepositoryDetail({ repository }: RepositoryDetailProps) {
+function RepositoryDetail({ repository, className = '' }: RepositoryDetailProps) {
   const latestCommit = repository.defaultBranchRef.target.history.nodes[0];
 
   return (
-    <StyledRepositoryDetail>
+    <div className={classNames('text-start', className)}>
       <div className="mb-3 flex">
-        <RepoIcon />
-        <a href={repository.url}>{repository.name}</a>
+        <RepoIcon className="mr-2 fill-emerald-300" />
+        <a className="hover:text-zinc-400" href={repository.url}>
+          {repository.name}
+        </a>
       </div>
       <div>
         <div className="mb-1 flex text-xs">
-          <CommitIcon />
-          <a href={latestCommit.url} className="block w-full truncate">
+          <CommitIcon className="mr-2 fill-emerald-300" />
+          <a href={latestCommit.url} className="block w-full truncate hover:text-zinc-400">
             {latestCommit.message}
           </a>
         </div>
@@ -52,19 +41,15 @@ function RepositoryDetail({ repository }: RepositoryDetailProps) {
           <div className="mb-1 ml-6 flex items-center text-xs text-zinc-400">
             <p className="truncate">
               with
-              <span className="pl-1 pr-[2px] text-emerald-500">
-                {latestCommit.additions}
-              </span>
+              <span className="pl-1 pr-[2px] text-emerald-500">{latestCommit.additions}</span>
               additions and
-              <span className="pl-1 pr-[2px] text-red-500">
-                {latestCommit.deletions}
-              </span>
+              <span className="pl-1 pr-[2px] text-red-500">{latestCommit.deletions}</span>
               deletions.
             </p>
           </div>
         </div>
       </div>
-    </StyledRepositoryDetail>
+    </div>
   );
 }
 

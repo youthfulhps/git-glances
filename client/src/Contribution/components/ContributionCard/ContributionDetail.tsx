@@ -1,6 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-import tw from 'twin.macro';
 import {
   GitPullRequestIcon,
   IssueOpenedIcon,
@@ -13,24 +11,6 @@ import { ContributionsCollection } from '@shared/apis/contribution';
 type ContributionDetailProps = {
   contributionsCollection: ContributionsCollection;
 };
-
-const StyledContributionDetail = styled.ul`
-  ${tw`flex flex-col`}
-  ${tw`text-sm`}
-  
-  & > li:not(:last-child) {
-    ${tw`border-dashed border-b-[1px] border-zinc-400`}
-  }
-
-  li {
-    ${tw`flex items-center justify-between w-full`}
-    ${tw`p-1`}
-  }
-
-  svg {
-    ${tw`fill-emerald-300`}
-  }
-`;
 
 function ContributionDetail({ contributionsCollection }: ContributionDetailProps) {
   const contributionDetailListContents = [
@@ -62,9 +42,12 @@ function ContributionDetail({ contributionsCollection }: ContributionDetailProps
   ];
 
   return (
-    <StyledContributionDetail>
+    <ul className="flex flex-col text-sm [&>li:not(:last-child)]:border-b-[1px] [&>li:not(:last-child)]:border-dashed [&>li:not(:last-child)]:border-zinc-400">
       {contributionDetailListContents.map((contributionDetailContent) => (
-        <li key={contributionDetailContent.unit}>
+        <li
+          className="flex w-full items-center justify-between p-1 [&>svg]:fill-emerald-300"
+          key={contributionDetailContent.unit}
+        >
           {contributionDetailContent.icon}
           <div>
             <span>{contributionDetailContent.count}</span>
@@ -72,7 +55,7 @@ function ContributionDetail({ contributionsCollection }: ContributionDetailProps
           </div>
         </li>
       ))}
-    </StyledContributionDetail>
+    </ul>
   );
 }
 

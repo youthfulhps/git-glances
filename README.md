@@ -13,8 +13,6 @@ Dashboard app extension where you can see today's Github log at a glance.
 
 ![GitGlances main view](client/public/main.png)
 
-![GitGlances hover view](client/public/hover.png)
-
 
 
 

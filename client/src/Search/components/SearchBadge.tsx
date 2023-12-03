@@ -1,7 +1,5 @@
 import React, { ChangeEventHandler, KeyboardEventHandler } from 'react';
 import Input from '@shared/components/Input';
-import tw from 'twin.macro';
-import styled from 'styled-components';
 
 type SearchBadgeProps = {
   className?: string;
@@ -12,12 +10,6 @@ type SearchBadgeProps = {
   target: 'github' | 'google';
 };
 
-const StyledSearchBadge = styled.div<{ hasSearchInput: boolean }>`
-  img {
-    ${({ hasSearchInput }) => hasSearchInput && tw`mr-2`};
-  }
-`;
-
 function SearchBadge({
   className = '',
   target,
@@ -27,11 +19,14 @@ function SearchBadge({
   onSubmitSearch,
 }: SearchBadgeProps) {
   return (
-    <StyledSearchBadge
-      hasSearchInput={!!searchInput}
-      className={`flex w-[48px] items-center overflow-hidden rounded-2xl bg-zinc-800 p-2 opacity-80 duration-500 scrollbar-track-transparent hover:w-[236px] hover:opacity-100 ${className}`}
+    <div
+      className={`flex w-full items-center overflow-hidden rounded-2xl border border-solid border-zinc-500 p-2 opacity-80 hover:opacity-100 ${className}`}
     >
-      <img src={`icons/${target}.svg`} alt={`${target} logo for searching`} className="h-8 w-8" />
+      <img
+        src={`icons/${target}.svg`}
+        alt={`${target} logo for searching`}
+        className="mr-2 h-8 w-8"
+      />
       <Input
         className="ml-2"
         value={searchInput}
@@ -41,7 +36,7 @@ function SearchBadge({
         onArrowClick={() => onSubmitSearch(searchInput)}
         placeholder={`Search on ${target}...`}
       />
-    </StyledSearchBadge>
+    </div>
   );
 }
 

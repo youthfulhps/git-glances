@@ -6,7 +6,7 @@ import GoogleApp from '../../../GoogleApp/components';
 
 function Header() {
   return (
-    <header className="mb-2 flex h-[60px] w-full items-center justify-between rounded-2xl text-zinc-100">
+    <header className="mb-4 flex h-full w-full flex-col-reverse items-end rounded-2xl text-zinc-100 sm:h-full sm:flex-col-reverse sm:items-end lg:h-[60px] lg:flex-row lg:justify-between">
       <Search />
       <div className="item-center flex">
         <GoogleApp />

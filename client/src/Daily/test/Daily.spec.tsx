@@ -27,6 +27,8 @@ describe('Daily 섹션은 매일 확인하고 싶은 저장소 정보를 랜더�
         hasTodayContribution: false,
       },
       resetTmpDailyRepoState: jest.fn(),
+      isPrivateRepo: false,
+      setIsPrivateRepo: jest.fn(),
     }));
 
     render(
@@ -34,9 +36,7 @@ describe('Daily 섹션은 매일 확인하고 싶은 저장소 정보를 랜더�
         <Daily />
       </RecoilRoot>
     );
-    const repoSearchInput = await screen.findByPlaceholderText(
-      'Search repository...'
-    );
+    const repoSearchInput = await screen.findByPlaceholderText('Search repository...');
 
     expect(repoSearchInput).toBeInTheDocument();
     expect((repoSearchInput as HTMLInputElement).value).toBe('gitin');
@@ -54,6 +54,8 @@ describe('Daily 섹션은 매일 확인하고 싶은 저장소 정보를 랜더�
         hasTodayContribution: false,
       },
       resetTmpDailyRepoState: jest.fn(),
+      isPrivateRepo: false,
+      setIsPrivateRepo: jest.fn(),
     }));
 
     render(
