@@ -9,12 +9,7 @@ type LanguageCardProps = {
 
 function LanguageCard({ mostUsedLanguage }: LanguageCardProps) {
   return (
-    <FeatureSection
-      summary={mostUsedLanguage.name}
-      gridArea="Language"
-      backgroundColor={getLanguageBackgroundColor(mostUsedLanguage.name)}
-      hasOverlay
-    >
+    <FeatureSection summary={mostUsedLanguage.name} gridArea="Language">
       <LanguageDetail
         mostUsedLanguageLines={mostUsedLanguage.lines}
         backgroundColor={getLanguageBackgroundColor(mostUsedLanguage.name)}

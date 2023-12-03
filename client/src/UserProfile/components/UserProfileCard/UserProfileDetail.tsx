@@ -1,36 +1,11 @@
 import React from 'react';
 import { User } from '@shared/apis/user';
-import styled from 'styled-components';
-import tw from 'twin.macro';
 import { LocationIcon, OrganizationIcon, HomeIcon, LinkIcon } from '@primer/octicons-react';
 import { getURLWithProtocol, isValidURL } from '@shared/utils/url';
 
 type UserProfileDetailProps = {
   user: User;
 };
-
-const StyledUserProfileDetail = styled.div`
-  ${tw`text-start`}
-
-  img {
-    ${tw`w-16 h-16`}
-    ${tw`rounded-full`}
-    ${tw`mb-2`}
-  }
-
-  ul {
-    li {
-      ${tw`flex items-center justify-start w-full`}
-      ${tw`p-1`}
-      ${tw`text-xs`}
-    }
-
-    svg {
-      ${tw`fill-emerald-300`}
-      ${tw`mr-2`}
-    }
-  }
-`;
 
 function UserProfileDetail({ user }: UserProfileDetailProps) {
   const userProfileListContents = [
@@ -53,21 +28,24 @@ function UserProfileDetail({ user }: UserProfileDetailProps) {
   ];
 
   return (
-    <StyledUserProfileDetail>
+    <div className="text-start">
       <div className="relative flex items-center justify-start">
         <img
-          className="absolute left-[-14px] z-0 !h-24 !w-24 opacity-30 blur-xl"
+          className="absolute left-[-14px] z-0 h-24 w-24 opacity-30 blur-xl"
           src={user.avatar_url}
           alt="User avatar"
         />
-        <img className="z-10" src={user.avatar_url} alt="User avatar" />
+        <img className="z-10 mb-4 h-16 w-16 rounded-full" src={user.avatar_url} alt="User avatar" />
       </div>
       <p className="mb-1">{user.name}</p>
       <p className="mb-2 text-xs text-zinc-400">{user.bio}</p>
       <ul>
         {userProfileListContents.map((userProfileContent) =>
           userProfileContent.content ? (
-            <li key={userProfileContent.content}>
+            <li
+              className="flex w-full items-center justify-start p-1 text-xs [&>svg]:mr-2 [&>svg]:fill-emerald-300"
+              key={userProfileContent.content}
+            >
               {userProfileContent.icon}
               <span>
                 {isValidURL(userProfileContent.content) ? (
@@ -87,7 +65,7 @@ function UserProfileDetail({ user }: UserProfileDetailProps) {
           ) : null
         )}
       </ul>
-    </StyledUserProfileDetail>
+    </div>
   );
 }
 

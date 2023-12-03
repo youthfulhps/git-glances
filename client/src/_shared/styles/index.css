@@ -123,7 +123,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
@@ -133,4 +133,107 @@ table {
 
 body {
   background-color: #121212;
+  @apply font-fira;
+}
+
+.grid-template__login {
+  @apply grid w-full h-full gap-4;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(16, 111px);
+
+  grid-template-areas:
+    "Profile"
+    "Profile"
+    "Profile"
+    "Language"
+    "Contribution"
+    "Contribution"
+    "Notification"
+    "Notification"
+    "Refactor"
+    "Refactor"
+    "Trends"
+    "Trends"
+    "Daily"
+    "Daily"
+    "Enhance"
+    "Enhance";
+}
+
+.grid-template__logout {
+  @apply grid w-full h-full gap-4;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(16, 111px);
+
+  grid-template-areas:
+    "Login"
+    "Profile"
+    "Profile"
+    "Language"
+    "Contribution"
+    "Contribution"
+    "Notification"
+    "Notification"
+    "Refactor"
+    "Refactor"
+    "Trends"
+    "Trends"
+    "Daily"
+    "Daily"
+    "Enhance"
+    "Enhance";
+}
+
+@media only screen and (min-width: 768px) {
+  .grid-template__login {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, 111px);
+    grid-template-areas:
+      'Profile Contribution'
+      'Profile Contribution'
+      'Profile Notification'
+      'Language Notification'
+      'Refactor Trends'
+      'Refactor Trends'
+      'Daily Enhance'
+      'Daily Enhance';
+  }
+
+  .grid-template__logout {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, 111px);
+    grid-template-areas:
+      'Login Contribution'
+      'Profile Contribution'
+      'Profile Notification'
+      'Language Notification'
+      'Refactor Trends'
+      'Refactor Trends'
+      'Daily Enhance'
+      'Daily Enhance';
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .grid-template__login {
+    height: 520px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "Profile Contribution Notification Trends"
+      "Profile Contribution Notification Trends"
+      "Profile Refactor Daily Enhance"
+      "Language Refactor Daily Enhance";
+  }
+
+  .grid-template__logout {
+    height: 520px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "Login Contribution Notification Trends"
+      "Profile Contribution Notification Trends"
+      "Profile Refactor Daily Enhance"
+      "Language Refactor Daily Enhance";
+  }
 }

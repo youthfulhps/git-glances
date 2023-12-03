@@ -1,57 +1,19 @@
 import { ReactNode } from 'react';
-import styled from 'styled-components';
-import tw from 'twin.macro';
 import { CheckCircleFillIcon, XCircleFillIcon } from '@primer/octicons-react';
 import { useRecoilValue } from 'recoil';
 import GuideSection from '@layout/components/GuideSection';
+import classNames from 'classnames';
 import { isGuideShowingAtom } from '../../../Guide/atoms';
 import { sectionGuideDescriptions } from '../../../Guide/constants';
-
-type StyledOptionalSectionProps = {
-  gridArea?: string;
-  hasOverlay: boolean;
-};
 
 type OptionalSectionProps = {
   children: ReactNode;
   className?: string;
   onConfirm?: () => void;
   onCancel?: () => void;
-} & StyledOptionalSectionProps;
-
-const StyledOptionalSection = styled.section<StyledOptionalSectionProps>`
-  ${tw`flex flex-col h-full w-full p-4 rounded-2xl relative overflow-hidden`}
-  ${tw`text-zinc-100`}
-  ${tw`border border-solid border-zinc-500`}
-
-  grid-area: ${({ gridArea }) => `${gridArea}`};
-
-  h2 {
-    ${tw`text-xl font-thin`}
-    ${tw`drop-shadow-md`}
-  }
-
-  .inner {
-    ${tw`flex flex-col justify-end w-full h-full`}
-  }
-
-  .overlay {
-    ${tw`hidden`}
-    ${({ hasOverlay }) =>
-      hasOverlay &&
-      tw`absolute bottom-0 left-0 w-full h-full rounded-2xl bg-gradient-to-t from-zinc-700`};
-    ${({ hasOverlay }) =>
-      hasOverlay && tw`block flex flex-col justify-end items-end w-full h-full p-4`};
-
-    svg {
-      ${tw`cursor-pointer`}
-
-      &:hover {
-        ${tw`opacity-80`}
-      }
-    }
-  }
-`;
+  gridArea?: string;
+  hasOverlay: boolean;
+};
 
 function OptionalSection({
   children,
@@ -73,20 +35,35 @@ function OptionalSection({
   }
 
   return (
-    <StyledOptionalSection className={className} gridArea={gridArea} hasOverlay={hasOverlay}>
-      <h2>{`# ${gridArea}`}</h2>
-      <div className="inner">{children}</div>
-      <div className="overlay">
+    <section
+      className={classNames(
+        'relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-solid border-zinc-500 p-4 text-zinc-100',
+        className
+      )}
+      style={{ gridArea }}
+    >
+      <h2 className="text-xl font-thin drop-shadow-md">{`# ${gridArea}`}</h2>
+      <div className="flex h-full w-full flex-col justify-end">{children}</div>
+      <div
+        className={classNames(
+          hasOverlay
+            ? 'absolute bottom-0 left-0 block flex h-full h-full w-full w-full flex-col items-end justify-end rounded-2xl bg-gradient-to-t from-zinc-700 p-4'
+            : 'hidden'
+        )}
+      >
         <div className="flex animate-rising items-center">
           <button onClick={onConfirm}>
-            <CheckCircleFillIcon size={24} className="mr-1 fill-emerald-500" />
+            <CheckCircleFillIcon
+              size={24}
+              className="mr-1 cursor-pointer fill-emerald-500 hover:opacity-80"
+            />
           </button>
           <button onClick={onCancel}>
-            <XCircleFillIcon size={24} className="fill-red-400" />
+            <XCircleFillIcon size={24} className="cursor-pointer fill-red-400 hover:opacity-80" />
           </button>
         </div>
       </div>
-    </StyledOptionalSection>
+    </section>
   );
 }
 

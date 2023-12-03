@@ -8,8 +8,8 @@ function Search() {
 
   return (
     <section className="mt-4 flex w-full items-center md:w-full lg:w-[540px]">
-      <SearchBadge {...githubSearchProps} className="mr-4 w-full" />
-      <SearchBadge {...googleSearchProps} className="w-full lg:mr-4" />
+      <SearchBadge {...githubSearchProps} className="mr-4" />
+      <SearchBadge {...googleSearchProps} className="lg:mr-4" />
     </section>
   );
 }

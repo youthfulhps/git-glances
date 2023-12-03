@@ -16,7 +16,7 @@ function RefactorCard({ refactorSuggestedRepoInfo }: RefactorCardProps) {
   );
 
   return (
-    <FeatureSection summary={summaryIcon} summaryType="icon" gridArea="Refactor">
+    <FeatureSection summary={summaryIcon} gridArea="Refactor">
       {refactorSuggestedRepoInfo.prevRefactorSuggestedRepo ? (
         <RefactorDetail
           refactorSuggestedRepo={refactorSuggestedRepoInfo.prevRefactorSuggestedRepo}
