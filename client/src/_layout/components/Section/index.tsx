@@ -1,14 +1,11 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames';
 
-type StyledSectionProps = {
-  gridArea?: string;
-};
-
 type SectionProps = {
   children: ReactNode;
   className?: string;
-} & StyledSectionProps;
+  gridArea?: string;
+};
 
 function Section({ children, className, gridArea }: SectionProps) {
   return (
