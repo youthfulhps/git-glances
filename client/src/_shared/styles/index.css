@@ -133,4 +133,5 @@ table {
 
 body {
   background-color: #121212;
+  @apply font-fira;
 }
