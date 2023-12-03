@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { ContributionsCollection } from '@shared/apis/contribution';
+import { RecoilRoot } from 'recoil';
 import Contribution from '../components';
 import useContributionsCollectionQuery from '../queries/useContributionsCollectionQuery';
 import { mockedContributionCollection } from './mocks';
@@ -19,7 +20,11 @@ describe('Contribution 컴포넌트는 유저의 오늘 기여도 정보를 랜�
   });
 
   it('유저의 총 기여도는 섹션 요약 정보에서 제공한다.', async () => {
-    render(<Contribution />);
+    render(
+      <RecoilRoot>
+        <Contribution />
+      </RecoilRoot>
+    );
     const totalContributions = await screen.findByText('3');
     expect(totalContributions).toBeInTheDocument();
   });
