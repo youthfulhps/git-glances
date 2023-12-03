@@ -5,7 +5,7 @@ export const mockedNotificationList: Notification[] = [
     id: '5436876482',
     unread: false,
     reason: 'subscribed',
-    updated_at: '2023-01-27T00:41:12Z',
+    updated_at: '2023-10-27T00:41:12Z',
     last_read_at: '2023-01-28T10:18:44Z',
     subject: {
       title: 'Bump ua-parser-js from 0.7.21 to 0.7.33 in /client',
