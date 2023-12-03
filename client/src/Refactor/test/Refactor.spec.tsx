@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { RecoilRoot } from 'recoil';
 import { mockedDestructuredRepoList } from './mocks';
 import useRefactorSuggestedRepoQuery from '../queries/useRefactorSuggestedRepoQuery';
 import Repository from '../components';
@@ -23,7 +24,11 @@ describe('Refactor 섹션은 리팩토링을 제안하는 저장소 정보를 �
   });
 
   it('리팩토링을 제안하는 저장소의 이름과 링크를 제공한다.', async () => {
-    render(<Repository />);
+    render(
+      <RecoilRoot>
+        <Repository />
+      </RecoilRoot>
+    );
     const refactorSuggestedRepoName = await screen.findByText('gitin');
 
     expect(refactorSuggestedRepoName).toBeInTheDocument();
@@ -34,7 +39,11 @@ describe('Refactor 섹션은 리팩토링을 제안하는 저장소 정보를 �
   });
 
   it('유지보수를 제안하는 저장소의 최신 커밋 내역과 링크를 제공한다.', async () => {
-    render(<Repository />);
+    render(
+      <RecoilRoot>
+        <Repository />
+      </RecoilRoot>
+    );
     const refactorSuggestedRepoLatestCommit = await screen.findByText('Update README');
 
     expect(refactorSuggestedRepoLatestCommit).toBeInTheDocument();

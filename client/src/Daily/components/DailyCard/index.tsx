@@ -2,11 +2,7 @@ import React from 'react';
 import { Repository } from '@shared/apis/repo';
 import FeatureSection from '@layout/components/FeatureSection';
 import RepositoryDetail from '@shared/components/Details/Repository';
-import {
-  CheckCircleFillIcon,
-  XCircleFillIcon,
-  RepoDeletedIcon,
-} from '@primer/octicons-react';
+import { CheckCircleFillIcon, RepoDeletedIcon, XCircleFillIcon } from '@primer/octicons-react';
 
 type DailyProps = {
   dailyRepo: Repository | null;
@@ -14,29 +10,27 @@ type DailyProps = {
   resetDailyRepo: () => void;
 };
 
-function DailyCard({
-  dailyRepo,
-  hasTodayContribution,
-  resetDailyRepo,
-}: DailyProps) {
+function DailyCard({ dailyRepo, hasTodayContribution, resetDailyRepo }: DailyProps) {
   if (!dailyRepo) return null;
 
   const summaryIcon = hasTodayContribution ? (
-    <CheckCircleFillIcon size={48} className="fill-emerald-500" />
+    <CheckCircleFillIcon size={40} className="fill-emerald-500" />
   ) : (
-    <XCircleFillIcon size={48} className="fill-red-400" />
+    <XCircleFillIcon size={40} className="fill-red-400" />
   );
 
   return (
-    <FeatureSection summary={summaryIcon} summaryType="icon" gridArea="Daily">
-      <RepositoryDetail repository={dailyRepo} />
-      <button
-        onClick={resetDailyRepo}
-        className="mt-3 flex w-full cursor-pointer items-center justify-end text-[8px] text-zinc-400 hover:text-zinc-200"
-      >
-        <RepoDeletedIcon size={12} className="mr-1" />
-        <span>Reset daily repository</span>
-      </button>
+    <FeatureSection summary={summaryIcon} gridArea="Daily">
+      <div className="flex items-end">
+        <RepositoryDetail repository={dailyRepo} className="w-[calc(100%_-_42px)]" />
+        <button
+          className="flex cursor-pointer items-center text-[8px] hover:!text-zinc-400 [&:hover>svg]:!fill-zinc-400"
+          onClick={resetDailyRepo}
+        >
+          <RepoDeletedIcon className="!mr-1 h-3 w-3 !fill-zinc-200" />
+          <span>Reset</span>
+        </button>
+      </div>
     </FeatureSection>
   );
 }

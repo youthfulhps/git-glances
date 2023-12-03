@@ -7,9 +7,9 @@ function Search() {
   const googleSearchProps = useSearch('google');
 
   return (
-    <section className="flex items-center">
-      <SearchBadge {...githubSearchProps} className="mr-2" />
-      <SearchBadge {...googleSearchProps} />
+    <section className="mt-4 flex w-full items-center md:w-full lg:w-[540px]">
+      <SearchBadge {...githubSearchProps} className="mr-4" />
+      <SearchBadge {...googleSearchProps} className="lg:mr-4" />
     </section>
   );
 }

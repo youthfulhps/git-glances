@@ -9,12 +9,7 @@ type UserProfileCardProps = {
 
 function UserProfileCard({ user }: UserProfileCardProps) {
   return (
-    <FeatureSection
-      gridArea="Profile"
-      summary={user.login}
-      backgroundImage={user.avatar_url}
-      hasOverlay
-    >
+    <FeatureSection gridArea="Profile" summary={user.login}>
       <UserProfileDetail user={user} />
     </FeatureSection>
   );
