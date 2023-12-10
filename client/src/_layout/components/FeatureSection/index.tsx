@@ -45,7 +45,7 @@ function FeatureSection({
             </h3>
           ) : (
             <div className="summary-icon relative flex items-center justify-end">
-              <div className="absolute right-[-12px] z-0 opacity-20 blur-xl [&>svg]:h-[68px] [&>svg]:w-[68px]">
+              <div className="absolute right-[-12px] z-0 opacity-10 blur-lg [&>svg]:h-[68px] [&>svg]:w-[68px]">
                 {summary}
               </div>
               <div className="z-10">{summary}</div>
