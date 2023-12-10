@@ -1,6 +1,6 @@
 import React from 'react';
 import { TrendsRepository } from '@shared/apis/repo';
-import { StarIcon, RepoForkedIcon } from '@primer/octicons-react';
+import { StarIcon, RepoForkedIcon, RepoIcon } from '@primer/octicons-react';
 
 type TrendsRepoCardProps = {
   trendsRepo: TrendsRepository;
@@ -12,10 +12,13 @@ function TrendsRepoCard({ trendsRepo }: TrendsRepoCardProps) {
       <a
         href={trendsRepo.url}
         target="_blank"
-        className="mb-1 flex w-full flex-col py-2 text-start text-sm hover:text-zinc-400"
+        className="mb-1 flex w-full flex-col py-2 text-start text-sm hover:opacity-80"
         rel="noreferrer"
       >
-        <p className="truncate">{trendsRepo.name}</p>
+        <div className="flex items-center">
+          <RepoIcon className="mr-1 fill-zinc-100" size={12} />
+          <p className="truncate">{trendsRepo.name}</p>
+        </div>
         <p className="truncate text-xs text-zinc-400">{trendsRepo.description}</p>
 
         <div className="flex items-center text-xs text-zinc-400">

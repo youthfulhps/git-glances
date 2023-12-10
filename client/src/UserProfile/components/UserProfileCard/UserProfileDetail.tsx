@@ -31,7 +31,7 @@ function UserProfileDetail({ user }: UserProfileDetailProps) {
     <div className="text-start">
       <div className="relative flex items-center justify-start">
         <img
-          className="absolute left-[-14px] z-0 h-24 w-24 opacity-30 blur-xl"
+          className="absolute left-[-14px] z-0 h-24 w-24 opacity-10 blur-lg"
           src={user.avatar_url}
           alt="User avatar"
         />
