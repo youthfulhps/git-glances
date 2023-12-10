@@ -1,4 +1,5 @@
 import React from 'react';
+import { DotFillIcon } from '@primer/octicons-react';
 
 type LanguageDetailProps = {
   mostUsedLanguageLines: number;
@@ -8,13 +9,10 @@ type LanguageDetailProps = {
 function LanguageDetail({ mostUsedLanguageLines, backgroundColor }: LanguageDetailProps) {
   return (
     <div className="text-xs">
-      <span>{mostUsedLanguageLines}</span>
-      <span className="font-thin"> lines</span>
-      <div className="relative z-10 h-[2px] w-full rounded-2xl" style={{ backgroundColor }}>
-        <div
-          className="absolute top-[-6px] left-[-6px] z-0 h-3 w-[calc(100%_+_12px)] rounded-2xl opacity-30 blur-lg"
-          style={{ backgroundColor }}
-        />
+      <div className="flex w-full items-center justify-end">
+        <DotFillIcon fill={backgroundColor} className="mr-[1px]" />
+        <span className="mr-[1px]">{mostUsedLanguageLines}</span>
+        <span className="font-thin">lines</span>
       </div>
     </div>
   );
