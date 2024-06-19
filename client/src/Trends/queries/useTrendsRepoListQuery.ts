@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getTrendsRepoList, TrendsRepository } from '@shared/apis/repo';
 import { useRecoilValue } from 'recoil';
 import { getMonthRange } from '@shared/utils/date';

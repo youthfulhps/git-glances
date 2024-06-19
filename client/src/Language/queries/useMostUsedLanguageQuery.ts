@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getLanguageList } from '@shared/apis/language';
 import { useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
