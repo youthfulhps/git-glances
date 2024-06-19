@@ -1,10 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getNotificationList, Notification } from '@shared/apis/notification';
 import { getDateTimeAfterDays } from '@shared/utils/date';
 import { useMemo } from 'react';
+import { AxiosError } from 'axios';
 
 const useNotificationListQuery = () => {
-  const { data: notificationList } = useQuery({
+  const { data: notificationList } = useSuspenseQuery<Notification[], AxiosError>({
     queryKey: ['notificationList'],
     refetchOnWindowFocus: true,
     queryFn: async () => {
@@ -22,7 +23,7 @@ const useNotificationListQuery = () => {
   }, [notificationList]);
 
   return {
-    notificationList: notificationList as Notification[],
+    notificationList,
     notificationUnreadCount,
     isNotificationEmpty,
   };
