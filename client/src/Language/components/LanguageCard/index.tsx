@@ -2,9 +2,10 @@ import React from 'react';
 import FeatureSection from '@layout/components/FeatureSection';
 import { getLanguageBackgroundColor } from '../../utils/languageStyleHelper';
 import LanguageDetail from './LanguageDetail';
+import { MostUsedLanguage } from '../../queries/useMostUsedLanguageQuery';
 
 type LanguageCardProps = {
-  mostUsedLanguage: { name: string; lines: number };
+  mostUsedLanguage: MostUsedLanguage;
 };
 
 function LanguageCard({ mostUsedLanguage }: LanguageCardProps) {
