@@ -4,7 +4,8 @@ import useInput from '@shared/hooks/useInput';
 import useDebounce from '@shared/hooks/useDebounce';
 import useRepoRecoilState from '@shared/hooks/useRepoRecoilState';
 import { AtomRepoState } from '@shared/atoms/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { AxiosError } from 'axios';
 import { getDestructuredRepo } from '../utils/dailyHelper';
 import { dailyRepoAtom } from '../atoms';
 
@@ -19,9 +20,8 @@ const useDailyRepoQuery = () => {
   const [tmpDailyRepoState, setTmpDailyRepoState] = useState<AtomRepoState | null>(null);
   const [isPrivateRepo, setIsPrivateRepo] = useState<boolean>(false);
 
-  useQuery<Repository>({
+  const { data: dailyRepo } = useQuery<Repository, AxiosError, Repository>({
     queryKey: ['repo', debouncedSearchValue],
-    suspense: false,
     enabled: !!debouncedSearchValue,
     refetchOnWindowFocus: true,
     queryFn: async () => {
@@ -35,13 +35,18 @@ const useDailyRepoQuery = () => {
 
       return repo;
     },
-    onSuccess: (data) => {
-      if (prevRepoState.prevRepo && data) {
-        updateAtomRepoState(data);
-      }
-      setTmpDailyRepoState(generateUpdatedRepoState(data));
-    },
   });
+
+  useEffect(() => {
+    if (prevRepoState.prevRepo && dailyRepo) {
+      updateAtomRepoState(dailyRepo);
+    }
+
+    if (dailyRepo) {
+      setTmpDailyRepoState(generateUpdatedRepoState(dailyRepo));
+    }
+    // eslint-disable-next-line
+  }, [dailyRepo]);
 
   const resetTmpDailyRepoState = () => {
     setValue('');
