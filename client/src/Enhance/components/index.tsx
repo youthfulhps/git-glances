@@ -12,7 +12,7 @@ function Enhance() {
     mutatePostIssue,
     reset,
     isIdle,
-    isLoading,
+    isPending,
     isError,
     isSuccess,
     issueTitle,
@@ -42,7 +42,7 @@ function Enhance() {
     }
   }, [reset, isSuccess, resetIssueTitle, resetIssueBody]);
 
-  if (isLoading) return <SectionSpinner gridArea="Enhance" />;
+  if (isPending) return <SectionSpinner gridArea="Enhance" />;
   if (isSuccess) return <Check gridArea="Enhance" />;
   if (isError)
     return (

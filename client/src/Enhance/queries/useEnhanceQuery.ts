@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { postRepoIssue } from '@shared/apis/repo';
 import useInput from '@shared/hooks/useInput';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 
 const useEnhanceQuery = () => {
   const [isConfirmShowing, setIsConfirmShowing] = useState(false);
@@ -20,9 +21,11 @@ const useEnhanceQuery = () => {
     onChange: onIssueBodyChange,
   } = useInput('');
 
-  const { mutate, isIdle, isLoading, isSuccess, isError, reset } = useMutation(() =>
-    postRepoIssue({ issueTitle, issueBody })
-  );
+  const { mutate, isIdle, isPending, isSuccess, isError, reset } = useMutation<any, AxiosError>({
+    mutationFn: async () => {
+      await postRepoIssue({ issueTitle, issueBody });
+    },
+  });
 
   const mutatePostIssue = () => {
     setHasConfirmOverlay(false);
@@ -33,7 +36,7 @@ const useEnhanceQuery = () => {
     mutatePostIssue,
     reset,
     isIdle,
-    isLoading,
+    isPending,
     isSuccess,
     isError,
     issueTitle,
