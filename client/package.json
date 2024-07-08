@@ -16,7 +16,7 @@
     "@carbon/icons-react": "^11.10.0",
     "@primer/octicons-react": "^17.10.0",
     "@savvywombat/tailwindcss-grid-areas": "^2.1.0",
-    "@tanstack/react-query": "^4.14.3",
+    "@tanstack/react-query": "^5.17.19",
     "@tanstack/react-query-devtools": "^4.14.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRepoList, Repository } from '@shared/apis/repo';
 import { useRecoilState } from 'recoil';
 import moment from 'moment';
 import { isToday } from '@shared/utils/date';
+import { AxiosError } from 'axios';
 import {
   getDestructuredRepoList,
   getRefactorSuggestedRepoIndex,
@@ -46,7 +47,11 @@ const useRefactorSuggestedRepoQuery = () => {
     return newRefactorSuggestedRepo;
   };
 
-  const { data: refactorSuggestedRepoInfo } = useQuery({
+  const { data: refactorSuggestedRepoInfo } = useSuspenseQuery<
+    RefactorSuggestedRepoInfo,
+    AxiosError,
+    RefactorSuggestedRepoInfo
+  >({
     queryKey: ['refactorSuggestedRepoInfo'],
     refetchOnWindowFocus: true,
     queryFn: async () => {
@@ -63,7 +68,7 @@ const useRefactorSuggestedRepoQuery = () => {
     },
   });
 
-  return refactorSuggestedRepoInfo as RefactorSuggestedRepoInfo;
+  return refactorSuggestedRepoInfo;
 };
 
 export default useRefactorSuggestedRepoQuery;

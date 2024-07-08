@@ -9,7 +9,7 @@ function GoogleApp() {
     <section className="flex h-full items-center">
       {(['mail', 'calendar', 'meet'] as const).map((target) => (
         <GoogleAppBadge
-          key="target"
+          key={target}
           onClick={() => handleBadgeClick(target)}
           target={target}
           className="mr-2"
