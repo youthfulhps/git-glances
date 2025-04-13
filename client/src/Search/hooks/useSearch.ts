@@ -1,11 +1,27 @@
 import useInput from '@shared/hooks/useInput';
+/* global chrome */
 
-const useSearch = (target: 'github' | 'google') => {
+
+const useSearch = (target: 'github' | 'google' | 'chrome') => {
   const submitSearch = (searchInput: string) => {
     window.open(`https://${target}.com/search?q=${searchInput}`, '_blank');
   };
 
-  const { value, onChange, onKeyDown } = useInput('', () => submitSearch(value));
+  const chromeSubmitSearch = (searchInput: string) => {
+    chrome.search.query({text: searchInput, disposition: 'NEW_TAB'}, () => {});
+  }
+
+  const onSearch = (searchInput: string) => {
+    if(target === 'chrome') {
+      chromeSubmitSearch(searchInput)
+      return;
+    }
+
+    submitSearch(searchInput);
+  }
+
+
+  const { value, onChange, onKeyDown } = useInput('', () => onSearch(value));
 
   return {
     target,
