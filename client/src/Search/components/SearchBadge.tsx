@@ -7,7 +7,7 @@ type SearchBadgeProps = {
   onSearchInputChange: ChangeEventHandler<HTMLInputElement>;
   onSearchInputKeyDown: KeyboardEventHandler<HTMLInputElement>;
   onSubmitSearch: (searchInput: string) => void;
-  target: 'github' | 'google';
+  target: 'github' | 'google' | 'chrome';
 };
 
 function SearchBadge({
@@ -23,7 +23,7 @@ function SearchBadge({
       className={`flex w-full items-center overflow-hidden rounded-2xl border border-solid border-zinc-500 p-2 opacity-80 hover:opacity-100 ${className}`}
     >
       <img
-        src={`icons/${target}.svg`}
+        src={target === 'chrome' ? 'icons/chrome.png' : `icons/${target}.svg`}
         alt={`${target} logo for searching`}
         className="mr-2 h-8 w-8"
       />
