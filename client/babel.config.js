@@ -10,8 +10,6 @@ module.exports = {
     '@babel/preset-typescript',
   ],
   plugins: [
-    'babel-plugin-macros',
-    'styled-components',
     [
       '@babel/plugin-transform-runtime',
       {
