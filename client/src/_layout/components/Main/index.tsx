@@ -6,7 +6,7 @@ type MainProps = {
 
 function Main({ children }: MainProps) {
   return (
-    <main className="m-auto flex w-screen flex-col justify-center p-6 sm:h-full md:p-16 lg:h-screen lg:p-32">
+    <main className="m-auto flex w-screen flex-col justify-center p-6 sm:h-full md:p-16 lg:h-screen lg:p-16">
       {children}
     </main>
   );
