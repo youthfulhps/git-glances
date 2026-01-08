@@ -47,6 +47,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
+    "@youthfulhps/prettier-plugin-tailwindcss-normalizer": "^0.4.1",
     "autoprefixer": "^10.4.13",
     "babel-jest": "^29.3.1",
     "babel-loader": "^9.1.0",
@@ -69,8 +70,10 @@
     "jest-environment-jsdom": "^29.2.1",
     "postcss": "^8.4.18",
     "postcss-loader": "^4.3.0",
-    "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.1.13",
+    "prettier": "^3.7.4",
+    "prettier-plugin-classnames": "^0.5.2",
+    "prettier-plugin-merge": "^0.5.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "react-is": "^18.2.0",
     "style-loader": "^3.3.1",
     "tailwind-scrollbar": "^2.1.0",
@@ -82,5 +85,6 @@
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1"
-  }
+  },
+  "packageManager": "yarn@4.6.0+sha512.5383cc12567a95f1d668fbe762dfe0075c595b4bfff433be478dbbe24e05251a8e8c3eb992a986667c1d53b6c3a9c85b8398c35a960587fbd9fa3a0915406728"
 }

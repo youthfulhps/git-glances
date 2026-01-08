@@ -1,0 +1,63 @@
+module.exports = {
+  root: true,
+  globals: {
+    NodeJS: true,
+  },
+  env: {
+    browser: true,
+    es2020: true,
+    jest: true,
+  },
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'airbnb',
+    'airbnb/hooks',
+    'prettier',
+    'plugin:jest/recommended',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: ['./tsconfig.json'],
+    tsconfigRootDir: __dirname,
+    ecmaVersion: 2022,
+    sourceType: 'module',
+  },
+  plugins: ['prettier', '@typescript-eslint', 'jest'],
+  rules: {
+    'react/button-has-type': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/require-default-props': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'no-unused-vars': 'off',
+    'no-param-reassign': 'off',
+    'arrow-body-style': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'react/no-array-index-key': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+    'no-confusing-arrow': 'off',
+    'import/prefer-default-export': 'off',
+    'jsx-a11y/interactive-supports-focus': 'off',
+    'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'no-use-before-define': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+        jsx: 'never',
+      },
+    ],
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.json',
+      },
+    },
+  },
+};
