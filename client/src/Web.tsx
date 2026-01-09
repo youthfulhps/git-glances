@@ -1,20 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RecoilRoot } from 'recoil';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { TokenProvider } from '@shared/contexts/TokenContext';
 import HomePage from '@layout/pages/Home';
 import LoginCallbackPage from '@layout/pages/LoginCallback';
 import './_shared/styles/index.css';
 
 function Web() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/callback" element={<LoginCallbackPage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
@@ -28,14 +27,13 @@ const queryClient = new QueryClient({
   },
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const container = document.getElementById('root');
+if (!container) throw new Error('Failed to find the root element');
 
-root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <Web />
-      </RecoilRoot>
-    </QueryClientProvider>
-  </React.StrictMode>
+createRoot(container).render(
+  <QueryClientProvider client={queryClient}>
+    <TokenProvider>
+      <Web />
+    </TokenProvider>
+  </QueryClientProvider>,
 );

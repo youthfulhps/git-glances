@@ -1,9 +1,7 @@
 import { ReactNode } from 'react';
 import { CheckCircleFillIcon, XCircleFillIcon } from '@primer/octicons-react';
-import { useRecoilValue } from 'recoil';
 import GuideSection from '@layout/components/GuideSection';
 import classNames from 'classnames';
-import { isGuideShowingAtom } from '../../../Guide/atoms';
 import { sectionGuideDescriptions } from '../../../Guide/constants';
 
 type OptionalSectionProps = {
@@ -23,7 +21,7 @@ function OptionalSection({
   onConfirm,
   onCancel,
 }: OptionalSectionProps) {
-  const isGuideShowing = useRecoilValue(isGuideShowingAtom);
+  const isGuideShowing = false; // Removed Recoil
 
   if (isGuideShowing) {
     return (

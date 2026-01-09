@@ -2,16 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 import { getRepo, Repository } from '@shared/apis/repo';
 import useInput from '@shared/hooks/useInput';
 import useDebounce from '@shared/hooks/useDebounce';
-import useRepoRecoilState from '@shared/hooks/useRepoRecoilState';
+import useRepoState from '@shared/hooks/useRepoRecoilState';
 import { AtomRepoState } from '@shared/atoms/types';
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { getDestructuredRepo } from '../utils/dailyHelper';
-import { dailyRepoAtom } from '../atoms';
 
 const useDailyRepoQuery = () => {
   const { prevRepoState, updateAtomRepoState, generateUpdatedRepoState, resetAtomRepoState } =
-    useRepoRecoilState(dailyRepoAtom);
+    useRepoState();
 
   const { value, setValue, onChange } = useInput(prevRepoState.prevRepo?.name ?? '');
 
@@ -67,6 +66,7 @@ const useDailyRepoQuery = () => {
     resetTmpDailyRepoState,
     isPrivateRepo,
     setIsPrivateRepo,
+    prevRepoState,
   };
 };
 

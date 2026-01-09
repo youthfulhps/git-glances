@@ -1,9 +1,6 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
 import Modal from '@shared/components/Modal';
 import useDailyRepoQuery from '../queries/useDailyRepoQuery';
 import DailyEmptyCard from './EmptyDailyCard';
-import { dailyRepoAtom } from '../atoms';
 import DailyCard from './DailyCard';
 
 function Daily() {
@@ -16,9 +13,8 @@ function Daily() {
     searchInput,
     isPrivateRepo,
     setIsPrivateRepo,
+    prevRepoState: atomDailyRepoState,
   } = useDailyRepoQuery();
-
-  const atomDailyRepoState = useRecoilValue(dailyRepoAtom);
 
   const handleConfirmClick = () => {
     if (tmpDailyRepoState?.prevRepo) {

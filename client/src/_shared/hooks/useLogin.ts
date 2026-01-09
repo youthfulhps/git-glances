@@ -2,18 +2,16 @@
 import qs from 'qs';
 import { getAuthToken } from '@shared/apis/auth';
 import useRouterHooks from '@shared/libs/useRouterHooks';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { tokenAtom } from '@shared/atoms/common';
+import { useToken } from '@shared/contexts/TokenContext';
 import useInput from '@shared/hooks/useInput';
 
 const { useLocation, useNavigate } = await useRouterHooks();
 
 const useLogin = () => {
-  const gitGlancesTokenValue = useRecoilValue(tokenAtom);
-  const setGitGlancesTokenState = useSetRecoilState(tokenAtom);
+  const { token, setToken } = useToken();
 
   const submitInputToken = () => {
-    setGitGlancesTokenState(inputToken);
+    setToken(inputToken);
   };
 
   const {
@@ -34,7 +32,7 @@ const useLogin = () => {
       const { data: accessToken } = await getAuthToken(code as string);
 
       if (accessToken) {
-        setGitGlancesTokenState(accessToken);
+        setToken(accessToken);
       }
 
       navigate('/');
@@ -49,7 +47,7 @@ const useLogin = () => {
     submitInputToken,
     onInputTokenKeyDown,
     getToken,
-    isLoggedIn: !!gitGlancesTokenValue,
+    isLoggedIn: !!token,
   };
 };
 

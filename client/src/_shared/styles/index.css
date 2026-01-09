@@ -89,7 +89,6 @@ audio,
 video {
   margin: 0;
   padding: 0;
-  border: 0;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
@@ -132,7 +131,7 @@ table {
 }
 
 body {
-  background-color: #0a0a0b;
+  background-color: #101010;
   @apply font-fira;
 }
 
@@ -218,11 +217,19 @@ body {
   .grid-template__login {
     height: 520px;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     grid-template-areas:
       'Profile Contribution Notification Trends'
       'Profile Contribution Notification Trends'
-      'Profile Refactor Daily Enhance'
+      '. Contribution Notification Trends'
+      '. Contribution Notification Trends'
+      '. Contribution Notification Trends'
+      '. Contribution Notification Trends'
+      '. Refactor Daily Enhance'
+      '. Refactor Daily Enhance'
+      '. Refactor Daily Enhance'
+      'Language Refactor Daily Enhance'
+      'Language Refactor Daily Enhance'
       'Language Refactor Daily Enhance';
   }
 

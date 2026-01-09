@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRepoList, Repository } from '@shared/apis/repo';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 import moment from 'moment';
 import { isToday } from '@shared/utils/date';
 import { AxiosError } from 'axios';
@@ -8,13 +8,14 @@ import {
   getDestructuredRepoList,
   getRefactorSuggestedRepoIndex,
 } from '../utils/refactorSuggestedRepoHelper';
-import { refactorSuggestedRepoInfoAtom } from '../atoms';
 import { RefactorSuggestedRepoInfo } from '../atoms/types';
 
 const useRefactorSuggestedRepoQuery = () => {
-  const [prevRefactorSuggestedRepoInfo, setPrevRefactorSuggestedRepoInfo] = useRecoilState(
-    refactorSuggestedRepoInfoAtom
-  );
+  const [prevRefactorSuggestedRepoInfo, setPrevRefactorSuggestedRepoInfo] = useState<RefactorSuggestedRepoInfo>({
+    prevRefactorSuggestedRepo: null,
+    updatedAt: null,
+    hasTodayCommit: false,
+  });
 
   const generateNewRefactorSuggestedRepoInfo = (newRefactorSuggestedRepo: Repository) => {
     return {

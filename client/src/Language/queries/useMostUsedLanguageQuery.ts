@@ -1,14 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getLanguageList } from '@shared/apis/language';
-import { useSetRecoilState } from 'recoil';
-import { useEffect } from 'react';
 import { AxiosError } from 'axios';
 import {
   getDestructuredLanguageList,
   getMergedLanguageList,
   getSortedLanguageList,
 } from '../utils/languageHelper';
-import { mostUsedLanguageAtom } from '../atoms';
 
 export type MostUsedLanguage = {
   name: string;
@@ -16,8 +13,6 @@ export type MostUsedLanguage = {
 };
 
 const useMostUsedLanguageQuery = () => {
-  const setMostUsedLanguage = useSetRecoilState(mostUsedLanguageAtom);
-
   const { data: mostUsedLanguage } = useSuspenseQuery<MostUsedLanguage, AxiosError>({
     queryKey: ['languageList'],
     staleTime: 1000 * 60 * 60 * 24,
@@ -34,12 +29,6 @@ const useMostUsedLanguageQuery = () => {
       };
     },
   });
-
-  useEffect(() => {
-    if (mostUsedLanguage) {
-      setMostUsedLanguage(mostUsedLanguage.name);
-    }
-  }, [setMostUsedLanguage, mostUsedLanguage]);
 
   return mostUsedLanguage;
 };

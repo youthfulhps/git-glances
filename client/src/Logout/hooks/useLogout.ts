@@ -1,11 +1,10 @@
-import { useResetRecoilState } from 'recoil';
-import { tokenAtom } from '@shared/atoms/common';
+import { useToken } from '@shared/contexts/TokenContext';
 
 const useLogout = () => {
-  const resetGitGlancesTokenState = useResetRecoilState(tokenAtom);
+  const { setToken } = useToken();
 
   const submitLogout = async () => {
-    resetGitGlancesTokenState();
+    setToken('');
     window.location.reload();
   };
 

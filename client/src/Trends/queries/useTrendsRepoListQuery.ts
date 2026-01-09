@@ -1,13 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getTrendsRepoList, TrendsRepository } from '@shared/apis/repo';
-import { useRecoilValue } from 'recoil';
 import { getMonthRange } from '@shared/utils/date';
 import { AxiosError } from 'axios';
 import { getDestructuredTrendsRepoList } from '../utils/trendsRepoListHelper';
-import { mostUsedLanguageAtom } from '../../Language/atoms';
+import useMostUsedLanguageQuery from '../../Language/queries/useMostUsedLanguageQuery';
 
 const useTrendsRepoListQuery = () => {
-  const mostUsedLanguage = useRecoilValue(mostUsedLanguageAtom);
+  const { name: mostUsedLanguage } = useMostUsedLanguageQuery();
 
   const { data: trendsRepoList } = useSuspenseQuery<TrendsRepository[], AxiosError>({
     queryKey: ['trendsRepoList', mostUsedLanguage],

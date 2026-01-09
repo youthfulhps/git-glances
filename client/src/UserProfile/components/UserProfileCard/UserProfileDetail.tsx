@@ -1,71 +1,41 @@
 import React from 'react';
 import { User } from '@shared/apis/user';
-import { LocationIcon, OrganizationIcon, HomeIcon, LinkIcon } from '@primer/octicons-react';
-import { getURLWithProtocol, isValidURL } from '@shared/utils/url';
+import { getURLWithProtocol } from '@shared/utils/url';
 
 type UserProfileDetailProps = {
   user: User;
 };
 
 function UserProfileDetail({ user }: UserProfileDetailProps) {
-  const userProfileListContents = [
-    {
-      icon: <HomeIcon size={12} />,
-      content: user.html_url,
-    },
-    {
-      icon: <LinkIcon size={12} />,
-      content: user.blog,
-    },
-    {
-      icon: <LocationIcon size={12} />,
-      content: user.location,
-    },
-    {
-      icon: <OrganizationIcon size={12} />,
-      content: user.company,
-    },
-  ];
-
   return (
-    <div className="text-start">
-      <div className="relative flex items-center justify-start">
-        <img
-          className="z-10 mb-4 h-16 w-16 rounded-full"
-          fetchpriority="high"
-          src={user.avatar_url}
-          alt="User avatar"
-        />
+    <a
+      href={getURLWithProtocol(user.html_url)}
+      target="_blank"
+      rel="noreferrer"
+      className="flex h-full w-full flex-col justify-center p-3"
+    >
+      <div className="flex flex-row items-center justify-start">
+        <div className="relative flex-shrink-0">
+          <img
+            className="absolute z-10 h-8 w-8 rounded-xl"
+            fetchPriority="high"
+            src={user.avatar_url}
+            alt="User avatar"
+          />
+
+          <img
+            className="h-9 w-9 rounded-2xl blur-lg"
+            fetchPriority="high"
+            src={user.avatar_url}
+            alt="User avatar"
+          />
+        </div>
+        <div className="ml-1 flex min-w-0 flex-1 flex-col items-start justify-start">
+          <p className="mb-0.5 w-full truncate text-zinc-200">{user.name}</p>
+          <p className="w-full truncate text-xs text-zinc-400">{user.bio}</p>
+        </div>
       </div>
-      <p className="mb-1">{user.name}</p>
-      <p className="mb-2 text-xs text-zinc-400">{user.bio}</p>
-      <ul>
-        {userProfileListContents.map((userProfileContent) =>
-          userProfileContent.content ? (
-            <li
-              className="flex w-full items-center justify-start p-1 text-xs [&>svg]:mr-2 [&>svg]:fill-emerald-300"
-              key={userProfileContent.content}
-            >
-              {userProfileContent.icon}
-              <span>
-                {isValidURL(userProfileContent.content) ? (
-                  <a
-                    className="hover:text-zinc-400"
-                    href={getURLWithProtocol(userProfileContent.content)}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {userProfileContent.content}
-                  </a>
-                ) : (
-                  userProfileContent.content
-                )}
-              </span>
-            </li>
-          ) : null
-        )}
-      </ul>
-    </div>
+    </a>
   );
 }
 

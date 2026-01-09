@@ -1,8 +1,6 @@
 import { ReactNode } from 'react';
 import GuideSection from '@layout/components/GuideSection';
-import { useRecoilValue } from 'recoil';
 import classNames from 'classnames';
-import { isGuideShowingAtom } from '../../../Guide/atoms';
 import { sectionGuideDescriptions } from '../../../Guide/constants';
 
 type FeatureSectionProps = {
@@ -20,7 +18,7 @@ function FeatureSection({
   summary,
   backgroundClass = '',
 }: FeatureSectionProps) {
-  const isGuideShowing = useRecoilValue(isGuideShowingAtom);
+  const isGuideShowing = false; // Removed Recoil
   const isIconSummary = typeof summary === 'object';
 
   if (isGuideShowing) {

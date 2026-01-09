@@ -1,12 +1,15 @@
-import { RecoilState, useRecoilState, useResetRecoilState } from 'recoil';
+import { useState } from 'react';
 import { Repository } from '@shared/apis/repo';
 import moment from 'moment/moment';
 import { isToday } from '@shared/utils/date';
 import { AtomRepoState } from '@shared/atoms/types';
 
-const useRepoRecoilState = (atomRepo: RecoilState<AtomRepoState>) => {
-  const [prevRepoState, setPrevRepoState] = useRecoilState(atomRepo);
-  const resetAtomRepoState = useResetRecoilState(atomRepo);
+const useRepoState = () => {
+  const [prevRepoState, setPrevRepoState] = useState<AtomRepoState>({
+    prevRepo: null,
+    updatedAt: '',
+    hasTodayContribution: false,
+  });
 
   const generateUpdatedRepoState = (repo: Repository): AtomRepoState => {
     return {
@@ -16,22 +19,17 @@ const useRepoRecoilState = (atomRepo: RecoilState<AtomRepoState>) => {
     };
   };
 
-  // TODO: refactor
-  // const getUpdatedRepo = (repo: Repository) => {
-  //   const { prevRepo, updatedAt } = prevRepoState;
-  //
-  //   if (prevRepo && updatedAt && isToday(updatedAt)) {
-  //     return prevRepo;
-  //   }
-  //
-  //   return repo;
-  // };
-
   const updateAtomRepoState = (repo: Repository) => {
-    // TODO: refactor
-    // const updatedRepo = getUpdatedRepo(repo);
     const updatedRepoState = generateUpdatedRepoState(repo);
     setPrevRepoState(updatedRepoState);
+  };
+
+  const resetAtomRepoState = () => {
+    setPrevRepoState({
+      prevRepo: null,
+      updatedAt: '',
+      hasTodayContribution: false,
+    });
   };
 
   return {
@@ -42,4 +40,4 @@ const useRepoRecoilState = (atomRepo: RecoilState<AtomRepoState>) => {
   };
 };
 
-export default useRepoRecoilState;
+export default useRepoState;

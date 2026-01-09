@@ -18,9 +18,7 @@ function HomePage() {
       <Header />
       <Grid>
         <Login />
-        <SuspenseBoundary gridArea="Profile">
-          <UserProfile />
-        </SuspenseBoundary>
+        <UserProfile />
         <SuspenseBoundary gridArea="Language">
           <Language />
         </SuspenseBoundary>
