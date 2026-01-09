@@ -2110,6 +2110,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-compose-refs@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@radix-ui/react-compose-refs@npm:1.1.2"
+  peerDependencies:
+    "@types/react": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/d36a9c589eb75d634b9b139c80f916aadaf8a68a7c1c4b8c6c6b88755af1a92f2e343457042089f04cc3f23073619d08bb65419ced1402e9d4e299576d970771
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-slot@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "@radix-ui/react-slot@npm:1.2.4"
+  dependencies:
+    "@radix-ui/react-compose-refs": "npm:1.1.2"
+  peerDependencies:
+    "@types/react": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/8b719bb934f1ae5ac0e37214783085c17c2f1080217caf514c1c6cc3d9ca56c7e19d25470b26da79aa6e605ab36589edaade149b76f5fc0666f1063e2fc0a0dc
+  languageName: node
+  linkType: hard
+
 "@remix-run/router@npm:1.23.0":
   version: 1.23.0
   resolution: "@remix-run/router@npm:1.23.0"
@@ -4204,6 +4232,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-variance-authority@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "class-variance-authority@npm:0.7.1"
+  dependencies:
+    clsx: "npm:^2.1.1"
+  checksum: 10c0/0f438cea22131808b99272de0fa933c2532d5659773bfec0c583de7b3f038378996d3350683426b8e9c74a6286699382106d71fbec52f0dd5fbb191792cccb5b
+  languageName: node
+  linkType: hard
+
 "classnames@npm:^2.3.2":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
@@ -4250,6 +4287,13 @@ __metadata:
     kind-of: "npm:^6.0.2"
     shallow-clone: "npm:^3.0.0"
   checksum: 10c0/637753615aa24adf0f2d505947a1bb75e63964309034a1cf56ba4b1f30af155201edd38d26ffe26911adaae267a3c138b344a4947d39f5fc1b6d6108125aa758
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
   languageName: node
   linkType: hard
 
@@ -6069,6 +6113,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^12.24.12":
+  version: 12.24.12
+  resolution: "framer-motion@npm:12.24.12"
+  dependencies:
+    motion-dom: "npm:^12.24.11"
+    motion-utils: "npm:^12.24.10"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/4e6ce966d17b34d3736ef565e507d00a06d2aa6e1433554d3eb385e891af0bc9c51a1f1636883e4bf5fa0573c59acf8430706b7c94f514db528567114e051a2d
+  languageName: node
+  linkType: hard
+
 "fresh@npm:0.5.2":
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
@@ -6233,6 +6299,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.18.6"
     "@carbon/icons-react": "npm:^11.10.0"
     "@primer/octicons-react": "npm:^17.10.0"
+    "@radix-ui/react-slot": "npm:^1.2.4"
     "@savvywombat/tailwindcss-grid-areas": "npm:^2.1.0"
     "@tanstack/react-query": "npm:^5.17.19"
     "@tanstack/react-query-devtools": "npm:^4.14.3"
@@ -6253,8 +6320,10 @@ __metadata:
     axios: "npm:^1.1.3"
     babel-jest: "npm:^29.3.1"
     babel-loader: "npm:^9.1.0"
+    class-variance-authority: "npm:^0.7.1"
     classnames: "npm:^2.3.2"
     clean-webpack-plugin: "npm:^4.0.0"
+    clsx: "npm:^2.1.1"
     cookiejs: "npm:^2.1.2"
     copy-webpack-plugin: "npm:^11.0.0"
     css-loader: "npm:^6.7.1"
@@ -6274,6 +6343,7 @@ __metadata:
     jest: "npm:^29.2.1"
     jest-environment-jsdom: "npm:^29.2.1"
     moment: "npm:^2.29.4"
+    motion: "npm:^12.23.12"
     postcss: "npm:^8.4.18"
     postcss-loader: "npm:^4.3.0"
     prettier: "npm:^3.7.4"
@@ -6287,6 +6357,7 @@ __metadata:
     react-router-dom: "npm:^6.4.2"
     recoil: "npm:^0.7.6"
     style-loader: "npm:^3.3.1"
+    tailwind-merge: "npm:^3.4.0"
     tailwind-scrollbar: "npm:^2.1.0"
     tailwindcss: "npm:^3.2.3"
     ts-jest: "npm:^29.0.3"
@@ -8502,6 +8573,43 @@ __metadata:
   version: 2.30.1
   resolution: "moment@npm:2.30.1"
   checksum: 10c0/865e4279418c6de666fca7786607705fd0189d8a7b7624e2e56be99290ac846f90878a6f602e34b4e0455c549b85385b1baf9966845962b313699e7cb847543a
+  languageName: node
+  linkType: hard
+
+"motion-dom@npm:^12.24.11":
+  version: 12.24.11
+  resolution: "motion-dom@npm:12.24.11"
+  dependencies:
+    motion-utils: "npm:^12.24.10"
+  checksum: 10c0/7389f646e99cf40baed1b9bfe50feb6de13e1851a1fabe2578e526ab5730dedc6a13077e66fcbad8b8b25e1006a10a9d62bbf39e4cf44ad18bb2a4325fbcd8de
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^12.24.10":
+  version: 12.24.10
+  resolution: "motion-utils@npm:12.24.10"
+  checksum: 10c0/b73e2e414480b0b162a5cbc9195856d113b5e7c23a055b1613143176694fdfabe87a6a41c3c2f205549e368ca541b609455344bd774d7d836f09a551562042e2
+  languageName: node
+  linkType: hard
+
+"motion@npm:^12.23.12":
+  version: 12.24.12
+  resolution: "motion@npm:12.24.12"
+  dependencies:
+    framer-motion: "npm:^12.24.12"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/5acae28631ced47d8af7b5022cf8ca80cc1782040b3dca2c4b7e64bf7acf7a5ea0a743ed91f5336cfd23ae4007c95838f01a6478d4026aa614907d37f49bc474
   languageName: node
   linkType: hard
 
@@ -10824,6 +10932,13 @@ __metadata:
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
   checksum: 10c0/dfbe201ae09ac6053d163578778c53aa860a784147ecf95705de0cd23f42c851e1be7889241495e95c37cabb058edb1052f141387bef68f705afc8f9dd358509
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "tailwind-merge@npm:3.4.0"
+  checksum: 10c0/eaf17bb695c51c7bb7a90366a9c62be295473ee97fcfd1da54287714d4a5788a88ff4ad1ab9e0128638257fda777d6c9ea88682e36195e31a7fa2cf43f45e310
   languageName: node
   linkType: hard
 
