@@ -5,14 +5,16 @@ type SectionV2Props = {
   children: ReactNode;
   className?: string;
   gridArea?: string;
+  hasBackground?: boolean;
 };
 
-function SectionV2({ children, className, gridArea }: SectionV2Props) {
+function SectionV2({ children, className, gridArea, hasBackground = true }: SectionV2Props) {
   return (
     <section
       className={classNames(
-        `relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-zinc-600 bg-zinc-800
-        text-zinc-200`,
+        hasBackground ? 'bg-zinc-800' : '',
+        `relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl border
+        border-zinc-600 text-zinc-200`,
         className,
       )}
       style={{ gridArea }}
