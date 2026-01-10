@@ -6,7 +6,8 @@ import { getDestructuredTrendsRepoList } from '../utils/trendsRepoListHelper';
 import useMostUsedLanguageQuery from '../../Language/queries/useMostUsedLanguageQuery';
 
 const useTrendsRepoListQuery = () => {
-  const { name: mostUsedLanguage } = useMostUsedLanguageQuery();
+  const mostUsedLanguageList = useMostUsedLanguageQuery();
+  const mostUsedLanguage = mostUsedLanguageList[0]?.name || '';
 
   const { data: trendsRepoList } = useSuspenseQuery<TrendsRepository[], AxiosError>({
     queryKey: ['trendsRepoList', mostUsedLanguage],

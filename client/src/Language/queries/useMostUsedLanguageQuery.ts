@@ -13,7 +13,7 @@ export type MostUsedLanguage = {
 };
 
 const useMostUsedLanguageQuery = () => {
-  const { data: mostUsedLanguage } = useSuspenseQuery<MostUsedLanguage, AxiosError>({
+  const { data: mostUsedLanguage } = useSuspenseQuery<MostUsedLanguage[], AxiosError>({
     queryKey: ['languageList'],
     staleTime: 1000 * 60 * 60 * 24,
     queryFn: async () => {
@@ -23,10 +23,12 @@ const useMostUsedLanguageQuery = () => {
       const mergedLanguageList = getMergedLanguageList(destructuredLanguageList);
       const sortedLanguageList = getSortedLanguageList(mergedLanguageList);
 
-      return {
-        name: Object.keys(sortedLanguageList ?? {})[0] ?? '',
-        lines: Object.values(sortedLanguageList ?? {}).map(Number)[0] ?? 0,
-      };
+      return Object.entries(sortedLanguageList)
+        .slice(0, 3)
+        .map(([key, value]) => ({
+          name: key,
+          lines: value,
+        }));
     },
   });
 

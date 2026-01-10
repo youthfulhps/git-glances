@@ -3,9 +3,9 @@ import useMostUsedLanguageQuery from '../queries/useMostUsedLanguageQuery';
 import LanguageCard from './LanguageCard';
 
 function Language() {
-  const mostUsedLanguage = useMostUsedLanguageQuery();
+  const mostUsedLanguageList = useMostUsedLanguageQuery();
 
-  return <LanguageCard mostUsedLanguage={mostUsedLanguage} />;
+  return <LanguageCard mostUsedLanguageList={mostUsedLanguageList} />;
 }
 
 export default Language;
