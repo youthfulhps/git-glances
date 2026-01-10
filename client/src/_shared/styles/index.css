@@ -217,15 +217,19 @@ body {
   .grid-template__login {
     height: 520px;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(12, 1fr);
+    grid-template-rows: repeat(16, 1fr);
     grid-template-areas:
-      'Profile Contribution Notification Trends'
-      'Profile Contribution Notification Trends'
-      'Language Contribution Notification Trends'
-      'Language Contribution Notification Trends'
-      '. Contribution Notification Trends'
-      '. Contribution Notification Trends'
-      '. Refactor Daily Enhance'
+      'Profile . Notification Trends'
+      'Profile . Notification Trends'
+      'Profile . Notification Trends'
+      'Language . Notification Trends'
+      'Language . Notification Trends'
+      'Language . Notification Trends'
+      'Contribution . Notification Trends'
+      'Contribution . Notification Trends'
+      'Contribution . Notification Trends'
+      'Contribution Refactor Daily Enhance'
+      'Contribution Refactor Daily Enhance'
       '. Refactor Daily Enhance'
       '. Refactor Daily Enhance'
       '. Refactor Daily Enhance'

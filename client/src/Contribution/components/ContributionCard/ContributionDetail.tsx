@@ -42,20 +42,22 @@ function ContributionDetail({ contributionsCollection }: ContributionDetailProps
   ];
 
   return (
-    <ul className="flex flex-col text-sm [&>li:not(:last-child)]:border-b-[1px] [&>li:not(:last-child)]:border-dashed [&>li:not(:last-child)]:border-zinc-400">
-      {contributionDetailListContents.map((contributionDetailContent) => (
-        <li
-          className="flex w-full items-center justify-between p-1 [&>svg]:fill-emerald-300"
-          key={contributionDetailContent.unit}
-        >
-          {contributionDetailContent.icon}
-          <div>
-            <span>{contributionDetailContent.count}</span>
-            <span className="text-xs font-thin">{` ${contributionDetailContent.unit}`}</span>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div className="flex h-full w-full flex-col p-3">
+      <ul className="flex flex-col text-xs [&>li:not(:last-child)]:border-b-[1px] [&>li:not(:last-child)]:border-dashed [&>li:not(:last-child)]:border-zinc-400">
+        {contributionDetailListContents.map((contributionDetailContent) => (
+          <li
+            className="flex w-full items-center justify-between p-1 text-zinc-400"
+            key={contributionDetailContent.unit}
+          >
+            {contributionDetailContent.icon}
+            <div>
+              <span className="text-zinc-200">{contributionDetailContent.count}</span>
+              <span className="text-xs font-thin">{` ${contributionDetailContent.unit}`}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

@@ -59,7 +59,7 @@ function LanguageCard({ mostUsedLanguageList }: LanguageCardProps) {
                   />
                 </div>
               </div>
-              <span className="text-right text-xs text-zinc-400">
+              <span className="text-right text-xs font-thin text-zinc-400">
                 {formatNumber(language.lines)}
               </span>
             </div>
