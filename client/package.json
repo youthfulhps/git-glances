@@ -34,6 +34,7 @@
     "qs": "^6.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-pll": "^0.0.1",
     "react-router-dom": "^6.4.2",
     "tailwind-merge": "^3.4.0"
   },

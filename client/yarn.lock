@@ -6697,6 +6697,7 @@ __metadata:
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-is: "npm:^19.0.0"
+    react-pll: "npm:^0.0.1"
     react-router-dom: "npm:^6.4.2"
     style-loader: "npm:^3.3.1"
     tailwind-merge: "npm:^3.4.0"
@@ -9981,6 +9982,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"programming-languages-logos@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "programming-languages-logos@npm:0.0.3"
+  checksum: 10c0/23c47de6b12f70187b6756d9dfb6766fd35c8da8b1e057ff6149e3641032cebf30dc2e10bd5d8f9ac2da4a60a577459fdc20b1a6717fa67a38ae2ed84fd44ce3
+  languageName: node
+  linkType: hard
+
 "promise-retry@npm:^2.0.1":
   version: 2.0.1
   resolution: "promise-retry@npm:2.0.1"
@@ -10150,6 +10158,18 @@ __metadata:
   version: 19.2.3
   resolution: "react-is@npm:19.2.3"
   checksum: 10c0/2b54c422c21b8dbd68a435a1cce21ecd5b6f06f48659531f7d53dd7368365da5a67e946f352fb2010d11ca40658aa67bec90995f0f1ec5556c0f71dbffe54994
+  languageName: node
+  linkType: hard
+
+"react-pll@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "react-pll@npm:0.0.1"
+  dependencies:
+    programming-languages-logos: "npm:^0.0.3"
+  peerDependencies:
+    prop-types: ^15.7.2
+    react: ^16.12.0
+  checksum: 10c0/bfbc10717e1109e6ef6d91a3eb480aba3332509d0f146a8c68e0ae3e85388f75b8b08b23e86baf54cf5b8289db02acc31619b969a8fe8a77a441a4325ad8acae
   languageName: node
   linkType: hard
 
