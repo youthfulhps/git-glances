@@ -19,9 +19,7 @@ function HomePage() {
       <Grid>
         <Login />
         <UserProfile />
-        <SuspenseBoundary gridArea="Language">
-          <Language />
-        </SuspenseBoundary>
+        <Language />
         <SuspenseBoundary gridArea="Contribution">
           <Contribution />
         </SuspenseBoundary>

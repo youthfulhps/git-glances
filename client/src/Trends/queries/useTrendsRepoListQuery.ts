@@ -3,11 +3,10 @@ import { getTrendsRepoList, TrendsRepository } from '@shared/apis/repo';
 import { getMonthRange } from '@shared/utils/date';
 import { AxiosError } from 'axios';
 import { getDestructuredTrendsRepoList } from '../utils/trendsRepoListHelper';
-import useMostUsedLanguageQuery from '../../Language/queries/useMostUsedLanguageQuery';
 
 const useTrendsRepoListQuery = () => {
-  const mostUsedLanguageList = useMostUsedLanguageQuery();
-  const mostUsedLanguage = mostUsedLanguageList[0]?.name || '';
+  // TODO: Get most used language from API
+  const mostUsedLanguage = 'JavaScript';
 
   const { data: trendsRepoList } = useSuspenseQuery<TrendsRepository[], AxiosError>({
     queryKey: ['trendsRepoList', mostUsedLanguage],
