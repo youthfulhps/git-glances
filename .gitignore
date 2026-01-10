@@ -31,3 +31,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
+
+# Auto Claude data directory
+.auto-claude/
