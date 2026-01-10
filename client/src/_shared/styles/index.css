@@ -221,16 +221,16 @@ body {
     grid-template-areas:
       'Profile Contribution Notification Trends'
       'Profile Contribution Notification Trends'
-      '. Contribution Notification Trends'
-      '. Contribution Notification Trends'
+      'Language Contribution Notification Trends'
+      'Language Contribution Notification Trends'
       '. Contribution Notification Trends'
       '. Contribution Notification Trends'
       '. Refactor Daily Enhance'
       '. Refactor Daily Enhance'
       '. Refactor Daily Enhance'
-      'Language Refactor Daily Enhance'
-      'Language Refactor Daily Enhance'
-      'Language Refactor Daily Enhance';
+      '. Refactor Daily Enhance'
+      '. Refactor Daily Enhance'
+      '. Refactor Daily Enhance';
   }
 
   .grid-template__logout {
