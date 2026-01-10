@@ -5,14 +5,11 @@ import { userQueryOptions } from '../queries/useUserQuery';
 
 function UserProfile() {
   return (
-    <>
-      랜더링중
-      <SuspenseBoundary gridArea="Profile">
-        <SuspenseQuery {...userQueryOptions}>
-          {({ data: { data: user } }) => <UserProfileCard user={user} />}
-        </SuspenseQuery>
-      </SuspenseBoundary>
-    </>
+    <SuspenseBoundary gridArea="Profile">
+      <SuspenseQuery {...userQueryOptions}>
+        {({ data: { data: user } }) => <UserProfileCard user={user} />}
+      </SuspenseQuery>
+    </SuspenseBoundary>
   );
 }
 
