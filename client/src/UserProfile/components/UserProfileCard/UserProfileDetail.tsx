@@ -1,6 +1,7 @@
 import React from 'react';
 import { User } from '@shared/apis/user';
 import { getURLWithProtocol } from '@shared/utils/url';
+import ShinyText from '@shared/components/ShinyText/ShinyText';
 
 type UserProfileDetailProps = {
   user: User;
@@ -32,7 +33,7 @@ function UserProfileDetail({ user }: UserProfileDetailProps) {
         </div>
         <div className="ml-1 flex min-w-0 flex-1 flex-col items-start justify-start">
           <p className="mb-0.5 w-full truncate text-zinc-200">{user.name}</p>
-          <p className="w-full truncate text-xs text-zinc-400">{user.bio}</p>
+          <ShinyText text={user.bio} className="w-full truncate text-xs text-zinc-400" />
         </div>
       </div>
     </a>

@@ -219,22 +219,21 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(16, 1fr);
     grid-template-areas:
-      'Profile . Notification Trends'
-      'Profile . Notification Trends'
-      'Profile . Notification Trends'
-      'Language . Notification Trends'
-      'Language . Notification Trends'
-      'Language . Notification Trends'
-      'Contribution . Notification Trends'
-      'Contribution . Notification Trends'
-      'Contribution . Notification Trends'
+      'Profile . . Trends'
+      'Profile . . Trends'
+      'Profile . . Trends'
+      'Notification . . Trends'
+      'Notification . . Trends'
+      'Notification . . Trends'
+      'Notification . . Trends'
       'Contribution Refactor Daily Enhance'
       'Contribution Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance';
+      'Contribution Refactor Daily Enhance'
+      'Contribution Refactor Daily Enhance'
+      'Contribution Refactor Daily Enhance'
+      'Language Refactor Daily Enhance'
+      'Language Refactor Daily Enhance'
+      'Language Refactor Daily Enhance';
   }
 
   .grid-template__logout {
