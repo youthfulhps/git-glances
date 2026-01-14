@@ -9,6 +9,7 @@ type FeatureSectionProps = {
   summary: ReactNode;
   gridArea: string;
   backgroundClass?: string;
+  onClick?: () => void;
 };
 
 function FeatureSection({
@@ -17,6 +18,7 @@ function FeatureSection({
   className = '',
   summary,
   backgroundClass = '',
+  onClick,
 }: FeatureSectionProps) {
   const isGuideShowing = false; // Removed Recoil
   const isIconSummary = typeof summary === 'object';
@@ -32,11 +34,13 @@ function FeatureSection({
         delay-500 duration-500`,
         className,
         backgroundClass || 'bg-[linear-gradient(135deg,rgba(25,28,35,0.85),rgba(18,18,19,0.8))]',
+        onClick && 'cursor-pointer',
       )}
       style={{
         gridArea,
         border: '2px solid rgba(25,28,35,0.6)',
       }}
+      onClick={onClick}
     >
       <div className="h-full w-full p-4">
         <h2 className="absolute left-4 top-4 text-xl font-thin drop-shadow-md duration-500 group-hover:-top-10">{`# ${gridArea}`}</h2>

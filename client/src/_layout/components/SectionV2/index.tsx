@@ -7,9 +7,16 @@ type SectionV2Props = {
   className?: string;
   gridArea?: string;
   hasBackground?: boolean;
+  onClick?: () => void;
 };
 
-function SectionV2({ children, className, gridArea, hasBackground = true }: SectionV2Props) {
+function SectionV2({
+  children,
+  className,
+  gridArea,
+  hasBackground = true,
+  onClick,
+}: SectionV2Props) {
   return (
     <Card
       className={cn(
@@ -19,6 +26,7 @@ function SectionV2({ children, className, gridArea, hasBackground = true }: Sect
         className,
       )}
       style={{ gridArea }}
+      onClick={onClick}
     >
       <CardContent className={cn('w-full flex-1 p-3')}>{children}</CardContent>
     </Card>

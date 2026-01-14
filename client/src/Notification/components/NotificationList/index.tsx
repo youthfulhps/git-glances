@@ -4,17 +4,23 @@ import SectionV2 from '@layout/components/SectionV2';
 import { BellFillIcon } from '@primer/octicons-react';
 import { cn } from '@shared/lib/utils';
 import ShinyText from '@shared/components/ShinyText/ShinyText';
+import { useBoard } from '@shared/contexts/BoardContext';
 
 type NotificationListProps = {
   notificationList: Notification[];
 };
 
 function NotificationList({ notificationList }: NotificationListProps) {
+  const { openBoard } = useBoard();
   const notificationUnreadCount =
     notificationList?.filter((notification) => !notification.unread).length ?? 0;
 
+  const handleClick = () => {
+    openBoard('notification');
+  };
+
   return (
-    <SectionV2 gridArea="Notification">
+    <SectionV2 gridArea="Notification" className="cursor-pointer" onClick={handleClick}>
       <div className="flex h-full w-full flex-col items-center justify-center">
         <div className="flex items-center justify-center gap-x-1.5">
           <div className="relative">
