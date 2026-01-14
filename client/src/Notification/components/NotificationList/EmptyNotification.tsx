@@ -1,9 +1,10 @@
 import React from 'react';
 import { BellFillIcon } from '@primer/octicons-react';
+import SectionV2 from '@layout/components/SectionV2';
 
 function EmptyNotification() {
   return (
-    <div className="flex w-full flex-col items-center justify-center">
+    <SectionV2 gridArea="Notification">
       <div className="flex items-center justify-center">
         <BellFillIcon size={12} className="mr-1 fill-emerald-300" />
         <span className="text-sm">Notification is empty</span>
@@ -16,7 +17,7 @@ function EmptyNotification() {
       >
         Go to notification...
       </a>
-    </div>
+    </SectionV2>
   );
 }
 

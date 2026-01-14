@@ -11,7 +11,6 @@ type SearchBadgeProps = {
 };
 
 function SearchBadge({
-  className = '',
   target,
   searchInput,
   onSearchInputChange,
@@ -20,17 +19,20 @@ function SearchBadge({
 }: SearchBadgeProps) {
   return (
     <div
-      className={`flex w-full items-center overflow-hidden rounded-2xl border border-solid border-zinc-500 p-2 opacity-80 hover:opacity-100 ${className}`}
+      className={
+        'flex h-full w-full flex-row items-center justify-center gap-2 px-2 opacity-80 hover:opacity-100'
+      }
     >
       <img
         src={target === 'chrome' ? 'icons/chrome.png' : `icons/${target}.svg`}
         alt={`${target} logo for searching`}
-        className="mr-2 h-8 w-8"
+        className="h-8 w-8"
       />
+
       <Input
-        className="ml-2"
         value={searchInput}
         onChange={onSearchInputChange}
+        className="bg-transparent"
         onKeyDown={onSearchInputKeyDown}
         isArrowShowing={!!searchInput}
         onArrowClick={() => onSubmitSearch(searchInput)}
