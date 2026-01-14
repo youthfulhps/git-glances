@@ -1,18 +1,15 @@
 import React from 'react';
 import SearchBadge from './SearchBadge';
 import useSearch from '../hooks/useSearch';
+import SectionV2 from '@layout/components/SectionV2';
 
 function Search() {
   const githubSearchProps = useSearch('github');
-  const googleSearchProps = useSearch('google');
-  const chromeSearchProps = useSearch('chrome');
 
   return (
-    <section className="mt-4 w-full items-center sm:static md:flex md:w-full lg:w-[810px]">
-      <SearchBadge {...githubSearchProps} className="mr-4" />
-      <SearchBadge {...googleSearchProps} className="mr-4" />
-      {!process.env.IS_WEB ? <SearchBadge {...chromeSearchProps} className="lg:mr-4" /> : null}
-    </section>
+    <SectionV2 gridArea="Search" hasHeader={false}>
+      <SearchBadge {...githubSearchProps} />
+    </SectionV2>
   );
 }
 

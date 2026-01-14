@@ -25,7 +25,7 @@ function LanguageCard({ mostUsedLanguageList }: LanguageCardProps) {
 
   return (
     <SectionV2 gridArea="Language" hasBackground={false}>
-      <div className="flex h-full w-full flex-col gap-0.5 p-3">
+      <div className="flex h-full w-full flex-col gap-y-0.5">
         {mostUsedLanguageList.map((language, index) => {
           const percentage = (language.lines / maxLines) * 100;
           const isTopLanguage = index === 0;

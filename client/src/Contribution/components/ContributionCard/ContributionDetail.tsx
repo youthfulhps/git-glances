@@ -42,7 +42,7 @@ function ContributionDetail({ contributionsCollection }: ContributionDetailProps
   ];
 
   return (
-    <div className="flex h-full w-full flex-col p-3">
+    <div className="flex h-full w-full flex-col">
       <ul className="flex flex-col text-xs [&>li:not(:last-child)]:border-b-[1px] [&>li:not(:last-child)]:border-dashed [&>li:not(:last-child)]:border-zinc-400">
         {contributionDetailListContents.map((contributionDetailContent) => (
           <li

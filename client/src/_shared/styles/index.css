@@ -132,11 +132,13 @@ table {
 
 body {
   background-color: #101010;
-  @apply font-fira;
+  @apply font-geist;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 .grid-template__login {
-  @apply grid h-full w-full gap-4;
+  @apply grid h-full w-full gap-2;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(16, 111px);
 
@@ -160,7 +162,7 @@ body {
 }
 
 .grid-template__logout {
-  @apply grid h-full w-full gap-4;
+  @apply grid h-full w-full gap-2;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(16, 111px);
 
@@ -215,26 +217,17 @@ body {
 
 @media only screen and (min-width: 1024px) {
   .grid-template__login {
-    height: 520px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(16, 1fr);
+    height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, 1fr);
     grid-template-areas:
-      'Profile . Notification Trends'
-      'Profile . Notification Trends'
-      'Profile . Notification Trends'
-      'Language . Notification Trends'
-      'Language . Notification Trends'
-      'Language . Notification Trends'
-      'Contribution . Notification Trends'
-      'Contribution . Notification Trends'
-      'Contribution . Notification Trends'
-      'Contribution Refactor Daily Enhance'
-      'Contribution Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance'
-      '. Refactor Daily Enhance';
+      'Search'
+      'Profile'
+      'Profile'
+      'Notification'
+      'Contribution'
+      'Contribution'
+      'Language';
   }
 
   .grid-template__logout {

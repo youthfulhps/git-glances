@@ -1,32 +1,26 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { getNotificationList, Notification } from '@shared/apis/notification';
-import { getDateTimeAfterDays } from '@shared/utils/date';
-import { useMemo } from 'react';
-import { AxiosError } from 'axios';
+import { queryOptions } from '@tanstack/react-query';
+import { getNotificationList } from '@shared/apis/notification';
+import { notificationQueryKeys } from './queryKeys';
 
-const useNotificationListQuery = () => {
-  const { data: notificationList } = useSuspenseQuery<Notification[], AxiosError>({
-    queryKey: ['notificationList'],
-    refetchOnWindowFocus: true,
+export const notificationListQueryOptions = () =>
+  queryOptions({
+    queryKey: notificationQueryKeys.list(),
+    staleTime: 60 * 60 * 1000,
     queryFn: async () => {
-      const { data } = await getNotificationList(getDateTimeAfterDays(-1));
-      return data;
+      const { data } = await getNotificationList();
+      return [
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+        ...data,
+      ];
     },
   });
-
-  const notificationUnreadCount = useMemo(() => {
-    return notificationList?.filter((notification) => notification.unread).length ?? 0;
-  }, [notificationList]);
-
-  const isNotificationEmpty = useMemo(() => {
-    return !notificationList?.length;
-  }, [notificationList]);
-
-  return {
-    notificationList,
-    notificationUnreadCount,
-    isNotificationEmpty,
-  };
-};
-
-export default useNotificationListQuery;

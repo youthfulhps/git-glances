@@ -1,26 +1,35 @@
 import { ReactNode } from 'react';
-import classNames from 'classnames';
+import { Card, CardContent } from '@shared/components/ui/card';
+import { cn } from '@shared/lib/utils';
 
 type SectionV2Props = {
   children: ReactNode;
   className?: string;
   gridArea?: string;
   hasBackground?: boolean;
+  onClick?: () => void;
 };
 
-function SectionV2({ children, className, gridArea, hasBackground = true }: SectionV2Props) {
+function SectionV2({
+  children,
+  className,
+  gridArea,
+  hasBackground = true,
+  onClick,
+}: SectionV2Props) {
   return (
-    <section
-      className={classNames(
+    <Card
+      className={cn(
         hasBackground ? 'bg-zinc-800' : '',
-        `relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl border
-        border-zinc-600 text-zinc-200`,
+        `relative flex h-full w-full flex-col items-center justify-center gap-y-2 overflow-hidden rounded-2xl
+          border-zinc-600 text-zinc-200`,
         className,
       )}
       style={{ gridArea }}
+      onClick={onClick}
     >
-      <div className="flex h-full w-full">{children}</div>
-    </section>
+      <CardContent className={cn('w-full flex-1 p-3')}>{children}</CardContent>
+    </Card>
   );
 }
 

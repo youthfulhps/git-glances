@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TokenProvider } from '@shared/contexts/TokenContext';
+import { BoardProvider } from '@shared/contexts/BoardContext';
 import HomePage from '@layout/pages/Home';
 import LoginCallbackPage from '@layout/pages/LoginCallback';
 import './_shared/styles/index.css';
@@ -33,7 +34,9 @@ if (!container) throw new Error('Failed to find the root element');
 createRoot(container).render(
   <QueryClientProvider client={queryClient}>
     <TokenProvider>
-      <Web />
+      <BoardProvider>
+        <Web />
+      </BoardProvider>
     </TokenProvider>
   </QueryClientProvider>,
 );

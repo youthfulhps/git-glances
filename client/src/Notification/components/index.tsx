@@ -1,19 +1,16 @@
 import React from 'react';
-import FeatureSection from '@layout/components/FeatureSection';
-import useNotificationListQuery from '../queries/useNotificationListQuery';
+import { notificationListQueryOptions } from '../queries/useNotificationListQuery';
 import NotificationList from './NotificationList';
+import { SuspenseQuery } from '@suspensive/react-query';
+import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
 function Notification() {
-  const { notificationList, notificationUnreadCount, isNotificationEmpty } =
-    useNotificationListQuery();
-
   return (
-    <FeatureSection summary={notificationUnreadCount} gridArea="Notification">
-      <NotificationList
-        notificationList={notificationList}
-        isNotificationEmpty={isNotificationEmpty}
-      />
-    </FeatureSection>
+    <SuspenseBoundary gridArea="Notification">
+      <SuspenseQuery {...notificationListQueryOptions()}>
+        {({ data: notificationList }) => <NotificationList notificationList={notificationList} />}
+      </SuspenseQuery>
+    </SuspenseBoundary>
   );
 }
 
