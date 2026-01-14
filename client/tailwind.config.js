@@ -18,7 +18,7 @@ module.exports = {
     },
     fontFamily: {
       alfa: ['Montagu Slab', 'sans-serif'],
-      fira: ['Fira Sans', 'sans-serif'],
+      geist: ['Geist', 'sans-serif'],
     },
     extend: {
       keyframes: {
