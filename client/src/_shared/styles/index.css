@@ -217,18 +217,17 @@ body {
 
 @media only screen and (min-width: 1024px) {
   .grid-template__login {
-    height: 560px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, 1fr);
     grid-template-areas:
-      'Search . . Trends'
-      'Profile . . Trends'
-      'Profile . . Trends'
-      'Notification . . Trends'
-      'Contribution Refactor Daily Enhance'
-      'Contribution Refactor Daily Enhance'
-      'Language Refactor Daily Enhance'
-      'Language Refactor Daily Enhance';
+      'Search'
+      'Profile'
+      'Profile'
+      'Notification'
+      'Contribution'
+      'Contribution'
+      'Language';
   }
 
   .grid-template__logout {
