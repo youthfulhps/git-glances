@@ -10,6 +10,31 @@ html {
   box-sizing: border-box;
 }
 
+/* Modern scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
 html,
 body,
 div,
@@ -222,7 +247,7 @@ body {
 @media only screen and (min-width: 1024px) {
   .grid-template__login {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     grid-template-areas:
       'Search'
       'Profile'
@@ -230,7 +255,10 @@ body {
       'Notification'
       'Contribution'
       'Contribution'
+      'Contribution'
       'Language'
+      'Language'
+      'Trends'
       'Trends';
   }
 

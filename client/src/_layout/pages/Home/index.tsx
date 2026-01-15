@@ -6,14 +6,14 @@ import Language from '../../../Language/components';
 import Contribution from '../../../Contribution/components';
 import Search from '../../../Search/components';
 import Notification from '../../../Notification/components';
-import Board from '@layout/components/Board';
-import Trends from '../../../Trends/components';
+import Board from '../../../Board/components';
+import TrendsSummary from '../../../Trends/components/TrendsSummary';
 
 function HomePage() {
   return (
     <Main>
       <div className="flex w-full gap-4">
-        <div className="sticky top-24 h-[640px] w-[30%] flex-shrink-0">
+        <div className="sticky top-24 h-[560px] w-[30%] flex-shrink-0">
           <Grid>
             <Search />
             <Login />
@@ -21,10 +21,10 @@ function HomePage() {
             <Language />
             <Contribution />
             <Notification />
-            <Trends />
+            <TrendsSummary />
           </Grid>
         </div>
-        <div className="min-h-screen w-[70%] pt-24 pb-24">
+        <div className="relative min-h-screen w-[70%] pb-24 pt-24">
           <Board />
         </div>
       </div>
