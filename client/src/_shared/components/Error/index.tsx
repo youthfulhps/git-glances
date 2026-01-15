@@ -1,5 +1,4 @@
 import { Renew } from '@carbon/icons-react';
-import Section from '@layout/components/Section';
 
 type ErrorFallbackProps = {
   errorMessage: string | null;
@@ -9,13 +8,13 @@ type ErrorFallbackProps = {
 
 function Error({ errorMessage, reset, gridArea = '' }: ErrorFallbackProps) {
   return (
-    <Section
-      gridArea={gridArea}
-      className="flex h-full w-full flex-col items-center justify-center text-zinc-300"
+    <div
+      className="flex flex-col items-center justify-center rounded-lg border border-red-900/50 bg-gradient-to-br from-red-950/30 via-zinc-900 to-zinc-950 p-4"
+      style={{ gridArea }}
     >
-      <span>{errorMessage}</span>
-      <Renew onClick={reset} size={24} className="m-4 cursor-pointer" />
-    </Section>
+      <p className="text-xs text-red-300/80">{errorMessage}</p>
+      <Renew onClick={reset} size={12} className="m-1 cursor-pointer fill-red-300/80" />
+    </div>
   );
 }
 

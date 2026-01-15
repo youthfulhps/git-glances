@@ -76,9 +76,13 @@ query {
 }
 `;
 
-export const getTrendsRepoListQuery = (language: string, created: string) => `
+export const getTrendsRepoListQuery = (language: string, created: string, after?: string) => `
 query {
-  search(query: "language:${language} created:${created}", type: REPOSITORY, first: 10) {
+  search(query: "language:${language} created:${created}", type: REPOSITORY, first: 10${after ? `, after: "${after}"` : ''}) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
     edges {
       node {
         ... on Repository {
@@ -87,6 +91,15 @@ query {
           description
           pushedAt
           updatedAt
+          createdAt
+          owner {
+            login
+            avatarUrl
+          }
+          primaryLanguage {
+            name
+            color
+          }
           stargazers {
             totalCount
           }

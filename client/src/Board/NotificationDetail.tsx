@@ -1,6 +1,6 @@
 import React from 'react';
 import { SuspenseQuery } from '@suspensive/react-query';
-import { notificationListQueryOptions } from '../../../Notification/queries/useNotificationListQuery';
+import { notificationListQueryOptions } from '../Notification/queries/useNotificationListQuery';
 
 function NotificationDetail() {
   return (

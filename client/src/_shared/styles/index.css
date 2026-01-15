@@ -2,8 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
+}
+
+/* Modern scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 html,
@@ -217,9 +246,8 @@ body {
 
 @media only screen and (min-width: 1024px) {
   .grid-template__login {
-    height: 100%;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(7, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     grid-template-areas:
       'Search'
       'Profile'
@@ -227,7 +255,11 @@ body {
       'Notification'
       'Contribution'
       'Contribution'
-      'Language';
+      'Contribution'
+      'Language'
+      'Language'
+      'Trends'
+      'Trends';
   }
 
   .grid-template__logout {

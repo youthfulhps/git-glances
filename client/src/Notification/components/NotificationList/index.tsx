@@ -11,12 +11,12 @@ type NotificationListProps = {
 };
 
 function NotificationList({ notificationList }: NotificationListProps) {
-  const { openBoard } = useBoard();
+  const { openNotificationBoard } = useBoard();
   const notificationUnreadCount =
     notificationList?.filter((notification) => !notification.unread).length ?? 0;
 
   const handleClick = () => {
-    openBoard('notification');
+    openNotificationBoard();
   };
 
   return (

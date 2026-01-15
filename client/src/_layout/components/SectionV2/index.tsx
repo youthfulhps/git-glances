@@ -7,6 +7,7 @@ type SectionV2Props = {
   className?: string;
   gridArea?: string;
   hasBackground?: boolean;
+  hasBorder?: boolean;
   onClick?: () => void;
 };
 
@@ -15,14 +16,16 @@ function SectionV2({
   className,
   gridArea,
   hasBackground = true,
+  hasBorder = true,
   onClick,
 }: SectionV2Props) {
   return (
     <Card
       className={cn(
         hasBackground ? 'bg-zinc-800' : '',
-        `relative flex h-full w-full flex-col items-center justify-center gap-y-2 overflow-hidden rounded-2xl
-          border-zinc-600 text-zinc-200`,
+        `relative flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-2
+        overflow-hidden ${hasBorder ? 'rounded-2xl border-zinc-600' : 'rounded-none border-none'}
+        text-zinc-200`,
         className,
       )}
       style={{ gridArea }}
