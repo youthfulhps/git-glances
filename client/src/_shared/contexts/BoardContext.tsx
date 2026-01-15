@@ -1,12 +1,15 @@
-import { createContext, useContext, useState, ReactNode, useMemo, useCallback, useEffect } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { mostUsedLanguageQueryOptions } from '../../Language/queries/useMostUsedLanguageQuery';
 
 export type BoardType = 'notification' | 'trends' | null;
+type ActiveBoardType = Exclude<BoardType, null>;
 
 interface BoardContextType {
   boardType: BoardType;
-  openBoard: (type: BoardType) => void;
+  openBoard: (type: ActiveBoardType) => void;
+  openNotificationBoard: () => void;
+  openTrendsBoard: () => void;
   closeBoard: () => void;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
@@ -16,18 +19,31 @@ const BoardContext = createContext<BoardContextType | undefined>(undefined);
 
 export function BoardProvider({ children }: { children: ReactNode }) {
   const [boardType, setBoardType] = useState<BoardType>('trends');
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('JavaScript');
+  const [userSelectedLanguage, setUserSelectedLanguage] = useState<string | null>(null);
 
   const { data: mostUsedLanguages } = useQuery(mostUsedLanguageQueryOptions);
 
-  useEffect(() => {
-    if (mostUsedLanguages && mostUsedLanguages.length > 0) {
-      setSelectedLanguage(mostUsedLanguages[0].name);
-    }
-  }, [mostUsedLanguages]);
+  const defaultLanguage = useMemo(
+    () => mostUsedLanguages?.[0]?.name ?? 'JavaScript',
+    [mostUsedLanguages],
+  );
 
-  const openBoard = useCallback((type: BoardType) => {
+  const selectedLanguage = userSelectedLanguage ?? defaultLanguage;
+
+  const setSelectedLanguage = useCallback((language: string) => {
+    setUserSelectedLanguage(language);
+  }, []);
+
+  const openBoard = useCallback((type: ActiveBoardType) => {
     setBoardType(type);
+  }, []);
+
+  const openNotificationBoard = useCallback(() => {
+    setBoardType('notification');
+  }, []);
+
+  const openTrendsBoard = useCallback(() => {
+    setBoardType('trends');
   }, []);
 
   const closeBoard = useCallback(() => {
@@ -35,8 +51,24 @@ export function BoardProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ boardType, openBoard, closeBoard, selectedLanguage, setSelectedLanguage }),
-    [boardType, openBoard, closeBoard, selectedLanguage]
+    () => ({
+      boardType,
+      openBoard,
+      openNotificationBoard,
+      openTrendsBoard,
+      closeBoard,
+      selectedLanguage,
+      setSelectedLanguage,
+    }),
+    [
+      boardType,
+      openBoard,
+      openNotificationBoard,
+      openTrendsBoard,
+      closeBoard,
+      selectedLanguage,
+      setSelectedLanguage,
+    ],
   );
 
   return <BoardContext.Provider value={value}>{children}</BoardContext.Provider>;
