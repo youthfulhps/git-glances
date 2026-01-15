@@ -1,12 +1,13 @@
 import React, { ChangeEventHandler, KeyboardEventHandler } from 'react';
-import Input from '@shared/components/Input';
+// import Input from '@shared/components/Input';
+
+import { Input } from '@shared/components/ui/input';
 
 type SearchBadgeProps = {
   className?: string;
   searchInput: string;
   onSearchInputChange: ChangeEventHandler<HTMLInputElement>;
   onSearchInputKeyDown: KeyboardEventHandler<HTMLInputElement>;
-  onSubmitSearch: (searchInput: string) => void;
   target: 'github' | 'google' | 'chrome';
 };
 
@@ -15,7 +16,6 @@ function SearchBadge({
   searchInput,
   onSearchInputChange,
   onSearchInputKeyDown,
-  onSubmitSearch,
 }: SearchBadgeProps) {
   return (
     <div
@@ -26,16 +26,14 @@ function SearchBadge({
       <img
         src={target === 'chrome' ? 'icons/chrome.png' : `icons/${target}.svg`}
         alt={`${target} logo for searching`}
-        className="h-8 w-8"
+        className="h-4 w-4"
       />
 
       <Input
         value={searchInput}
         onChange={onSearchInputChange}
-        className="bg-transparent"
+        className="border-none bg-transparent text-xs"
         onKeyDown={onSearchInputKeyDown}
-        isArrowShowing={!!searchInput}
-        onArrowClick={() => onSubmitSearch(searchInput)}
         placeholder={`Search on ${target}...`}
       />
     </div>

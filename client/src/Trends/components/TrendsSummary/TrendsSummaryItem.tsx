@@ -1,17 +1,22 @@
 import React from 'react';
 import { TrendsRepository } from '@shared/apis/repo';
-import { StarIcon, RepoForkedIcon, RepoIcon } from '@primer/octicons-react';
+import { StarIcon, RepoForkedIcon } from '@primer/octicons-react';
 
-type TrendsRepoCardProps = {
+type TrendsSummaryItemProps = {
   trendsRepo: TrendsRepository;
 };
 
-function TrendsRepoCard({ trendsRepo }: TrendsRepoCardProps) {
+function TrendsSummaryItem({ trendsRepo }: TrendsSummaryItemProps) {
   return (
     <div className="mb-1 flex w-full flex-col py-2 text-start text-sm">
       <div className="flex items-center">
-        <RepoIcon className="mr-1 fill-zinc-100" size={12} />
-        <p className="truncate">{trendsRepo.name}</p>
+        <img
+          src={trendsRepo.owner.avatarUrl}
+          alt={trendsRepo.owner.login}
+          className="mr-1 h-4 w-4 rounded-full"
+        />
+
+        <p className="truncate text-zinc-200">{trendsRepo.name}</p>
       </div>
       <p className="truncate text-xs text-zinc-400">{trendsRepo.description}</p>
 
@@ -25,4 +30,4 @@ function TrendsRepoCard({ trendsRepo }: TrendsRepoCardProps) {
   );
 }
 
-export default TrendsRepoCard;
+export default TrendsSummaryItem;
