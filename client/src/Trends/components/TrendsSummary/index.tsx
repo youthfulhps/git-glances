@@ -2,27 +2,37 @@ import React from 'react';
 
 import SectionV2 from '@layout/components/SectionV2';
 import { useBoard } from '@shared/contexts/BoardContext';
-import { trendsRepoListQueryOptions } from '../../queries/useTrendsRepoListQuery';
-import { SuspenseInfiniteQuery } from '@suspensive/react-query';
-import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 import TrendsSummaryItem from './TrendsSummaryItem';
+import TrendsInfiniteQuery from '../TrendsInfiniteQuery';
+import { TrendsRepository } from '@shared/apis/repo';
 
 function TrendsSummary() {
-  const { openBoard, selectedLanguage } = useBoard();
+  const { openTrendsBoard, selectedLanguage } = useBoard();
 
   const handleClick = () => {
-    openBoard('trends');
+    openTrendsBoard();
   };
   return (
-    <SuspenseBoundary gridArea="Trends">
-      <SuspenseInfiniteQuery {...trendsRepoListQueryOptions(selectedLanguage)}>
-        {({ data }) => (
+    <TrendsInfiniteQuery language={selectedLanguage} gridArea="Trends">
+      {({ data }) => {
+        const pages = (data as { pages?: Array<{ repositories: TrendsRepository[] }> })?.pages;
+        const firstRepo = pages?.[0]?.repositories?.[0];
+
+        if (!firstRepo) {
+          return (
+            <SectionV2 gridArea="Trends" hasBackground={false}>
+              <p className="text-sm text-zinc-500">No trending repositories available</p>
+            </SectionV2>
+          );
+        }
+
+        return (
           <SectionV2 onClick={handleClick} gridArea="Trends">
-            <TrendsSummaryItem trendsRepo={data.pages[0].repositories[0]} />
+            <TrendsSummaryItem trendsRepo={firstRepo} />
           </SectionV2>
-        )}
-      </SuspenseInfiniteQuery>
-    </SuspenseBoundary>
+        );
+      }}
+    </TrendsInfiniteQuery>
   );
 }
 

@@ -23,7 +23,7 @@ function TrendsList({ pages, fetchNextPage, hasNextPage, isFetchingNextPage }: T
           fetchNextPage();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(loadMoreRef.current);
@@ -32,11 +32,7 @@ function TrendsList({ pages, fetchNextPage, hasNextPage, isFetchingNextPage }: T
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (!allRepos || allRepos.length === 0) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-sm text-zinc-500">No trending repositories available</p>
-      </div>
-    );
+    return <p className="text-sm text-zinc-500">No trending repositories available</p>;
   }
 
   return (

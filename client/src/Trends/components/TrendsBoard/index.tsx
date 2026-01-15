@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { SuspenseInfiniteQuery } from '@suspensive/react-query';
-import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
-import { trendsRepoListQueryOptions } from '../../queries/useTrendsRepoListQuery';
-import TrendsList from './TrendsList';
+
 import { useBoard } from '@shared/contexts/BoardContext';
 import {
   DropdownMenu,
@@ -13,6 +10,9 @@ import {
 import { ChevronDown, Search } from 'lucide-react';
 import { languageDetailList } from '../../../Language/constants/languageDetailList';
 import { Input } from '@shared/components/ui/input';
+import TrendsInfiniteQuery from '../TrendsInfiniteQuery';
+import { TrendsRepository } from '@shared/apis/repo';
+import TrendsList from './TrendsList';
 
 const LANGUAGES = Object.keys(languageDetailList).sort();
 
@@ -22,7 +22,7 @@ function TrendsBoard() {
   const [isOpen, setIsOpen] = useState(false);
 
   const filteredLanguages = LANGUAGES.filter((language) =>
-    language.toLowerCase().includes(searchQuery.toLowerCase())
+    language.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -35,7 +35,10 @@ function TrendsBoard() {
             <ChevronDown size={14} />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-64 border-zinc-700 bg-zinc-900">
-            <div className="sticky top-0 z-10 bg-zinc-900 p-2" onKeyDown={(e) => e.stopPropagation()}>
+            <div
+              className="sticky top-0 z-10 bg-zinc-900 p-2"
+              onKeyDown={(e) => e.stopPropagation()}
+            >
               <div className="relative" onClick={(e) => e.stopPropagation()}>
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-zinc-400" />
                 <Input
@@ -71,18 +74,20 @@ function TrendsBoard() {
         </DropdownMenu>
       </div>
 
-      <SuspenseBoundary>
-        <SuspenseInfiniteQuery {...trendsRepoListQueryOptions(selectedLanguage)}>
-          {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) => (
+      <TrendsInfiniteQuery language={selectedLanguage}>
+        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) => {
+          const pages = (data as { pages?: Array<{ repositories: TrendsRepository[] }> })?.pages;
+
+          return (
             <TrendsList
-              pages={data.pages}
+              pages={pages ?? []}
               fetchNextPage={fetchNextPage}
               hasNextPage={hasNextPage}
               isFetchingNextPage={isFetchingNextPage}
             />
-          )}
-        </SuspenseInfiniteQuery>
-      </SuspenseBoundary>
+          );
+        }}
+      </TrendsInfiniteQuery>
     </div>
   );
 }
