@@ -43,6 +43,15 @@ export type Repository = {
 };
 
 export type TrendsRepository = Omit<Repository, 'defaultBranchRef'> & {
+  owner: {
+    login: string;
+    avatarUrl: string;
+  };
+  createdAt: string;
+  primaryLanguage: {
+    name: string;
+    color: string;
+  } | null;
   forks: {
     totalCount: number;
   };
@@ -61,7 +70,8 @@ export type GetRepo = (repoName: string) => AsyncNestedAxiosResponse<Repository>
 
 export type GetTrendsRepoList = (
   language: string,
-  created: string
+  created: string,
+  after?: string
 ) => AsyncListSearchNestedFieldResponse<TrendsRepository>;
 
 type PostRepoIssuePayload = {
