@@ -1,18 +1,22 @@
 import React from 'react';
 import { TrendsRepository } from '@shared/apis/repo';
 import TrendsRepoCard from './TrendsRepoCard';
+import SectionV2 from '@layout/components/SectionV2';
+import { useBoard } from '@shared/contexts/BoardContext';
 
 type TrendsCardProps = {
   trendsRepoList: TrendsRepository[];
 };
 
 function TrendsCard({ trendsRepoList }: TrendsCardProps) {
+  const { openBoard } = useBoard();
+  const handleClick = () => {
+    openBoard('trends');
+  };
   return (
-    <ul className="my-1 h-[130px] overflow-y-scroll scrollbar scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-300 scrollbar-thumb-rounded-full">
-      {trendsRepoList.map((trendsRepo) => (
-        <TrendsRepoCard key={trendsRepo.name} trendsRepo={trendsRepo} />
-      ))}
-    </ul>
+    <SectionV2 onClick={handleClick}>
+      <TrendsRepoCard key={trendsRepoList[0].name} trendsRepo={trendsRepoList[0]} />
+    </SectionV2>
   );
 }
 
