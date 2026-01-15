@@ -217,9 +217,8 @@ body {
 
 @media only screen and (min-width: 1024px) {
   .grid-template__login {
-    height: 100%;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(7, 1fr);
+    grid-template-rows: repeat(8, 1fr);
     grid-template-areas:
       'Search'
       'Profile'
@@ -227,7 +226,8 @@ body {
       'Notification'
       'Contribution'
       'Contribution'
-      'Language';
+      'Language'
+      'Trends';
   }
 
   .grid-template__logout {
