@@ -79,4 +79,12 @@ export type Notification = {
   subscription_url: string;
 };
 
-export type GetNotificationList = (since?: string) => AsyncAxiosResponse<Notification[]>;
+export type GetNotificationListParams = {
+  since?: string;
+  page?: number;
+  perPage?: number;
+};
+
+export type GetNotificationList = (
+  params?: GetNotificationListParams,
+) => AsyncAxiosResponse<Notification[]>;

@@ -11,7 +11,7 @@ type TrendsItemProps = {
 
 function TrendsItem({ repo }: TrendsItemProps) {
   return (
-    <div className="flex flex-col gap-2 rounded-lg border border-zinc-700 p-3 hover:border-zinc-400">
+    <div className="animate-fadeInUp flex flex-col gap-2 rounded-lg border border-zinc-700 p-3 hover:border-zinc-400">
       <a href={repo.url} target="_blank" rel="noreferrer" className="flex flex-col">
         <TrendsSummaryItem trendsRepo={repo} />
       </a>
