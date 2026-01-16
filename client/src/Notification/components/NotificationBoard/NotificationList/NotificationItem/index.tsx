@@ -15,7 +15,7 @@ function NotificationItem({ notification }: NotificationItemProps) {
   return (
     <div
       className={classNames(
-        'flex cursor-pointer flex-col gap-2 rounded-lg border border-zinc-700 p-3 hover:border-zinc-600',
+        'animate-fadeInUp flex cursor-pointer flex-col gap-2 rounded-lg border border-zinc-700 p-3 hover:border-zinc-600',
         notification.unread ? 'bg-zinc-800/50' : 'bg-transparent',
       )}
       onClick={() => routeNotificationThread(notification.subject.url)}
