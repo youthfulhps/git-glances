@@ -1,16 +1,19 @@
 import React from 'react';
-import { notificationListQueryOptions } from '../queries/useNotificationListQuery';
-import NotificationList from './NotificationList';
-import { SuspenseQuery } from '@suspensive/react-query';
-import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
+import { Notification as NotificationType } from '@shared/apis/notification/types';
+import NotificationInfiniteQuery from './NotificationInfiniteQuery';
+import NotificationSummary from './NotificationSummary';
 
 function Notification() {
   return (
-    <SuspenseBoundary gridArea="Notification">
-      <SuspenseQuery {...notificationListQueryOptions()}>
-        {({ data: notificationList }) => <NotificationList notificationList={notificationList} />}
-      </SuspenseQuery>
-    </SuspenseBoundary>
+    <NotificationInfiniteQuery gridArea="Notification">
+      {({ data }) => {
+        const firstPage = (data as { pages?: Array<{ notifications: NotificationType[] }> })
+          ?.pages?.[0];
+        const notifications = firstPage?.notifications ?? [];
+
+        return <NotificationSummary notificationList={notifications} />;
+      }}
+    </NotificationInfiniteQuery>
   );
 }
 

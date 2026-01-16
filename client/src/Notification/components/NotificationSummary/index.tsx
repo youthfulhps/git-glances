@@ -1,19 +1,21 @@
 import React from 'react';
 import { Notification } from '@shared/apis/notification/types';
 import SectionV2 from '@layout/components/SectionV2';
-import { BellFillIcon } from '@primer/octicons-react';
+import { BellFillIcon, BellIcon } from '@primer/octicons-react';
 import { cn } from '@shared/lib/utils';
 import ShinyText from '@shared/components/ShinyText/ShinyText';
 import { useBoard } from '@shared/contexts/BoardContext';
 
-type NotificationListProps = {
+type NotificationSummaryProps = {
   notificationList: Notification[];
 };
 
-function NotificationList({ notificationList }: NotificationListProps) {
+function NotificationSummary({ notificationList }: NotificationSummaryProps) {
   const { openNotificationBoard } = useBoard();
   const notificationUnreadCount =
-    notificationList?.filter((notification) => !notification.unread).length ?? 0;
+    notificationList?.filter((notification) => notification.unread).length ?? 0;
+
+  const hasUnreadNotifications = notificationUnreadCount > 0;
 
   const handleClick = () => {
     openNotificationBoard();
@@ -22,23 +24,20 @@ function NotificationList({ notificationList }: NotificationListProps) {
   return (
     <SectionV2 gridArea="Notification" className="cursor-pointer" onClick={handleClick}>
       <div className="flex h-full w-full flex-col items-center justify-center">
-        <div className="flex items-center justify-center gap-x-1.5">
-          <div className="relative">
-            <BellFillIcon size={14} className="fill-zinc-300" />
-            {notificationUnreadCount > 0 && (
-              <div className="absolute right-0 top-0.5 flex h-1.5 w-1.5 items-center justify-center rounded-full bg-red-500" />
-            )}
-          </div>
+        <div className="flex flex-row items-center justify-center gap-x-1.5">
+          {hasUnreadNotifications ? (
+            <BellFillIcon size={10} className="relative fill-zinc-300" />
+          ) : (
+            <BellIcon size={10} className="fill-zinc-300" />
+          )}
+
           <ShinyText
             text={
-              notificationUnreadCount > 0
+              hasUnreadNotifications
                 ? `${notificationUnreadCount} unread notification${notificationUnreadCount > 1 ? 's' : ''}`
                 : 'All notifications read'
             }
-            className={cn(
-              'text-sm font-light',
-              notificationUnreadCount > 0 ? 'text-zinc-300' : 'text-zinc-500',
-            )}
+            className={cn('text-xs', hasUnreadNotifications ? 'text-zinc-200' : 'text-zinc-500')}
           />
         </div>
       </div>
@@ -46,4 +45,4 @@ function NotificationList({ notificationList }: NotificationListProps) {
   );
 }
 
-export default NotificationList;
+export default NotificationSummary;
