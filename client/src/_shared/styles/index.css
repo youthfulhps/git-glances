@@ -51,6 +51,59 @@ html {
   animation: fadeInUp 0.4s ease-out forwards;
 }
 
+/* Diff Viewer Custom Styles */
+.diff-viewer-container {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  background-color: #18181b;
+}
+
+.diff-viewer-container .diff {
+  border: none;
+}
+
+.diff-viewer-container .diff-gutter {
+  background-color: #27272a;
+  color: #71717a;
+  padding: 0 8px;
+  user-select: none;
+  min-width: 40px;
+  text-align: right;
+}
+
+.diff-viewer-container .diff-gutter-insert {
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.diff-viewer-container .diff-gutter-delete {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.diff-viewer-container .diff-code {
+  padding: 0 8px;
+  white-space: pre;
+  color: #e4e4e7;
+}
+
+.diff-viewer-container .diff-code-insert {
+  background-color: rgba(34, 197, 94, 0.15);
+}
+
+.diff-viewer-container .diff-code-delete {
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+.diff-viewer-container .diff-line {
+  border: none;
+}
+
+.diff-viewer-container .diff-hunk {
+  background-color: #27272a;
+  color: #a1a1aa;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
 html,
 body,
 div,
