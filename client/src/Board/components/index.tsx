@@ -4,6 +4,7 @@ import NotificationBoard from '../../Notification/components/NotificationBoard';
 import TrendsBoard from '../../Trends/components/TrendsBoard';
 import ContributionBoard from '../../Contribution/components/ContributionBoard';
 import LanguageBoard from '../../Language/components/LanguageBoard';
+import StarredBoard from '../../Starred/components/StarredBoard';
 import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
 function Board() {
@@ -24,6 +25,7 @@ function Board() {
       {boardType === 'trends' && <TrendsBoard />}
       {boardType === 'contribution' && <ContributionBoard />}
       {boardType === 'language' && <LanguageBoard />}
+      {boardType === 'starred' && <StarredBoard />}
     </div>
   );
 }
