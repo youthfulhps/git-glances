@@ -1,6 +1,11 @@
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { generateText } from 'ai';
-import { SummarizeRepository, GenerateContributionInsight, GenerateCodeReview } from './types';
+import {
+  SummarizeRepository,
+  GenerateContributionInsight,
+  GenerateCodeReview,
+  GenerateLanguageInsight,
+} from './types';
 import { parseAIResponse } from './utils';
 
 export const summarizeRepository: SummarizeRepository = async (
@@ -186,6 +191,75 @@ If the code looks good, include positive findings with type "improvement" and lo
         review: parsed.review,
         findings: parsed.findings || [],
         summary: parsed.summary,
+      },
+    };
+  } catch (error) {
+    console.error('Failed to parse AI response:', text);
+    throw new Error('Invalid response format from AI');
+  }
+};
+
+export const generateLanguageInsight: GenerateLanguageInsight = async ({
+  languages,
+  totalRepos,
+  topLanguage,
+}) => {
+  const apiKey = process.env.GROQ_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('GROQ_API_KEY is not configured');
+  }
+
+  const groq = createOpenAICompatible({
+    name: 'groq',
+    baseURL: 'https://api.groq.com/openai/v1',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+  });
+
+  const topLanguages = languages.slice(0, 5);
+  const languageBreakdown = topLanguages
+    .map(
+      (lang) =>
+        `- ${lang.name}: ${lang.percentage.toFixed(1)}% (${lang.repoCount} repos, ${(lang.totalSize / 1000000).toFixed(1)}MB)`
+    )
+    .join('\n');
+
+  const prompt = `Analyze this developer's programming language usage across their GitHub repositories and provide insights:
+
+Total Repositories: ${totalRepos}
+Top Language: ${topLanguage}
+
+Language Breakdown:
+${languageBreakdown}
+
+Provide a personalized insight that:
+1. Interprets the language distribution (e.g., "Your polyglot approach shows versatility" or "Strong TypeScript focus indicates modern web development")
+2. Highlights interesting patterns (e.g., "Balanced backend/frontend split" or "Heavily frontend-focused")
+3. Gives one actionable recommendation for skill development or exploration
+
+Return ONLY a valid JSON object with this exact format:
+{
+  "insight": "2-3 sentences analyzing the pattern and giving advice",
+  "tags": ["keyword1", "keyword2", "keyword3"]
+}
+
+Tags should reflect the development style (e.g., "polyglot", "web-development", "backend-focused", "full-stack", "modern-javascript").`;
+
+  const { text } = await generateText({
+    model: groq('llama-3.3-70b-versatile'),
+    prompt,
+    system:
+      'You are a technical career advisor that analyzes programming language usage. Always respond with valid JSON only, no additional text. Be encouraging and provide actionable insights.',
+  });
+
+  try {
+    const parsed = parseAIResponse<{ insight: string; tags: string[] }>(text);
+    return {
+      data: {
+        insight: parsed.insight,
+        tags: parsed.tags || [],
       },
     };
   } catch (error) {
