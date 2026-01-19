@@ -14,7 +14,7 @@ function PRItem({ pullRequest, onClick }: PRItemProps) {
   return (
     <button
       onClick={onClick}
-      className="group flex flex-col gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800/30 p-3 text-left transition-all hover:border-zinc-600 hover:bg-zinc-800/50"
+      className="animate-fadeInUp group flex flex-col gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800/30 p-3 text-left transition-all hover:border-zinc-600 hover:bg-zinc-800/50"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex flex-1 items-start gap-1.5">

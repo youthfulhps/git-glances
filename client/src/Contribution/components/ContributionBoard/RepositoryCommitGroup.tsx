@@ -27,7 +27,7 @@ function RepositoryCommitGroup({
   const repoName = `${repository.repository.owner.login}/${repository.repository.name}`;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="animate-fadeInUp flex flex-col gap-2">
       {/* Repository Header */}
       <button
         onClick={onToggle}
