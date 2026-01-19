@@ -74,6 +74,22 @@ export type GetTrendsRepoList = (
   after?: string
 ) => AsyncListSearchNestedFieldResponse<TrendsRepository>;
 
+export type GetStarredRepoList = (
+  after?: string
+) => AsyncNestedAxiosResponse<{
+  viewer: {
+    starredRepositories: {
+      pageInfo: {
+        hasNextPage: boolean;
+        endCursor: string;
+      };
+      edges: Array<{
+        node: TrendsRepository;
+      }>;
+    };
+  };
+}>;
+
 type PostRepoIssuePayload = {
   issueTitle: string;
   issueBody: string;
