@@ -7,7 +7,7 @@ function Search() {
   const githubSearchProps = useSearch('github');
 
   return (
-    <SectionV2 gridArea="Search" hasBackground={false}>
+    <SectionV2 gridArea="Search" hasBackground={false} hasArrow={false}>
       <SearchBadge {...githubSearchProps} />
     </SectionV2>
   );
