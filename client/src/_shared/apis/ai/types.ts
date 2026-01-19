@@ -36,3 +36,19 @@ export type GenerateCodeReview = (params: {
   commitMessage?: string;
   prTitle?: string;
 }) => Promise<{ data: CodeReviewResponse }>;
+
+export type LanguageInsightResponse = {
+  insight: string;
+  tags: string[];
+};
+
+export type GenerateLanguageInsight = (params: {
+  languages: Array<{
+    name: string;
+    percentage: number;
+    repoCount: number;
+    totalSize: number;
+  }>;
+  totalRepos: number;
+  topLanguage: string;
+}) => Promise<{ data: LanguageInsightResponse }>;

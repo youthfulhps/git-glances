@@ -3,6 +3,7 @@ import { useBoard } from '@shared/contexts/BoardContext';
 import NotificationBoard from '../../Notification/components/NotificationBoard';
 import TrendsBoard from '../../Trends/components/TrendsBoard';
 import ContributionBoard from '../../Contribution/components/ContributionBoard';
+import LanguageBoard from '../../Language/components/LanguageBoard';
 import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
 function Board() {
@@ -22,6 +23,7 @@ function Board() {
       {boardType === 'notification' && <NotificationBoard />}
       {boardType === 'trends' && <TrendsBoard />}
       {boardType === 'contribution' && <ContributionBoard />}
+      {boardType === 'language' && <LanguageBoard />}
     </div>
   );
 }
