@@ -22,7 +22,7 @@ export function DatePicker({ date, onDateChange, className }: DatePickerProps) {
             className
           )}
         >
-          <CalendarIcon className="h-3.5 w-3.5" />
+          <CalendarIcon className="h-3.5 w-3.5 text-zinc-400" />
           {date ? (
             <span className="text-zinc-300">{format(date, 'MMM dd, y')}</span>
           ) : (
