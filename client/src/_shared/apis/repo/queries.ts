@@ -112,3 +112,40 @@ query {
   }
 }
 `;
+
+export const getStarredRepoListQuery = (after?: string) => `
+query {
+  viewer {
+    starredRepositories(first: 10${after ? `, after: "${after}"` : ''}, orderBy: {field: STARRED_AT, direction: DESC}) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          url
+          name
+          description
+          pushedAt
+          updatedAt
+          createdAt
+          owner {
+            login
+            avatarUrl
+          }
+          primaryLanguage {
+            name
+            color
+          }
+          stargazers {
+            totalCount
+          }
+          forks {
+            totalCount
+          }
+        }
+      }
+    }
+  }
+}
+`;

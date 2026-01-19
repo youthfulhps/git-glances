@@ -8,6 +8,7 @@ import Search from '../../../Search/components';
 import Notification from '../../../Notification/components';
 import Board from '../../../Board/components';
 import TrendsSummary from '../../../Trends/components/TrendsSummary';
+import StarredSummary from '../../../Starred/components/StarredSummary';
 
 function HomePage() {
   return (
@@ -22,6 +23,7 @@ function HomePage() {
             <Contribution />
             <Notification />
             <TrendsSummary />
+            <StarredSummary />
           </Grid>
         </div>
         <div className="relative min-h-screen w-[70%] pb-24 pt-24">

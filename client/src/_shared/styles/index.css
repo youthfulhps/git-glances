@@ -316,7 +316,7 @@ body {
 @media only screen and (min-width: 1024px) {
   .grid-template__login {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(12, 1fr);
+    grid-template-rows: repeat(13, 1fr);
     grid-template-areas:
       'Search'
       'Profile'
@@ -328,7 +328,9 @@ body {
       'Language'
       'Language'
       'Trends'
-      'Trends';
+      'Trends'
+      'Starred'
+      'Starred';
   }
 
   .grid-template__logout {
