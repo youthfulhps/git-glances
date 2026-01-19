@@ -5,8 +5,9 @@ import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 import { SuspenseQuery } from '@suspensive/react-query';
 
 function Contribution() {
-  const from = getTodayDateTime();
-  const to = getDateTimeAfterDays(1);
+  // 히트맵을 위해 최근 6개월치 데이터 요청
+  const from = getDateTimeAfterDays(-180); // 6개월 전
+  const to = getTodayDateTime(); // 오늘
 
   return (
     <SuspenseBoundary gridArea="Contribution">

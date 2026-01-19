@@ -2,6 +2,8 @@ import React from 'react';
 import { useBoard } from '@shared/contexts/BoardContext';
 import NotificationBoard from '../../Notification/components/NotificationBoard';
 import TrendsBoard from '../../Trends/components/TrendsBoard';
+import ContributionBoard from '../../Contribution/components/ContributionBoard';
+import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
 function Board() {
   const { boardType } = useBoard();
@@ -19,6 +21,7 @@ function Board() {
     <div className="min-h-[calc(100vh-12rem)]">
       {boardType === 'notification' && <NotificationBoard />}
       {boardType === 'trends' && <TrendsBoard />}
+      {boardType === 'contribution' && <ContributionBoard />}
     </div>
   );
 }

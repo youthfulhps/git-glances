@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode, useMemo, useCallback } 
 import { useQuery } from '@tanstack/react-query';
 import { mostUsedLanguageQueryOptions } from '../../Language/queries/useMostUsedLanguageQuery';
 
-export type BoardType = 'notification' | 'trends' | null;
+export type BoardType = 'notification' | 'trends' | 'contribution' | null;
 type ActiveBoardType = Exclude<BoardType, null>;
 
 interface BoardContextType {
@@ -10,9 +10,12 @@ interface BoardContextType {
   openBoard: (type: ActiveBoardType) => void;
   openNotificationBoard: () => void;
   openTrendsBoard: () => void;
+  openContributionBoard: (date?: string) => void;
   closeBoard: () => void;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
+  selectedContributionDate: string | null;
+  clearContributionDate: () => void;
 }
 
 const BoardContext = createContext<BoardContextType | undefined>(undefined);
@@ -20,6 +23,7 @@ const BoardContext = createContext<BoardContextType | undefined>(undefined);
 export function BoardProvider({ children }: { children: ReactNode }) {
   const [boardType, setBoardType] = useState<BoardType>('trends');
   const [userSelectedLanguage, setUserSelectedLanguage] = useState<string | null>(null);
+  const [selectedContributionDate, setSelectedContributionDate] = useState<string | null>(null);
 
   const { data: mostUsedLanguages } = useQuery(mostUsedLanguageQueryOptions);
 
@@ -46,8 +50,18 @@ export function BoardProvider({ children }: { children: ReactNode }) {
     setBoardType('trends');
   }, []);
 
+  const openContributionBoard = useCallback((date?: string) => {
+    setBoardType('contribution');
+    setSelectedContributionDate(date || null);
+  }, []);
+
+  const clearContributionDate = useCallback(() => {
+    setSelectedContributionDate(null);
+  }, []);
+
   const closeBoard = useCallback(() => {
     setBoardType(null);
+    setSelectedContributionDate(null);
   }, []);
 
   const value = useMemo(
@@ -56,18 +70,24 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openBoard,
       openNotificationBoard,
       openTrendsBoard,
+      openContributionBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
+      selectedContributionDate,
+      clearContributionDate,
     }),
     [
       boardType,
       openBoard,
       openNotificationBoard,
       openTrendsBoard,
+      openContributionBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
+      selectedContributionDate,
+      clearContributionDate,
     ],
   );
 
