@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode, useMemo, useCallback } 
 import { useQuery } from '@tanstack/react-query';
 import { mostUsedLanguageQueryOptions } from '../../Language/queries/useMostUsedLanguageQuery';
 
-export type BoardType = 'notification' | 'trends' | 'contribution' | 'language' | null;
+export type BoardType = 'notification' | 'trends' | 'contribution' | 'language' | 'starred' | null;
 type ActiveBoardType = Exclude<BoardType, null>;
 
 interface BoardContextType {
@@ -12,6 +12,7 @@ interface BoardContextType {
   openTrendsBoard: () => void;
   openContributionBoard: (date?: string) => void;
   openLanguageBoard: () => void;
+  openStarredBoard: () => void;
   closeBoard: () => void;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
@@ -60,6 +61,10 @@ export function BoardProvider({ children }: { children: ReactNode }) {
     setBoardType('language');
   }, []);
 
+  const openStarredBoard = useCallback(() => {
+    setBoardType('starred');
+  }, []);
+
   const clearContributionDate = useCallback(() => {
     setSelectedContributionDate(null);
   }, []);
@@ -77,6 +82,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openTrendsBoard,
       openContributionBoard,
       openLanguageBoard,
+      openStarredBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
@@ -90,6 +96,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openTrendsBoard,
       openContributionBoard,
       openLanguageBoard,
+      openStarredBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
