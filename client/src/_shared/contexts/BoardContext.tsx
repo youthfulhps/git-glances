@@ -2,7 +2,14 @@ import { createContext, useContext, useState, ReactNode, useMemo, useCallback } 
 import { useQuery } from '@tanstack/react-query';
 import { mostUsedLanguageQueryOptions } from '../../Language/queries/useMostUsedLanguageQuery';
 
-export type BoardType = 'notification' | 'trends' | 'contribution' | 'language' | 'profile' | 'starred' | null;
+export type BoardType =
+  | 'notification'
+  | 'trends'
+  | 'contribution'
+  | 'language'
+  | 'profile'
+  | 'starred'
+  | null;
 type ActiveBoardType = Exclude<BoardType, null>;
 
 interface BoardContextType {
@@ -64,6 +71,8 @@ export function BoardProvider({ children }: { children: ReactNode }) {
 
   const openStarredBoard = useCallback(() => {
     setBoardType('starred');
+  }, []);
+
   const openProfileBoard = useCallback(() => {
     setBoardType('profile');
   }, []);
