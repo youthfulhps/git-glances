@@ -109,7 +109,7 @@ function ActivityTimeline({ events }: ActivityTimelineProps) {
         <span className="text-[10px] text-zinc-500">{totalEvents} events</span>
       </div>
       <div className="flex flex-col gap-1">
-        {stats.map((stat) => {
+        {stats.slice(0, 6).map((stat) => {
           const percentage = (stat.count / maxCount) * 100;
 
           return (
