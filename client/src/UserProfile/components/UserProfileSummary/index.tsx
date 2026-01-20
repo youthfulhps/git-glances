@@ -41,14 +41,14 @@ function UserProfileSummary({ user }: UserProfileSummaryProps) {
               <p className="truncate text-sm font-medium text-zinc-200">
                 {user.name || user.login}
               </p>
-              <p className="truncate text-xs text-zinc-600">@{user.login}</p>
+              <p className="truncate text-xs text-zinc-500">@{user.login}</p>
             </div>
             {user.bio && <p className="line-clamp-2 text-xs text-zinc-400">{user.bio}</p>}
           </div>
         </div>
 
         <div className="border-t border-zinc-700/30 pt-2">
-          <div className="text-[10px] text-zinc-500">
+          <div className="text-[10px] text-zinc-400">
             {formatNumber(user.public_repos)} repos • {formatNumber(user.followers)} followers
           </div>
         </div>

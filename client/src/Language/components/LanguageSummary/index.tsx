@@ -62,7 +62,7 @@ function LanguageSummary({ languages }: LanguageSummaryProps) {
 
         {/* Total Stats */}
         <div className="border-t border-zinc-700/30 pt-2">
-          <div className="text-[10px] text-zinc-500">
+          <div className="text-[10px] text-zinc-400">
             {stats.totalLanguages} languages • {formatBytes(stats.totalSize)} total
           </div>
         </div>

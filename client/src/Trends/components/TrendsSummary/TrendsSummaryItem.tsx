@@ -20,7 +20,7 @@ function TrendsSummaryItem({ trendsRepo }: TrendsSummaryItemProps) {
       </div>
       <p className="truncate text-xs text-zinc-400">{trendsRepo.description}</p>
 
-      <div className="flex items-center text-xs text-zinc-400">
+      <div className="mt-1 flex items-center text-xs text-zinc-400">
         <StarIcon size={10} className="mr-[2px]" />
         <span className="mr-1">{trendsRepo.stargazers.totalCount}</span>
         <RepoForkedIcon size={10} className="mr-[2px]" />
