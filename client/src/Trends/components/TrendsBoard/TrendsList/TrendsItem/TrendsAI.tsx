@@ -2,6 +2,7 @@ import { SummarizeResponse } from '@shared/apis/ai';
 import React from 'react';
 import { SparkleFillIcon } from '@primer/octicons-react';
 import ShinyText from '@shared/components/ShinyText/ShinyText';
+import StarBorder from '@shared/components/StarBorder';
 
 type TrendsAIProps = {
   onGenerate: () => void;
@@ -14,12 +15,17 @@ type TrendsAIProps = {
 function TrendsAI({ onGenerate, isPending, isError, data, error }: TrendsAIProps) {
   if (!data && !isPending && !isError) {
     return (
-      <button
+      <StarBorder
+        as="button"
         onClick={(e) => {
           e.preventDefault();
           onGenerate();
         }}
-        className="hover:from-zinc-850 flex items-center gap-1.5 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-2 hover:border-zinc-600 hover:via-zinc-900/90 hover:to-zinc-900"
+        className="w-full"
+        innerClassName="flex items-center gap-1.5 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-2 hover:border-zinc-600 hover:via-zinc-900/90 hover:to-zinc-900"
+        color="rgba(250, 250, 250, 0.8)"
+        speed="8s"
+        thickness={1}
       >
         <SparkleFillIcon size={10} className="fill-zinc-400" />
         <ShinyText
@@ -27,22 +33,26 @@ function TrendsAI({ onGenerate, isPending, isError, data, error }: TrendsAIProps
           className="text-xs font-medium text-zinc-700"
           speed={2}
         />
-      </button>
+      </StarBorder>
     );
   }
 
   if (isPending) {
     return (
-      <div className="flex flex-col gap-1 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-2">
-        <div className="flex items-center gap-1.5">
-          <SparkleFillIcon size={10} className="fill-zinc-400" />
-          <ShinyText
-            text="Generating AI summary..."
-            className="text-xs font-medium text-zinc-700"
-            speed={2}
-          />
-        </div>
-      </div>
+      <StarBorder
+        as="div"
+        innerClassName="flex items-center gap-1.5 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-2"
+        color="rgba(250, 250, 250, 0.8)"
+        speed="8s"
+        thickness={1}
+      >
+        <SparkleFillIcon size={10} className="fill-zinc-400" />
+        <ShinyText
+          text="Generating AI summary..."
+          className="text-xs font-medium text-zinc-700"
+          speed={2}
+        />
+      </StarBorder>
     );
   }
 
@@ -65,7 +75,13 @@ function TrendsAI({ onGenerate, isPending, isError, data, error }: TrendsAIProps
 
   if (data) {
     return (
-      <div className="flex flex-col gap-1 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3">
+      <StarBorder
+        as="div"
+        innerClassName="flex flex-col gap-1 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3"
+        color="rgba(250, 250, 250, 0.8)"
+        speed="8s"
+        thickness={1}
+      >
         <div className="flex items-center gap-0.5">
           <SparkleFillIcon size={10} className="mr-[2px] fill-zinc-200" />
           <ShinyText text="AI Summary" className="text-xs font-medium text-zinc-700" speed={5} />
@@ -83,7 +99,7 @@ function TrendsAI({ onGenerate, isPending, isError, data, error }: TrendsAIProps
             ))}
           </div>
         )}
-      </div>
+      </StarBorder>
     );
   }
 

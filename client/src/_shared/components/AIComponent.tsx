@@ -1,6 +1,7 @@
 import React from 'react';
 import { SparkleFillIcon } from '@primer/octicons-react';
 import ShinyText from '@shared/components/ShinyText/ShinyText';
+import StarBorder from '@shared/components/StarBorder';
 
 type AIComponentProps<T> = {
   title: string;
@@ -30,25 +31,34 @@ function AIComponent<T>({
   // Initial state: show generate button
   if (!data && !isPending && !isError) {
     return (
-      <button
+      <StarBorder
+        as="button"
         onClick={onGenerate}
-        className="hover:from-zinc-850 flex items-center gap-1.5 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3 hover:border-zinc-600 hover:via-zinc-900/90 hover:to-zinc-900"
+        className="w-full"
+        innerClassName="flex items-center gap-1.5 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 hover:border-zinc-600 hover:via-zinc-900/90 hover:to-zinc-900"
+        color="rgba(250, 250, 250, 0.8)"
+        speed="8s"
+        thickness={1}
       >
         <SparkleFillIcon size={12} className="fill-zinc-400" />
         <ShinyText text={generateText} className="text-sm font-medium text-zinc-700" speed={2} />
-      </button>
+      </StarBorder>
     );
   }
 
   // Loading state
   if (isPending) {
     return (
-      <div className="flex flex-col gap-1 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3">
-        <div className="flex items-center gap-1.5">
-          <SparkleFillIcon size={12} className="fill-zinc-400" />
-          <ShinyText text={loadingText} className="text-sm font-medium text-zinc-700" speed={2} />
-        </div>
-      </div>
+      <StarBorder
+        as="div"
+        innerClassName="flex items-center gap-1.5 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950"
+        color="rgba(250, 250, 250, 0.8)"
+        speed="8s"
+        thickness={1}
+      >
+        <SparkleFillIcon size={12} className="fill-zinc-400" />
+        <ShinyText text={loadingText} className="text-sm font-medium text-zinc-700" speed={2} />
+      </StarBorder>
     );
   }
 
@@ -72,7 +82,13 @@ function AIComponent<T>({
   // Success state with data
   if (data) {
     return (
-      <div className="flex flex-col gap-3 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3">
+      <StarBorder
+        as="div"
+        innerClassName="flex flex-col gap-3 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950"
+        color="rgba(250, 250, 250, 0.8)"
+        speed="8s"
+        thickness={1}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <SparkleFillIcon size={12} className="fill-zinc-200" />
@@ -88,7 +104,7 @@ function AIComponent<T>({
           )}
         </div>
         {renderContent(data, onGenerate)}
-      </div>
+      </StarBorder>
     );
   }
 
