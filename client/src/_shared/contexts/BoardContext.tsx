@@ -31,7 +31,7 @@ interface BoardContextType {
 const BoardContext = createContext<BoardContextType | undefined>(undefined);
 
 export function BoardProvider({ children }: { children: ReactNode }) {
-  const [boardType, setBoardType] = useState<BoardType>('trends');
+  const [boardType, setBoardType] = useState<BoardType>('profile');
   const [userSelectedLanguage, setUserSelectedLanguage] = useState<string | null>(null);
   const [selectedContributionDate, setSelectedContributionDate] = useState<string | null>(null);
 

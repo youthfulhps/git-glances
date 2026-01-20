@@ -1,8 +1,13 @@
 import React from 'react';
 import { SuspenseQuery } from '@suspensive/react-query';
 import { userQueryOptions } from '../../queries/useUserQuery';
+import { userEventsQueryOptions } from '../../queries/useUserEventsQuery';
 import ProfileOverview from './ProfileOverview';
 import ProfileStats from './ProfileStats';
+import ActivityTimeline from './ActivityTimeline';
+import ActivityHeatmap from './ActivityHeatmap';
+import DeveloperPersona from './DeveloperPersona';
+import FunFacts from './FunFacts';
 import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
 function UserProfileBoard() {
@@ -22,6 +27,24 @@ function UserProfileBoard() {
 
               {/* Stats */}
               <ProfileStats user={user} />
+
+              {/* Activity Timeline and Heatmap */}
+              <SuspenseQuery {...userEventsQueryOptions(user.login)}>
+                {({ data }) => (
+                  <>
+                    <div className="grid grid-cols-2 gap-3">
+                      <ActivityTimeline events={data} />
+                      <ActivityHeatmap events={data} />
+                    </div>
+
+                    {/* Developer Persona with AI */}
+                    <DeveloperPersona events={data} username={user.login} />
+
+                    {/* Fun Facts */}
+                    <FunFacts events={data} />
+                  </>
+                )}
+              </SuspenseQuery>
             </div>
           )}
         </SuspenseQuery>
