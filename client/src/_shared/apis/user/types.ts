@@ -36,3 +36,35 @@ export type User = {
 };
 
 export type GetUser = () => AsyncAxiosResponse<User>;
+
+export type UserEvent = {
+  id: string;
+  type: string;
+  actor: {
+    login: string;
+    avatar_url: string;
+  };
+  repo: {
+    name: string;
+    url: string;
+  };
+  payload: {
+    action?: string;
+    ref?: string;
+    ref_type?: string;
+    size?: number;
+    commits?: Array<{ message: string }>;
+    pull_request?: {
+      title: string;
+      number: number;
+      html_url: string;
+    };
+    issue?: {
+      title: string;
+      number: number;
+    };
+  };
+  created_at: string;
+};
+
+export type GetUserEvents = (username: string) => AsyncAxiosResponse<UserEvent[]>;
