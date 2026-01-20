@@ -5,7 +5,7 @@ import TrendsBoard from '../../Trends/components/TrendsBoard';
 import ContributionBoard from '../../Contribution/components/ContributionBoard';
 import LanguageBoard from '../../Language/components/LanguageBoard';
 import StarredBoard from '../../Starred/components/StarredBoard';
-import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
+import UserProfileBoard from '../../UserProfile/components/UserProfileBoard';
 
 function Board() {
   const { boardType } = useBoard();
@@ -26,6 +26,7 @@ function Board() {
       {boardType === 'contribution' && <ContributionBoard />}
       {boardType === 'language' && <LanguageBoard />}
       {boardType === 'starred' && <StarredBoard />}
+      {boardType === 'profile' && <UserProfileBoard />}
     </div>
   );
 }

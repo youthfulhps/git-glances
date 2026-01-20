@@ -5,6 +5,7 @@ import {
   GenerateContributionInsight,
   GenerateCodeReview,
   GenerateLanguageInsight,
+  GenerateDeveloperPersona,
 } from './types';
 import { parseAIResponse } from './utils';
 
@@ -260,6 +261,120 @@ Tags should reflect the development style (e.g., "polyglot", "web-development", 
       data: {
         insight: parsed.insight,
         tags: parsed.tags || [],
+      },
+    };
+  } catch (error) {
+    console.error('Failed to parse AI response:', text);
+    throw new Error('Invalid response format from AI');
+  }
+};
+
+export const generateDeveloperPersona: GenerateDeveloperPersona = async ({ events, username }) => {
+  const apiKey = process.env.GROQ_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('GROQ_API_KEY is not configured');
+  }
+
+  const groq = createOpenAICompatible({
+    name: 'groq',
+    baseURL: 'https://api.groq.com/openai/v1',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+  });
+
+  // Analyze activity patterns
+  const eventsByDay: Record<string, number> = {};
+  const eventsByHour: Record<number, number> = {};
+  const eventTypes: Record<string, number> = {};
+  let weekdayEvents = 0;
+  let weekendEvents = 0;
+
+  events.forEach((event) => {
+    const date = new Date(event.created_at);
+    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+    const hour = date.getHours();
+    const dayOfWeek = date.getDay();
+
+    eventsByDay[dayName] = (eventsByDay[dayName] || 0) + 1;
+    eventsByHour[hour] = (eventsByHour[hour] || 0) + 1;
+    eventTypes[event.type] = (eventTypes[event.type] || 0) + 1;
+
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      weekendEvents++;
+    } else {
+      weekdayEvents++;
+    }
+  });
+
+  const mostActiveDay = Object.entries(eventsByDay).sort((a, b) => b[1] - a[1])[0]?.[0] || 'Unknown';
+  const mostActiveHour = Object.entries(eventsByHour).sort((a, b) => b[1] - a[1])[0]?.[0] || 0;
+  const topEventType = Object.entries(eventTypes).sort((a, b) => b[1] - a[1])[0]?.[0] || 'Unknown';
+
+  const timeOfDay =
+    Number(mostActiveHour) < 6
+      ? 'Late Night (12am-6am)'
+      : Number(mostActiveHour) < 12
+        ? 'Morning (6am-12pm)'
+        : Number(mostActiveHour) < 18
+          ? 'Afternoon (12pm-6pm)'
+          : 'Evening (6pm-12am)';
+
+  const weekdayPercentage = ((weekdayEvents / (weekdayEvents + weekendEvents)) * 100).toFixed(0);
+
+  const prompt = `Analyze this GitHub user's activity pattern and assign them a creative developer persona:
+
+Username: ${username}
+Total Events: ${events.length}
+Most Active Day: ${mostActiveDay}
+Most Active Time: ${timeOfDay}
+Top Activity Type: ${topEventType}
+Weekday Activity: ${weekdayPercentage}%
+Weekend Activity: ${100 - Number(weekdayPercentage)}%
+
+Based on these patterns, create a fun and accurate developer persona. Examples of good personas:
+- "Night Owl Coder" - for developers who code late at night
+- "Weekend Warrior" - for those who code heavily on weekends
+- "Early Bird Developer" - for morning coders
+- "PR Review Master" - for those who focus on reviews
+- "Commit Machine" - for prolific committers
+- "Steady Eddie" - for consistent daily contributors
+
+Return ONLY a valid JSON object with this exact format:
+{
+  "persona": "A catchy 2-4 word persona name",
+  "description": "A fun 1-2 sentence description of what this persona means",
+  "traits": ["trait1", "trait2", "trait3"],
+  "stats": {
+    "mostActiveDay": "${mostActiveDay}",
+    "mostActiveTime": "${timeOfDay}",
+    "weekdayVsWeekend": "${weekdayPercentage}% weekday"
+  }
+}
+
+Traits should be positive characteristics (e.g., "Late night productivity", "Weekend dedication", "Consistent contributor").`;
+
+  const { text } = await generateText({
+    model: groq('llama-3.3-70b-versatile'),
+    prompt,
+    system:
+      'You are a creative developer profiler that creates fun, accurate personas based on GitHub activity patterns. Always respond with valid JSON only, no additional text. Be creative and engaging while staying accurate to the data.',
+  });
+
+  try {
+    const parsed = parseAIResponse<{
+      persona: string;
+      description: string;
+      traits: string[];
+      stats: { mostActiveDay: string; mostActiveTime: string; weekdayVsWeekend: string };
+    }>(text);
+    return {
+      data: {
+        persona: parsed.persona,
+        description: parsed.description,
+        traits: parsed.traits || [],
+        stats: parsed.stats,
       },
     };
   } catch (error) {

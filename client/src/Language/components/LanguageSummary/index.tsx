@@ -14,7 +14,7 @@ function LanguageSummary({ languages }: LanguageSummaryProps) {
   const stats = getTotalStats(languages);
 
   return (
-    <SectionV2 gridArea="Language" hasBackground={false} onClick={openLanguageBoard}>
+    <SectionV2 gridArea="Language" onClick={openLanguageBoard}>
       <div className="flex h-full w-full cursor-pointer flex-col gap-y-3">
         {/* Stacked Bar Chart */}
         <div className="flex flex-col gap-2">
@@ -35,9 +35,7 @@ function LanguageSummary({ languages }: LanguageSummaryProps) {
               <div
                 className="h-full bg-zinc-700 opacity-40"
                 style={{
-                  width: `${languages
-                    .slice(5)
-                    .reduce((sum, lang) => sum + lang.percentage, 0)}%`,
+                  width: `${languages.slice(5).reduce((sum, lang) => sum + lang.percentage, 0)}%`,
                 }}
                 title="Others"
               />
@@ -52,6 +50,7 @@ function LanguageSummary({ languages }: LanguageSummaryProps) {
                   className="h-2 w-2 flex-shrink-0 rounded-full opacity-60"
                   style={{ backgroundColor: language.color }}
                 />
+
                 <span className="text-xs text-zinc-400">{language.name}</span>
                 <span className="text-xs font-medium text-zinc-300">
                   {language.percentage.toFixed(1)}%

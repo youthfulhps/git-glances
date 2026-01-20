@@ -2,7 +2,14 @@ import { createContext, useContext, useState, ReactNode, useMemo, useCallback } 
 import { useQuery } from '@tanstack/react-query';
 import { mostUsedLanguageQueryOptions } from '../../Language/queries/useMostUsedLanguageQuery';
 
-export type BoardType = 'notification' | 'trends' | 'contribution' | 'language' | 'starred' | null;
+export type BoardType =
+  | 'notification'
+  | 'trends'
+  | 'contribution'
+  | 'language'
+  | 'profile'
+  | 'starred'
+  | null;
 type ActiveBoardType = Exclude<BoardType, null>;
 
 interface BoardContextType {
@@ -13,6 +20,7 @@ interface BoardContextType {
   openContributionBoard: (date?: string) => void;
   openLanguageBoard: () => void;
   openStarredBoard: () => void;
+  openProfileBoard: () => void;
   closeBoard: () => void;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
@@ -23,7 +31,7 @@ interface BoardContextType {
 const BoardContext = createContext<BoardContextType | undefined>(undefined);
 
 export function BoardProvider({ children }: { children: ReactNode }) {
-  const [boardType, setBoardType] = useState<BoardType>('trends');
+  const [boardType, setBoardType] = useState<BoardType>('profile');
   const [userSelectedLanguage, setUserSelectedLanguage] = useState<string | null>(null);
   const [selectedContributionDate, setSelectedContributionDate] = useState<string | null>(null);
 
@@ -65,6 +73,10 @@ export function BoardProvider({ children }: { children: ReactNode }) {
     setBoardType('starred');
   }, []);
 
+  const openProfileBoard = useCallback(() => {
+    setBoardType('profile');
+  }, []);
+
   const clearContributionDate = useCallback(() => {
     setSelectedContributionDate(null);
   }, []);
@@ -83,6 +95,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openContributionBoard,
       openLanguageBoard,
       openStarredBoard,
+      openProfileBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
@@ -97,6 +110,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openContributionBoard,
       openLanguageBoard,
       openStarredBoard,
+      openProfileBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
