@@ -52,3 +52,22 @@ export type GenerateLanguageInsight = (params: {
   totalRepos: number;
   topLanguage: string;
 }) => Promise<{ data: LanguageInsightResponse }>;
+
+export type DeveloperPersonaResponse = {
+  persona: string;
+  description: string;
+  traits: string[];
+  stats: {
+    mostActiveDay: string;
+    mostActiveTime: string;
+    weekdayVsWeekend: string;
+  };
+};
+
+export type GenerateDeveloperPersona = (params: {
+  events: Array<{
+    type: string;
+    created_at: string;
+  }>;
+  username: string;
+}) => Promise<{ data: DeveloperPersonaResponse }>;
