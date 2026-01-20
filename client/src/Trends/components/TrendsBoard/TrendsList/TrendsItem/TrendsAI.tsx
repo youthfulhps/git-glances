@@ -75,13 +75,7 @@ function TrendsAI({ onGenerate, isPending, isError, data, error }: TrendsAIProps
 
   if (data) {
     return (
-      <StarBorder
-        as="div"
-        innerClassName="flex flex-col gap-1 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3"
-        color="rgba(250, 250, 250, 0.8)"
-        speed="8s"
-        thickness={1}
-      >
+      <div className="flex flex-col gap-1 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3">
         <div className="flex items-center gap-0.5">
           <SparkleFillIcon size={10} className="mr-[2px] fill-zinc-200" />
           <ShinyText text="AI Summary" className="text-xs font-medium text-zinc-700" speed={5} />
@@ -99,7 +93,7 @@ function TrendsAI({ onGenerate, isPending, isError, data, error }: TrendsAIProps
             ))}
           </div>
         )}
-      </StarBorder>
+      </div>
     );
   }
 

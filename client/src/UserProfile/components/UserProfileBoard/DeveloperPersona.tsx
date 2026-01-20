@@ -87,13 +87,7 @@ function DeveloperPersona({ events, username }: DeveloperPersonaProps) {
         // Success state with data
         if (data) {
           return (
-            <StarBorder
-              as="div"
-              innerClassName="flex flex-col gap-3 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950"
-              color="rgba(250, 250, 250, 0.8)"
-              speed="8s"
-              thickness={1}
-            >
+            <div className="flex flex-col gap-3 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 p-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <SparkleFillIcon size={12} className="fill-zinc-200" />
@@ -154,7 +148,7 @@ function DeveloperPersona({ events, username }: DeveloperPersonaProps) {
                   </span>
                 </div>
               </div>
-            </StarBorder>
+            </div>
           );
         }
 
