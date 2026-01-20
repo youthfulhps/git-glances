@@ -7,6 +7,7 @@ import ProfileStats from './ProfileStats';
 import ActivityTimeline from './ActivityTimeline';
 import ActivityHeatmap from './ActivityHeatmap';
 import DeveloperPersona from './DeveloperPersona';
+import ProductivityInsights from './ProductivityInsights';
 import FunFacts from './FunFacts';
 import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
@@ -39,6 +40,9 @@ function UserProfileBoard() {
 
                     {/* Developer Persona with AI */}
                     <DeveloperPersona events={data} username={user.login} />
+
+                    {/* Productivity Insights */}
+                    <ProductivityInsights events={data} />
 
                     {/* Fun Facts */}
                     <FunFacts events={data} />
