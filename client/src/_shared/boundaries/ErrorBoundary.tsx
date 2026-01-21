@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
-import PulseSection from '@layout/components/PulseSection';
 import Error from '../components/Error';
+import SectionV2 from '@layout/components/SectionV2';
 
 type ErrorBoundaryProps = {
   children: ReactNode;
   reset?: (args?: unknown[]) => void;
   gridArea?: string;
   hasToken: boolean;
+  mockContent?: ReactNode;
 };
 
 type ErrorBoundaryState = {
@@ -43,11 +44,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
   render() {
     const { hasError, error, errorMessage } = this.state;
-    const { children, gridArea, hasToken } = this.props;
-
-    if (!hasToken) {
-      return <PulseSection gridArea={gridArea} />;
-    }
+    const { children, gridArea, hasToken, mockContent } = this.props;
 
     if (hasError && error) {
       return (
@@ -56,6 +53,14 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
           reset={this.resetErrorBoundaryState}
           gridArea={gridArea}
         />
+      );
+    }
+
+    if (!hasToken && mockContent) {
+      return (
+        <SectionV2 gridArea={gridArea} className="blur-[2px] opacity-60">
+          {mockContent}
+        </SectionV2>
       );
     }
 

@@ -6,6 +6,7 @@ import ContributionBoard from '../../Contribution/components/ContributionBoard';
 import LanguageBoard from '../../Language/components/LanguageBoard';
 import StarredBoard from '../../Starred/components/StarredBoard';
 import UserProfileBoard from '../../UserProfile/components/UserProfileBoard';
+import SettingBoard from '../../Setting/components/SettingBoard';
 
 function Board() {
   const { boardType } = useBoard();
@@ -27,6 +28,7 @@ function Board() {
       {boardType === 'language' && <LanguageBoard />}
       {boardType === 'starred' && <StarredBoard />}
       {boardType === 'profile' && <UserProfileBoard />}
+      {boardType === 'setting' && <SettingBoard />}
     </div>
   );
 }

@@ -9,6 +9,7 @@ export type BoardType =
   | 'language'
   | 'profile'
   | 'starred'
+  | 'setting'
   | null;
 type ActiveBoardType = Exclude<BoardType, null>;
 
@@ -21,6 +22,7 @@ interface BoardContextType {
   openLanguageBoard: () => void;
   openStarredBoard: () => void;
   openProfileBoard: () => void;
+  openSettingBoard: () => void;
   closeBoard: () => void;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
@@ -31,7 +33,7 @@ interface BoardContextType {
 const BoardContext = createContext<BoardContextType | undefined>(undefined);
 
 export function BoardProvider({ children }: { children: ReactNode }) {
-  const [boardType, setBoardType] = useState<BoardType>('profile');
+  const [boardType, setBoardType] = useState<BoardType>('setting');
   const [userSelectedLanguage, setUserSelectedLanguage] = useState<string | null>(null);
   const [selectedContributionDate, setSelectedContributionDate] = useState<string | null>(null);
 
@@ -77,6 +79,10 @@ export function BoardProvider({ children }: { children: ReactNode }) {
     setBoardType('profile');
   }, []);
 
+  const openSettingBoard = useCallback(() => {
+    setBoardType('setting');
+  }, []);
+
   const clearContributionDate = useCallback(() => {
     setSelectedContributionDate(null);
   }, []);
@@ -96,6 +102,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openLanguageBoard,
       openStarredBoard,
       openProfileBoard,
+      openSettingBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
@@ -111,6 +118,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openLanguageBoard,
       openStarredBoard,
       openProfileBoard,
+      openSettingBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,

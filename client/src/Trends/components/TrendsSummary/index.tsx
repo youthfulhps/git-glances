@@ -5,6 +5,7 @@ import { useBoard } from '@shared/contexts/BoardContext';
 import TrendsSummaryItem from './TrendsSummaryItem';
 import TrendsInfiniteQuery from '../TrendsInfiniteQuery';
 import { TrendsRepository } from '@shared/apis/repo';
+import { mockTrendsRepo } from '../../mocks/mockTrendsRepo';
 
 function TrendsSummary() {
   const { openTrendsBoard, selectedLanguage } = useBoard();
@@ -12,8 +13,13 @@ function TrendsSummary() {
   const handleClick = () => {
     openTrendsBoard();
   };
+
   return (
-    <TrendsInfiniteQuery language={selectedLanguage} gridArea="Trends">
+    <TrendsInfiniteQuery
+      language={selectedLanguage}
+      gridArea="Trends"
+      mockContent={<TrendsSummaryItem trendsRepo={mockTrendsRepo} />}
+    >
       {({ data }) => {
         const pages = (data as { pages?: Array<{ repositories: TrendsRepository[] }> })?.pages;
         const firstRepo = pages?.[0]?.repositories?.[0];
