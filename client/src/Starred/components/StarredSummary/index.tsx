@@ -5,6 +5,7 @@ import { useBoard } from '@shared/contexts/BoardContext';
 import StarredSummaryItem from './StarredSummaryItem';
 import StarredInfiniteQuery from '../StarredInfiniteQuery';
 import { TrendsRepository } from '@shared/apis/repo';
+import { mockStarredRepo } from '../../mocks/mockStarredRepo';
 
 function StarredSummary() {
   const { openStarredBoard } = useBoard();
@@ -12,8 +13,12 @@ function StarredSummary() {
   const handleClick = () => {
     openStarredBoard();
   };
+
   return (
-    <StarredInfiniteQuery gridArea="Starred">
+    <StarredInfiniteQuery
+      gridArea="Starred"
+      mockContent={<StarredSummaryItem starredRepo={mockStarredRepo} />}
+    >
       {({ data }) => {
         const pages = (data as { pages?: Array<{ repositories: TrendsRepository[] }> })?.pages;
         const firstRepo = pages?.[0]?.repositories?.[0];

@@ -8,7 +8,7 @@ type TrendsSummaryItemProps = {
 
 function TrendsSummaryItem({ trendsRepo }: TrendsSummaryItemProps) {
   return (
-    <div className="mb-1 flex w-full flex-col py-2 text-start text-sm">
+    <div className="mb-1 flex w-full flex-col text-start text-sm">
       <div className="flex items-center">
         <img
           src={trendsRepo.owner.avatarUrl}

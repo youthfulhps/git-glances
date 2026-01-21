@@ -235,112 +235,23 @@ body {
   line-height: 1.1;
 }
 
-.grid-template__login {
+.grid-template {
   @apply grid h-full w-full gap-2;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(16, 111px);
-
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(14, 1fr);
   grid-template-areas:
+    'Search'
     'Profile'
     'Profile'
-    'Profile'
+    'Notification'
+    'Contribution'
+    'Contribution'
+    'Contribution'
     'Language'
-    'Contribution'
-    'Contribution'
-    'Notification'
-    'Notification'
-    'Refactor'
-    'Refactor'
-    'Trends'
-    'Trends'
-    'Daily'
-    'Daily'
-    'Enhance'
-    'Enhance';
-}
-
-.grid-template__logout {
-  @apply grid h-full w-full gap-2;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(16, 111px);
-
-  grid-template-areas:
-    'Login'
-    'Profile'
-    'Profile'
     'Language'
-    'Contribution'
-    'Contribution'
-    'Notification'
-    'Notification'
-    'Refactor'
-    'Refactor'
     'Trends'
     'Trends'
-    'Daily'
-    'Daily'
-    'Enhance'
-    'Enhance';
-}
-
-@media only screen and (min-width: 768px) {
-  .grid-template__login {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, 111px);
-    grid-template-areas:
-      'Profile Contribution'
-      'Profile Contribution'
-      'Profile Notification'
-      'Language Notification'
-      'Refactor Trends'
-      'Refactor Trends'
-      'Daily Enhance'
-      'Daily Enhance';
-  }
-
-  .grid-template__logout {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, 111px);
-    grid-template-areas:
-      'Login Contribution'
-      'Profile Contribution'
-      'Profile Notification'
-      'Language Notification'
-      'Refactor Trends'
-      'Refactor Trends'
-      'Daily Enhance'
-      'Daily Enhance';
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .grid-template__login {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(13, 1fr);
-    grid-template-areas:
-      'Search'
-      'Profile'
-      'Profile'
-      'Notification'
-      'Contribution'
-      'Contribution'
-      'Contribution'
-      'Language'
-      'Language'
-      'Trends'
-      'Trends'
-      'Starred'
-      'Starred';
-  }
-
-  .grid-template__logout {
-    height: 520px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-areas:
-      'Login Contribution Notification Trends'
-      'Profile Contribution Notification Trends'
-      'Profile Refactor Daily Enhance'
-      'Language Refactor Daily Enhance';
-  }
+    'Starred'
+    'Starred'
+    'Setting';
 }
