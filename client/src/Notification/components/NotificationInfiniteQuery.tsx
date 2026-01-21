@@ -6,6 +6,7 @@ import { notificationListInfiniteQueryOptions } from '../queries/useNotification
 
 type NotificationInfiniteQueryProps = {
   gridArea?: string;
+  mockContent?: ReactNode;
   children: (args: {
     data: unknown;
     fetchNextPage: () => void;
@@ -14,9 +15,13 @@ type NotificationInfiniteQueryProps = {
   }) => ReactNode;
 };
 
-function NotificationInfiniteQuery({ gridArea, children }: NotificationInfiniteQueryProps) {
+function NotificationInfiniteQuery({
+  gridArea,
+  mockContent,
+  children,
+}: NotificationInfiniteQueryProps) {
   return (
-    <SuspenseBoundary gridArea={gridArea}>
+    <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
       <SuspenseInfiniteQuery {...notificationListInfiniteQueryOptions()}>
         {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
           children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })

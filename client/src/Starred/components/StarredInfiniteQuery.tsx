@@ -6,6 +6,7 @@ import { starredRepoListQueryOptions } from '../queries/useStarredRepoListQuery'
 
 type StarredInfiniteQueryProps = {
   gridArea?: string;
+  mockContent?: ReactNode;
   children: (args: {
     data: unknown;
     fetchNextPage: () => void;
@@ -14,9 +15,9 @@ type StarredInfiniteQueryProps = {
   }) => ReactNode;
 };
 
-function StarredInfiniteQuery({ gridArea, children }: StarredInfiniteQueryProps) {
+function StarredInfiniteQuery({ gridArea, mockContent, children }: StarredInfiniteQueryProps) {
   return (
-    <SuspenseBoundary gridArea={gridArea}>
+    <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
       <SuspenseInfiniteQuery {...starredRepoListQueryOptions()}>
         {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
           children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })

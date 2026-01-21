@@ -7,6 +7,7 @@ import { trendsRepoListQueryOptions } from '../queries/useTrendsRepoListQuery';
 type TrendsInfiniteQueryProps = {
   language: string;
   gridArea?: string;
+  mockContent?: ReactNode;
   children: (args: {
     data: unknown;
     fetchNextPage: () => void;
@@ -15,9 +16,14 @@ type TrendsInfiniteQueryProps = {
   }) => ReactNode;
 };
 
-function TrendsInfiniteQuery({ language, gridArea, children }: TrendsInfiniteQueryProps) {
+function TrendsInfiniteQuery({
+  language,
+  gridArea,
+  mockContent,
+  children,
+}: TrendsInfiniteQueryProps) {
   return (
-    <SuspenseBoundary gridArea={gridArea}>
+    <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
       <SuspenseInfiniteQuery {...trendsRepoListQueryOptions(language)}>
         {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
           children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })

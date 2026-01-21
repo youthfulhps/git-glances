@@ -8,14 +8,15 @@ import ErrorBoundary from './ErrorBoundary';
 type SuspenseBoundaryProps = {
   children: ReactNode;
   gridArea?: string;
+  mockContent?: ReactNode;
 };
 
-function SuspenseBoundary({ children, gridArea = '' }: SuspenseBoundaryProps) {
+function SuspenseBoundary({ children, gridArea = '', mockContent }: SuspenseBoundaryProps) {
   const { reset } = useQueryErrorResetBoundary();
   const { token } = useToken();
 
   return (
-    <ErrorBoundary reset={reset} gridArea={gridArea} hasToken={!!token}>
+    <ErrorBoundary reset={reset} gridArea={gridArea} hasToken={!!token} mockContent={mockContent}>
       <Suspense fallback={<PulseSection gridArea={gridArea} />}>{children}</Suspense>
     </ErrorBoundary>
   );
