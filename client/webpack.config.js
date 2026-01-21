@@ -5,6 +5,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { version } = require('./package.json');
 
 const PORT = process.env.PORT || 3000;
 
@@ -65,6 +66,7 @@ module.exports = ({ ENV, TARGET }) => {
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(process.env),
         'process.env.IS_WEB': JSON.stringify(isWeb),
+        'process.env.VERSION': JSON.stringify(version),
       }),
       new CopyWebpackPlugin({
         patterns: [

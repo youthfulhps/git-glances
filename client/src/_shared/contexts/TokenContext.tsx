@@ -1,60 +1,108 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { encryptToken, decryptToken, isCryptoSupported } from '@shared/utils/crypto';
 
 interface TokenContextType {
   token: string;
   setToken: (token: string) => void;
+  tokenError: boolean;
+  clearTokenError: () => void;
 }
 
 const TokenContext = createContext<TokenContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'gitGlances:token';
 
-function getStorageItem(key: string): string | null {
+async function getStorageItem(key: string): Promise<string | null> {
   if (process.env.IS_WEB) {
-    return localStorage.getItem(key);
+    const encryptedToken = localStorage.getItem(key);
+    if (!encryptedToken) return null;
+
+    // Web Crypto API를 지원하면 복호화
+    if (isCryptoSupported()) {
+      return await decryptToken(encryptedToken);
+    }
+
+    // 지원하지 않으면 평문 그대로 반환
+    return encryptedToken;
   }
   // For extension, we'll use a simple sync approach
   return null;
 }
 
-function setStorageItem(key: string, value: string): void {
+async function setStorageItem(key: string, value: string): Promise<void> {
   if (process.env.IS_WEB) {
-    localStorage.setItem(key, value);
+    if (value) {
+      // Web Crypto API를 지원하면 암호화
+      const tokenToStore = isCryptoSupported() ? await encryptToken(value) : value;
+      localStorage.setItem(key, tokenToStore);
+    } else {
+      localStorage.removeItem(key);
+    }
   } else {
-    // For Chrome extension
+    // For Chrome extension - chrome.storage는 이미 안전하므로 암호화 불필요
     if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.set({ [key]: value });
+      if (value) {
+        chrome.storage.local.set({ [key]: value });
+      } else {
+        chrome.storage.local.remove(key);
+      }
     }
   }
 }
 
 export function TokenProvider({ children }: { children: ReactNode }) {
   const [token, setTokenState] = useState<string>('');
+  const [tokenError, setTokenError] = useState<boolean>(false);
 
   useEffect(() => {
     // Initialize from storage
-    const savedToken = getStorageItem(STORAGE_KEY);
-    if (savedToken) {
-      setTokenState(savedToken);
-    }
+    const loadToken = async () => {
+      const savedToken = await getStorageItem(STORAGE_KEY);
+      if (savedToken) {
+        setTokenState(savedToken);
+      }
+    };
 
-    // For Chrome extension, load async
-    if (!process.env.IS_WEB && typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.get([STORAGE_KEY], (result) => {
-        if (result[STORAGE_KEY]) {
-          setTokenState(result[STORAGE_KEY]);
-        }
-      });
+    if (process.env.IS_WEB) {
+      loadToken();
+    } else {
+      // For Chrome extension, load async
+      if (typeof chrome !== 'undefined' && chrome.storage) {
+        chrome.storage.local.get([STORAGE_KEY], (result) => {
+          if (result[STORAGE_KEY]) {
+            setTokenState(result[STORAGE_KEY]);
+          }
+        });
+      }
     }
   }, []);
 
-  const setToken = (newToken: string) => {
+  useEffect(() => {
+    // Listen for token-invalid event from axios interceptor
+    const handleTokenInvalid = () => {
+      setTokenState('');
+      setTokenError(true);
+    };
+
+    window.addEventListener('token-invalid', handleTokenInvalid);
+
+    return () => {
+      window.removeEventListener('token-invalid', handleTokenInvalid);
+    };
+  }, []);
+
+  const setToken = async (newToken: string) => {
     setTokenState(newToken);
-    setStorageItem(STORAGE_KEY, newToken);
+    setTokenError(false); // 새 토큰 입력 시 에러 클리어
+    await setStorageItem(STORAGE_KEY, newToken);
+  };
+
+  const clearTokenError = () => {
+    setTokenError(false);
   };
 
   return (
-    <TokenContext.Provider value={{ token, setToken }}>
+    <TokenContext.Provider value={{ token, setToken, tokenError, clearTokenError }}>
       {children}
     </TokenContext.Provider>
   );
