@@ -238,12 +238,13 @@ body {
 .grid-template {
   @apply grid h-full w-full gap-2;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(14, 1fr);
+  grid-template-rows: repeat(15, 1fr);
   grid-template-areas:
     'Search'
     'Profile'
     'Profile'
     'Notification'
+    'PullRequest'
     'Contribution'
     'Contribution'
     'Contribution'
