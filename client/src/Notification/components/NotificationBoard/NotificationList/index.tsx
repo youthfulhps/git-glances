@@ -1,6 +1,6 @@
 import { Notification } from '@shared/apis/notification/types';
 import React, { useEffect, useRef } from 'react';
-import { Bell } from '@carbon/icons-react';
+import { BellIcon } from '@primer/octicons-react';
 import EmptyState from '@shared/components/EmptyState';
 import NotificationItem from './NotificationItem';
 
@@ -43,7 +43,7 @@ function NotificationList({
       <EmptyState
         title="No notifications"
         description="You're all caught up! Check back later for new notifications."
-        icon={<Bell size={32} />}
+        icon={<BellIcon size={32} />}
       />
     );
   }
