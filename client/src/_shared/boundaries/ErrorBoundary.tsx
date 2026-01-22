@@ -12,14 +12,12 @@ type ErrorBoundaryProps = {
 
 type ErrorBoundaryState = {
   hasError: boolean;
-  error: any;
-  errorMessage: string | null;
+  error: Error | null;
 };
 
 const initialState: ErrorBoundaryState = {
   hasError: false,
   error: null,
-  errorMessage: null,
 };
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -28,11 +26,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     this.state = initialState;
   }
 
-  static getDerivedStateFromError(error: any) {
+  static getDerivedStateFromError(error: Error) {
     return {
       hasError: true,
       error,
-      errorMessage: typeof error.message === 'string' ? error.message : null,
     };
   }
 
@@ -43,16 +40,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   };
 
   render() {
-    const { hasError, error, errorMessage } = this.state;
+    const { hasError, error } = this.state;
     const { children, gridArea, hasToken, mockContent } = this.props;
 
     if (hasError && error) {
       return (
-        <Error
-          errorMessage={errorMessage}
-          reset={this.resetErrorBoundaryState}
-          gridArea={gridArea}
-        />
+        <Error error={error} reset={this.resetErrorBoundaryState} gridArea={gridArea} />
       );
     }
 

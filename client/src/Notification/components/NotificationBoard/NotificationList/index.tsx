@@ -1,5 +1,7 @@
 import { Notification } from '@shared/apis/notification/types';
 import React, { useEffect, useRef } from 'react';
+import { BellIcon } from '@primer/octicons-react';
+import EmptyState from '@shared/components/EmptyState';
 import NotificationItem from './NotificationItem';
 
 type NotificationListProps = {
@@ -38,9 +40,11 @@ function NotificationList({
 
   if (!allNotifications || allNotifications.length === 0) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-sm text-zinc-500">No notifications</p>
-      </div>
+      <EmptyState
+        title="No notifications"
+        description="You're all caught up! Check back later for new notifications."
+        icon={<BellIcon size={32} />}
+      />
     );
   }
 

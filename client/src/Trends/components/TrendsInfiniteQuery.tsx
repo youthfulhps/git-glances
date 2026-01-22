@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
-import { SuspenseInfiniteQuery } from '@suspensive/react-query';
 
-import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
+import InfiniteQueryWrapper from '@shared/components/InfiniteQueryWrapper';
 import { trendsRepoListQueryOptions } from '../queries/useTrendsRepoListQuery';
 
 type TrendsInfiniteQueryProps = {
@@ -23,13 +22,13 @@ function TrendsInfiniteQuery({
   children,
 }: TrendsInfiniteQueryProps) {
   return (
-    <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
-      <SuspenseInfiniteQuery {...trendsRepoListQueryOptions(language)}>
-        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
-          children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })
-        }
-      </SuspenseInfiniteQuery>
-    </SuspenseBoundary>
+    <InfiniteQueryWrapper
+      queryOptions={trendsRepoListQueryOptions(language)}
+      gridArea={gridArea}
+      mockContent={mockContent}
+    >
+      {children}
+    </InfiniteQueryWrapper>
   );
 }
 

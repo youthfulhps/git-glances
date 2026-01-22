@@ -12,6 +12,7 @@ import {
   CopyIcon,
   IssueOpenedIcon,
 } from '@primer/octicons-react';
+import { cn } from '@shared/lib/utils';
 
 const GITHUB_OAUTH_URL =
   `https://github.com/login/oauth/authorize` +
@@ -67,15 +68,6 @@ function SettingBoard() {
     window.open('https://github.com/settings/tokens', '_blank');
   };
 
-  const openGenerateToken = () => {
-    window.open(
-      `https://github.com/settings/tokens/new?scopes=notifications,user,repo&description=${encodeURIComponent(
-        'Token for GitGlances Extension',
-      )}`,
-      '_blank',
-    );
-  };
-
   return (
     <div className="flex flex-col gap-3">
       <div className="text-sm font-medium text-zinc-200">Settings</div>
@@ -109,20 +101,18 @@ function SettingBoard() {
                     type={showToken ? 'text' : 'password'}
                     value={token}
                     readOnly
-                    className="flex-1 rounded-md border border-zinc-700 bg-zinc-900/50 px-3 py-2 text-xs text-zinc-300
-                      focus:border-zinc-600 focus:outline-none"
+                    className="flex-1 rounded-md border border-zinc-700 bg-zinc-900/50 px-3 py-2 text-xs text-zinc-300 focus:border-zinc-600 focus:outline-none"
                   />
+
                   <button
                     onClick={() => setShowToken(!showToken)}
-                    className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-xs text-zinc-300 transition-colors
-                      hover:bg-zinc-700"
+                    className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-zinc-700"
                   >
                     {showToken ? 'Hide' : 'Show'}
                   </button>
                   <button
                     onClick={handleCopyToken}
-                    className="flex items-center gap-1 rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-xs
-                      text-zinc-300 transition-colors hover:bg-zinc-700"
+                    className="flex items-center gap-1 rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-zinc-700"
                   >
                     {copied ? <CheckIcon size={12} /> : <CopyIcon size={12} />}
                     {copied ? 'Copied' : 'Copy'}
@@ -133,9 +123,7 @@ function SettingBoard() {
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
-                className="flex items-center justify-center gap-1 self-end rounded-lg border border-red-900/50
-                  bg-gradient-to-br from-red-950/30 via-zinc-900 to-zinc-950 px-4 py-2.5 text-[10px] text-red-400
-                  transition-colors hover:border-red-800/50 hover:text-red-300"
+                className="flex items-center justify-center gap-1 self-end rounded-lg border border-red-900/50 bg-gradient-to-br from-red-950/30 via-zinc-900 to-zinc-950 px-4 py-2.5 text-[10px] text-red-400 transition-colors hover:border-red-800/50 hover:text-red-300"
               >
                 <SignOutIcon size={12} />
                 Sign Out
@@ -148,9 +136,7 @@ function SettingBoard() {
               </p>
               <a
                 href={GITHUB_OAUTH_URL}
-                className="flex items-center justify-center gap-2 rounded-lg border border-zinc-700/50 bg-gradient-to-br
-                  from-zinc-900 via-zinc-900/80 to-zinc-950 px-4 py-2.5 text-xs text-zinc-200 transition-colors
-                  hover:border-zinc-600"
+                className="flex items-center justify-center gap-2 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 px-4 py-2.5 text-xs text-zinc-200 transition-colors hover:border-zinc-600"
               >
                 <MarkGithubIcon size={12} />
                 Sign In with GitHub
@@ -173,9 +159,13 @@ function SettingBoard() {
                   }}
                   onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                  className={`rounded-md border ${tokenError ? 'border-red-500/50' : 'border-zinc-700'} bg-zinc-900/50 px-3 py-2 text-xs text-zinc-300
-                    placeholder:text-zinc-600 focus:border-zinc-600 focus:outline-none`}
+                  className={cn(
+                    `rounded-md border bg-zinc-900/50 px-3 py-2 text-xs text-zinc-300 placeholder:text-zinc-600
+                      focus:border-zinc-600 focus:outline-none`,
+                    tokenError ? 'border-red-500/50' : 'border-zinc-700',
+                  )}
                 />
+
                 {tokenError && (
                   <p className="text-[10px] text-red-400">
                     Invalid token. Please check your token and try again.
@@ -183,20 +173,35 @@ function SettingBoard() {
                 )}
               </div>
 
-              <button
-                onClick={openGenerateToken}
-                className="flex items-center justify-center gap-2 text-xs text-zinc-500 underline transition-colors
-                  hover:text-zinc-400"
-              >
-                <KeyIcon size={12} />
-                Generate Token on GitHub
-              </button>
+              <div className="text-center text-xs text-zinc-500">
+                <KeyIcon size={12} className="mr-1 inline" />
+                Generate token for{' '}
+                <a
+                  href={`https://github.com/settings/tokens/new?scopes=notifications,user,repo&description=${encodeURIComponent(
+                    'Token for GitGlances Extension',
+                  )}`}
+                  target="_blank"
+                  className="text-emerald-600 underline transition-colors hover:text-emerald-500"
+                  rel="noreferrer"
+                >
+                  private repositories
+                </a>{' '}
+                or{' '}
+                <a
+                  href={`https://github.com/settings/tokens/new?scopes=notifications,public_repo,read:user,user:email,user:follow&description=${encodeURIComponent(
+                    'Token for GitGlances Extension',
+                  )}`}
+                  target="_blank"
+                  className="text-emerald-600 underline transition-colors hover:text-emerald-500"
+                  rel="noreferrer"
+                >
+                  public repositories only
+                </a>
+              </div>
               <button
                 onClick={handleLogin}
                 disabled={!inputToken.trim()}
-                className="flex items-center justify-center gap-2 self-end rounded-lg border border-zinc-700/50
-                  bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 px-4 py-2.5 text-xs text-zinc-200
-                  transition-colors disabled:cursor-not-allowed disabled:opacity-50 hover:border-zinc-600"
+                className="flex items-center justify-center gap-2 self-end rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 px-4 py-2.5 text-xs text-zinc-200 transition-colors disabled:cursor-not-allowed disabled:opacity-50 hover:border-zinc-600"
               >
                 <SignInIcon size={12} />
                 Sign In with Token
@@ -220,8 +225,7 @@ function SettingBoard() {
               </div>
               <button
                 onClick={handleClearCache}
-                className="flex items-center gap-1 rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs
-                  text-zinc-300 transition-colors hover:bg-zinc-800"
+                className="flex items-center gap-1 rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-zinc-800"
               >
                 <TrashIcon size={12} />
                 Clear
@@ -243,8 +247,7 @@ function SettingBoard() {
             </div>
             <button
               onClick={() => window.open(GITHUB_ISSUES_URL, '_blank')}
-              className="flex items-center justify-center gap-2 rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2
-                text-xs text-zinc-300 transition-colors hover:bg-zinc-800"
+              className="flex items-center justify-center gap-2 rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-zinc-800"
             >
               <IssueOpenedIcon size={12} />
               Create Issue on GitHub
@@ -259,8 +262,7 @@ function SettingBoard() {
           <div className="flex flex-col gap-1 rounded-lg border border-zinc-700/50 bg-zinc-800/50 p-2">
             <button
               onClick={() => window.open(GITHUB_REPO_URL, '_blank')}
-              className="flex items-center justify-between rounded-md px-3 py-2 text-xs text-zinc-300 transition-colors
-                hover:bg-zinc-700/50"
+              className="flex items-center justify-between rounded-md px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-zinc-700/50"
             >
               <div className="flex items-center gap-2">
                 <MarkGithubIcon size={12} />
@@ -271,8 +273,7 @@ function SettingBoard() {
 
             <button
               onClick={openGitHubProfile}
-              className="flex items-center justify-between rounded-md px-3 py-2 text-xs text-zinc-300 transition-colors
-                hover:bg-zinc-700/50"
+              className="flex items-center justify-between rounded-md px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-zinc-700/50"
             >
               <div className="flex items-center gap-2">
                 <KeyIcon size={12} />

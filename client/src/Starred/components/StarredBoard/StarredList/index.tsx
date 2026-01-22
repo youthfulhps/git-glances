@@ -1,5 +1,7 @@
 import { TrendsRepository } from '@shared/apis/repo';
 import React, { useEffect, useRef } from 'react';
+import { Star } from '@carbon/icons-react';
+import EmptyState from '@shared/components/EmptyState';
 import StarredItem from './StarredItem';
 
 type StarredListProps = {
@@ -32,7 +34,13 @@ function StarredList({ pages, fetchNextPage, hasNextPage, isFetchingNextPage }: 
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (!allRepos || allRepos.length === 0) {
-    return <p className="text-sm text-zinc-500">No starred repositories available</p>;
+    return (
+      <EmptyState
+        title="No starred repositories"
+        description="Star repositories on GitHub to see them here."
+        icon={<Star size={32} />}
+      />
+    );
   }
 
   return (

@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
-import { SuspenseInfiniteQuery } from '@suspensive/react-query';
 
-import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
+import InfiniteQueryWrapper from '@shared/components/InfiniteQueryWrapper';
 import { notificationListInfiniteQueryOptions } from '../queries/useNotificationListQuery';
 
 type NotificationInfiniteQueryProps = {
@@ -21,13 +20,13 @@ function NotificationInfiniteQuery({
   children,
 }: NotificationInfiniteQueryProps) {
   return (
-    <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
-      <SuspenseInfiniteQuery {...notificationListInfiniteQueryOptions()}>
-        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
-          children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })
-        }
-      </SuspenseInfiniteQuery>
-    </SuspenseBoundary>
+    <InfiniteQueryWrapper
+      queryOptions={notificationListInfiniteQueryOptions()}
+      gridArea={gridArea}
+      mockContent={mockContent}
+    >
+      {children}
+    </InfiniteQueryWrapper>
   );
 }
 
