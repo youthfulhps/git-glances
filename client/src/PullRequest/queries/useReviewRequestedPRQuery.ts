@@ -3,7 +3,7 @@ import { getReviewRequestedPRs } from '@shared/apis/pullrequest';
 import { pullRequestQueryKeys } from './queryKeys';
 import { mockPullRequests } from '../mocks/mockPullRequests';
 
-const USE_MOCK_DATA = true; // Set to true for development/testing
+const USE_MOCK_DATA = false; // Set to true for development/testing
 
 export const reviewRequestedPRsInfiniteQueryOptions = () =>
   infiniteQueryOptions({

@@ -14,7 +14,19 @@ function PullRequestSummary() {
   };
 
   return (
-    <PullRequestInfiniteQuery gridArea="PullRequest">
+    <PullRequestInfiniteQuery
+      gridArea="PullRequest"
+      mockContent={
+        <SectionV2 onClick={handleClick} gridArea="PullRequest">
+          <div className="flex h-full w-full flex-col items-center justify-center">
+            <div className="flex flex-row items-center justify-center gap-x-1.5">
+              <GitPullRequestIcon size={10} className="fill-zinc-300" />
+              <ShinyText text="3 reviews requested" className="text-xs text-zinc-200" />
+            </div>
+          </div>
+        </SectionV2>
+      }
+    >
       {({ data }) => {
         const pages = (data as { pages?: Array<{ pullRequests: PullRequest[] }> })?.pages;
         const allPRs = pages?.flatMap((page) => page.pullRequests) ?? [];
