@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
-import { SuspenseInfiniteQuery } from '@suspensive/react-query';
 
-import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
+import InfiniteQueryWrapper from '@shared/components/InfiniteQueryWrapper';
 import { starredRepoListQueryOptions } from '../queries/useStarredRepoListQuery';
 
 type StarredInfiniteQueryProps = {
@@ -17,13 +16,13 @@ type StarredInfiniteQueryProps = {
 
 function StarredInfiniteQuery({ gridArea, mockContent, children }: StarredInfiniteQueryProps) {
   return (
-    <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
-      <SuspenseInfiniteQuery {...starredRepoListQueryOptions()}>
-        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
-          children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })
-        }
-      </SuspenseInfiniteQuery>
-    </SuspenseBoundary>
+    <InfiniteQueryWrapper
+      queryOptions={starredRepoListQueryOptions()}
+      gridArea={gridArea}
+      mockContent={mockContent}
+    >
+      {children}
+    </InfiniteQueryWrapper>
   );
 }
 
