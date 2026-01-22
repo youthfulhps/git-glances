@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { SuspenseInfiniteQuery } from '@suspensive/react-query';
-import { UndefinedInitialDataInfiniteOptions, InfiniteData } from '@tanstack/react-query';
+import { InfiniteData } from '@tanstack/react-query';
 
 import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
 type InfiniteQueryWrapperProps<TData> = {
-  queryOptions: UndefinedInitialDataInfiniteOptions<TData>;
+  queryOptions: any;
   gridArea?: string;
   mockContent?: ReactNode;
   children: (args: {
@@ -25,8 +25,8 @@ function InfiniteQueryWrapper<TData>({
   return (
     <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
       <SuspenseInfiniteQuery {...queryOptions}>
-        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
-          children({ data, fetchNextPage: fetchNextPage as () => void, hasNextPage, isFetchingNextPage })
+        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }: any) =>
+          children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })
         }
       </SuspenseInfiniteQuery>
     </SuspenseBoundary>
