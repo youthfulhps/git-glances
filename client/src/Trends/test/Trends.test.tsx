@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { TrendsRepository } from '@shared/apis/repo';
-import { RecoilRoot } from 'recoil';
 import useTrendsRepoListQuery from '../queries/useTrendsRepoListQuery';
 import Trends from '../components';
 import { mockedDestructuredTrendsRepoList } from './mocks';
@@ -19,11 +18,7 @@ describe('Trends 섹션은 트렌드 저장소 리스트 정보를 랜더링한�
   });
 
   it('트렌드 저장소의 이름과 링크를 제공한다.', async () => {
-    render(
-      <RecoilRoot>
-        <Trends />
-      </RecoilRoot>
-    );
+    render(<Trends />);
     const trendsRepoLink = await screen.findAllByRole('link');
     const trendsRepoNames = await screen.findAllByText('MovieList');
 
@@ -35,11 +30,7 @@ describe('Trends 섹션은 트렌드 저장소 리스트 정보를 랜더링한�
   });
 
   it('트렌드 저장소의 포크 횟수와 스타 갯수를 제공한다.', async () => {
-    render(
-      <RecoilRoot>
-        <Trends />
-      </RecoilRoot>
-    );
+    render(<Trends />);
     const stargazersCount = await screen.findByText('20');
     const forksCount = await screen.findByText('1');
 
