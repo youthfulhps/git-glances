@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getChromeStorageItem, removeChromeStorageItem } from '@shared/utils/chrome';
 import { decryptToken, isCryptoSupported } from '@shared/utils/crypto';
+import { parseAxiosError, ErrorCode } from '@shared/utils/errors';
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
@@ -59,8 +60,14 @@ axiosInstance.interceptors.request.use(async (config) => {
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    // Handle invalid token (401 Unauthorized or 403 Forbidden)
-    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+    const parsedError = parseAxiosError(error);
+
+    // Handle authentication errors
+    if (
+      parsedError.code === ErrorCode.UNAUTHORIZED ||
+      parsedError.code === ErrorCode.FORBIDDEN ||
+      parsedError.code === ErrorCode.TOKEN_EXPIRED
+    ) {
       // Clear token from storage
       if (process.env.IS_WEB) {
         localStorage.removeItem('gitGlances:token');
@@ -72,6 +79,11 @@ axiosInstance.interceptors.response.use(
       window.dispatchEvent(new CustomEvent('token-invalid'));
     }
 
-    return Promise.reject(error);
-  }
+    // Handle rate limiting
+    if (parsedError.code === ErrorCode.RATE_LIMIT) {
+      console.warn('Rate limit exceeded. Please wait before making more requests.');
+    }
+
+    return Promise.reject(parsedError);
+  },
 );
