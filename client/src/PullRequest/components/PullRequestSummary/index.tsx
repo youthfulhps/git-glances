@@ -17,7 +17,7 @@ function PullRequestSummary() {
     <PullRequestInfiniteQuery
       gridArea="PullRequest"
       mockContent={
-        <SectionV2 onClick={handleClick} gridArea="PullRequest">
+        <SectionV2 gridArea="PullRequest">
           <div className="flex h-full w-full flex-col items-center justify-center">
             <div className="flex flex-row items-center justify-center gap-x-1.5">
               <GitPullRequestIcon size={10} className="fill-zinc-300" />
