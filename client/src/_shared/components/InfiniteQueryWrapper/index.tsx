@@ -1,32 +1,62 @@
 import React, { ReactNode } from 'react';
 import { SuspenseInfiniteQuery } from '@suspensive/react-query';
-import { InfiniteData } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  UndefinedInitialDataInfiniteOptions,
+  QueryKey,
+} from '@tanstack/react-query';
 
 import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
-type InfiniteQueryWrapperProps<TData> = {
-  queryOptions: any;
+type InfiniteQueryWrapperProps<
+  TQueryFnData,
+  TError = Error,
+  TData = InfiniteData<TQueryFnData>,
+  TQueryKey extends QueryKey = QueryKey,
+  TPageParam = unknown,
+> = {
+  queryOptions: UndefinedInitialDataInfiniteOptions<
+    TQueryFnData,
+    TError,
+    TData,
+    TQueryFnData,
+    TQueryKey,
+    TPageParam
+  >;
   gridArea?: string;
   mockContent?: ReactNode;
   children: (args: {
-    data: InfiniteData<TData>;
+    data: TData;
     fetchNextPage: () => void;
     hasNextPage: boolean;
     isFetchingNextPage: boolean;
   }) => ReactNode;
 };
 
-function InfiniteQueryWrapper<TData>({
+function InfiniteQueryWrapper<
+  TQueryFnData,
+  TError = Error,
+  TData = InfiniteData<TQueryFnData>,
+  TQueryKey extends QueryKey = QueryKey,
+  TPageParam = unknown,
+>({
   queryOptions,
   gridArea,
   mockContent,
   children,
-}: InfiniteQueryWrapperProps<TData>) {
+}: InfiniteQueryWrapperProps<TQueryFnData, TError, TData, TQueryKey, TPageParam>) {
   return (
     <SuspenseBoundary gridArea={gridArea} mockContent={mockContent}>
       <SuspenseInfiniteQuery {...queryOptions}>
-        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }: any) =>
-          children({ data, fetchNextPage, hasNextPage, isFetchingNextPage })
+        {({ data, fetchNextPage, hasNextPage, isFetchingNextPage }) =>
+          children({
+            data,
+            fetchNextPage: () => {
+              fetchNextPage();
+            },
+            hasNextPage: hasNextPage ?? false,
+            isFetchingNextPage,
+          })
         }
       </SuspenseInfiniteQuery>
     </SuspenseBoundary>
