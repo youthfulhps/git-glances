@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Code } from '@carbon/icons-react';
 import { LanguageWithRepos } from '@shared/apis/language/types';
+import EmptyState from '@shared/components/EmptyState';
 import LanguageItem from './LanguageItem';
 
 type LanguageListProps = {
@@ -23,9 +25,11 @@ function LanguageList({ languages }: LanguageListProps) {
 
   if (languages.length === 0) {
     return (
-      <div className="flex items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800/30 py-12 text-sm text-zinc-500">
-        No languages found
-      </div>
+      <EmptyState
+        title="No languages found"
+        description="Start coding in your repositories to see language statistics."
+        icon={<Code size={32} />}
+      />
     );
   }
 
