@@ -19,7 +19,6 @@ type InfiniteQueryWrapperProps<
     TQueryFnData,
     TError,
     TData,
-    TQueryFnData,
     TQueryKey,
     TPageParam
   >;
