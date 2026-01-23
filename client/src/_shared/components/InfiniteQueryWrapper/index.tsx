@@ -1,10 +1,6 @@
 import React, { ReactNode } from 'react';
-import { SuspenseInfiniteQuery } from '@suspensive/react-query';
-import {
-  InfiniteData,
-  UndefinedInitialDataInfiniteOptions,
-  QueryKey,
-} from '@tanstack/react-query';
+import { SuspenseInfiniteQuery, UseSuspenseInfiniteQueryOptions } from '@suspensive/react-query';
+import { InfiniteData, QueryKey } from '@tanstack/react-query';
 
 import SuspenseBoundary from '@shared/boundaries/SuspenseBoundary';
 
@@ -15,7 +11,7 @@ type InfiniteQueryWrapperProps<
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
 > = {
-  queryOptions: UndefinedInitialDataInfiniteOptions<
+  queryOptions: UseSuspenseInfiniteQueryOptions<
     TQueryFnData,
     TError,
     TData,
