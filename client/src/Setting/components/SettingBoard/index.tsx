@@ -29,6 +29,7 @@ function SettingBoard() {
   const [inputToken, setInputToken] = useState('');
   const [showToken, setShowToken] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const isLoggedIn = !!token;
   const isWeb = process.env.IS_WEB;
 
@@ -66,6 +67,22 @@ function SettingBoard() {
 
   const openGitHubProfile = () => {
     window.open('https://github.com/settings/tokens', '_blank');
+  };
+
+  const handleDeleteAccount = () => {
+    // Clear all data
+    setToken('');
+    queryClient.clear();
+    if (window.localStorage) {
+      window.localStorage.clear();
+    }
+    if (window.sessionStorage) {
+      window.sessionStorage.clear();
+    }
+    setShowDeleteConfirm(false);
+
+    // Redirect to GitHub app settings to revoke access
+    window.open('https://github.com/settings/installations', '_blank');
   };
 
   return (
@@ -283,6 +300,50 @@ function SettingBoard() {
             </button>
           </div>
         </div>
+
+        {/* Account Section - Only show when logged in */}
+        {isLoggedIn && (
+          <div className="flex flex-col gap-3">
+            <h3 className="text-sm font-medium text-zinc-200">Account</h3>
+
+            <div className="flex flex-col gap-2 rounded-lg border border-zinc-700/50 bg-zinc-800/50 p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-xs text-zinc-300">Delete Account</span>
+                  <span className="text-[10px] text-zinc-500">
+                    Remove all local data and revoke app access
+                  </span>
+                </div>
+                {!showDeleteConfirm ? (
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="flex items-center justify-center gap-1 rounded-lg border border-red-900/50 bg-gradient-to-br from-red-950/30 via-zinc-900 to-zinc-950 px-4 py-2.5 text-[10px] text-red-400 transition-colors hover:border-red-800/50 hover:text-red-300"
+                  >
+                    <TrashIcon size={12} />
+                    Delete Account
+                  </button>
+                ) : (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setShowDeleteConfirm(false)}
+                      className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-[10px] text-zinc-300 transition-colors hover:bg-zinc-800"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleDeleteAccount}
+                      className="flex items-center justify-center gap-1 rounded-lg border border-red-900/50 bg-gradient-to-br from-red-950/30 via-zinc-900 to-zinc-950 px-4 py-2.5 text-[10px] text-red-400 transition-colors hover:border-red-800/50 hover:text-red-300"
+                    >
+                      <TrashIcon size={12} />
+                      Confirm Delete
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="mt-auto border-t border-zinc-700/50 pt-4">
           <div className="flex items-center justify-between text-xs text-zinc-500">
             <span>GitGlances</span>
