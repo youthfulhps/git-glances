@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, ReactNode, useMemo, useCallback } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo, useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { mostUsedLanguageQueryOptions } from '../../Language/queries/useMostUsedLanguageQuery';
+import { useToken } from './TokenContext';
 
 export type BoardType =
   | 'notification'
@@ -35,11 +36,23 @@ interface BoardContextType {
 const BoardContext = createContext<BoardContextType | undefined>(undefined);
 
 export function BoardProvider({ children }: { children: ReactNode }) {
-  const [boardType, setBoardType] = useState<BoardType>('setting');
+  const { token } = useToken();
+  const [boardType, setBoardType] = useState<BoardType>(token ? 'profile' : 'setting');
   const [userSelectedLanguage, setUserSelectedLanguage] = useState<string | null>(null);
   const [selectedContributionDate, setSelectedContributionDate] = useState<string | null>(null);
 
   const { data: mostUsedLanguages } = useQuery(mostUsedLanguageQueryOptions);
+
+  // Update board type when login status changes
+  useEffect(() => {
+    if (token) {
+      // When user logs in, switch to profile board
+      setBoardType('profile');
+    } else {
+      // When user logs out, switch to setting board
+      setBoardType('setting');
+    }
+  }, [token]);
 
   const defaultLanguage = useMemo(
     () => mostUsedLanguages?.[0]?.name ?? 'JavaScript',
