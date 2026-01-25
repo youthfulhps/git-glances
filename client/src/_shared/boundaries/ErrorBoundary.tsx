@@ -51,7 +51,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
     if (!hasToken && mockContent) {
       return (
-        <SectionV2 gridArea={gridArea} className="blur-[2px] opacity-60">
+        <SectionV2 gridArea={gridArea} className="pointer-events-none blur-[2px] opacity-60">
           {mockContent}
         </SectionV2>
       );
