@@ -7,6 +7,7 @@ import LanguageBoard from '../../Language/components/LanguageBoard';
 import StarredBoard from '../../Starred/components/StarredBoard';
 import UserProfileBoard from '../../UserProfile/components/UserProfileBoard';
 import SettingBoard from '../../Setting/components/SettingBoard';
+import PullRequestBoard from '../../PullRequest/components/PullRequestBoard';
 
 function Board() {
   const { boardType } = useBoard();
@@ -29,6 +30,7 @@ function Board() {
       {boardType === 'starred' && <StarredBoard />}
       {boardType === 'profile' && <UserProfileBoard />}
       {boardType === 'setting' && <SettingBoard />}
+      {boardType === 'pullrequest' && <PullRequestBoard />}
     </div>
   );
 }

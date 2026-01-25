@@ -8,6 +8,7 @@ import Notification from '../../../Notification/components';
 import Board from '../../../Board/components';
 import TrendsSummary from '../../../Trends/components/TrendsSummary';
 import StarredSummary from '../../../Starred/components/StarredSummary';
+import PullRequestSummary from '../../../PullRequest/components/PullRequestSummary';
 import Setting from '../../../Setting/components';
 
 function HomePage() {
@@ -21,6 +22,7 @@ function HomePage() {
             <Language />
             <Contribution />
             <Notification />
+            <PullRequestSummary />
             <TrendsSummary />
             <StarredSummary />
             <Setting />

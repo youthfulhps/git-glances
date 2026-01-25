@@ -10,6 +10,7 @@ export type BoardType =
   | 'profile'
   | 'starred'
   | 'setting'
+  | 'pullrequest'
   | null;
 type ActiveBoardType = Exclude<BoardType, null>;
 
@@ -23,6 +24,7 @@ interface BoardContextType {
   openStarredBoard: () => void;
   openProfileBoard: () => void;
   openSettingBoard: () => void;
+  openPullRequestBoard: () => void;
   closeBoard: () => void;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
@@ -83,6 +85,10 @@ export function BoardProvider({ children }: { children: ReactNode }) {
     setBoardType('setting');
   }, []);
 
+  const openPullRequestBoard = useCallback(() => {
+    setBoardType('pullrequest');
+  }, []);
+
   const clearContributionDate = useCallback(() => {
     setSelectedContributionDate(null);
   }, []);
@@ -103,6 +109,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openStarredBoard,
       openProfileBoard,
       openSettingBoard,
+      openPullRequestBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
@@ -119,6 +126,7 @@ export function BoardProvider({ children }: { children: ReactNode }) {
       openStarredBoard,
       openProfileBoard,
       openSettingBoard,
+      openPullRequestBoard,
       closeBoard,
       selectedLanguage,
       setSelectedLanguage,
