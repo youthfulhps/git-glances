@@ -12,9 +12,15 @@ type SearchResultNode<Response> = {
   node: Response;
 };
 
+export type PageInfo = {
+  hasNextPage: boolean;
+  endCursor: string | null;
+};
+
 export type ListSearchNestedFieldResponse<Response> = {
   data: {
     search: {
+      pageInfo: PageInfo;
       edges: SearchResultNode<Response>[];
     };
   };

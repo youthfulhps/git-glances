@@ -1,24 +1,23 @@
 import React, { ReactNode } from 'react';
-import PulseSection from '@layout/components/PulseSection';
 import Error from '../components/Error';
+import SectionV2 from '@layout/components/SectionV2';
 
 type ErrorBoundaryProps = {
   children: ReactNode;
   reset?: (args?: unknown[]) => void;
   gridArea?: string;
   hasToken: boolean;
+  mockContent?: ReactNode;
 };
 
 type ErrorBoundaryState = {
   hasError: boolean;
-  error: any;
-  errorMessage: string | null;
+  error: Error | null;
 };
 
 const initialState: ErrorBoundaryState = {
   hasError: false,
   error: null,
-  errorMessage: null,
 };
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -27,11 +26,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     this.state = initialState;
   }
 
-  static getDerivedStateFromError(error: any) {
+  static getDerivedStateFromError(error: Error) {
     return {
       hasError: true,
       error,
-      errorMessage: typeof error.message === 'string' ? error.message : null,
     };
   }
 
@@ -42,20 +40,20 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   };
 
   render() {
-    const { hasError, error, errorMessage } = this.state;
-    const { children, gridArea, hasToken } = this.props;
-
-    if (!hasToken) {
-      return <PulseSection gridArea={gridArea} />;
-    }
+    const { hasError, error } = this.state;
+    const { children, gridArea, hasToken, mockContent } = this.props;
 
     if (hasError && error) {
       return (
-        <Error
-          errorMessage={errorMessage}
-          reset={this.resetErrorBoundaryState}
-          gridArea={gridArea}
-        />
+        <Error error={error} reset={this.resetErrorBoundaryState} gridArea={gridArea} />
+      );
+    }
+
+    if (!hasToken && mockContent) {
+      return (
+        <SectionV2 gridArea={gridArea} className="blur-[2px] opacity-60">
+          {mockContent}
+        </SectionV2>
       );
     }
 

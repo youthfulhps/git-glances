@@ -1,24 +1,25 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { getTrendsRepoList, TrendsRepository } from '@shared/apis/repo';
-import { useRecoilValue } from 'recoil';
+import { infiniteQueryOptions } from '@tanstack/react-query';
+import { getTrendsRepoList } from '@shared/apis/repo';
 import { getMonthRange } from '@shared/utils/date';
-import { AxiosError } from 'axios';
 import { getDestructuredTrendsRepoList } from '../utils/trendsRepoListHelper';
-import { mostUsedLanguageAtom } from '../../Language/atoms';
+import { trendsRepoListQueryKeys } from './queryKeys';
 
-const useTrendsRepoListQuery = () => {
-  const mostUsedLanguage = useRecoilValue(mostUsedLanguageAtom);
-
-  const { data: trendsRepoList } = useSuspenseQuery<TrendsRepository[], AxiosError>({
-    queryKey: ['trendsRepoList', mostUsedLanguage],
+export const trendsRepoListQueryOptions = (language: string) =>
+  infiniteQueryOptions({
+    queryKey: trendsRepoListQueryKeys.list(language),
     staleTime: 1000 * 60 * 60 * 24,
-    queryFn: async () => {
-      const { data } = await getTrendsRepoList(mostUsedLanguage, getMonthRange());
-      return getDestructuredTrendsRepoList(data);
+    queryFn: async ({ pageParam }) => {
+      const { data } = await getTrendsRepoList(language, getMonthRange(), pageParam);
+      const pageInfo = data.data.search.pageInfo;
+      const repositories = getDestructuredTrendsRepoList(data);
+
+      return {
+        repositories,
+        pageInfo,
+      };
     },
+    getNextPageParam: (lastPage) => {
+      return lastPage.pageInfo.hasNextPage ? lastPage.pageInfo.endCursor : undefined;
+    },
+    initialPageParam: undefined as string | undefined,
   });
-
-  return trendsRepoList;
-};
-
-export default useTrendsRepoListQuery;

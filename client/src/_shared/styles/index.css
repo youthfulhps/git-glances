@@ -2,8 +2,106 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
+}
+
+/* Modern scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Fade in animation for list items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Diff Viewer Custom Styles */
+.diff-viewer-container {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  background-color: #18181b;
+}
+
+.diff-viewer-container .diff {
+  border: none;
+}
+
+.diff-viewer-container .diff-gutter {
+  background-color: #27272a;
+  color: #71717a;
+  padding: 0 8px;
+  user-select: none;
+  min-width: 40px;
+  text-align: right;
+}
+
+.diff-viewer-container .diff-gutter-insert {
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.diff-viewer-container .diff-gutter-delete {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.diff-viewer-container .diff-code {
+  padding: 0 8px;
+  white-space: pre;
+  color: #e4e4e7;
+}
+
+.diff-viewer-container .diff-code-insert {
+  background-color: rgba(34, 197, 94, 0.15);
+}
+
+.diff-viewer-container .diff-code-delete {
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+.diff-viewer-container .diff-line {
+  border: none;
+}
+
+.diff-viewer-container .diff-hunk {
+  background-color: #27272a;
+  color: #a1a1aa;
+  padding: 4px 8px;
+  font-size: 11px;
 }
 
 html,
@@ -89,7 +187,6 @@ audio,
 video {
   margin: 0;
   padding: 0;
-  border: 0;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
@@ -123,7 +220,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -132,108 +229,30 @@ table {
 }
 
 body {
-  background-color: #121212;
-  @apply font-fira;
+  background-color: #101010;
+  @apply font-geist;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
-.grid-template__login {
-  @apply grid w-full h-full gap-4;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(16, 111px);
-
+.grid-template {
+  @apply grid h-full w-full gap-2;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(15, 1fr);
   grid-template-areas:
-    "Profile"
-    "Profile"
-    "Profile"
-    "Language"
-    "Contribution"
-    "Contribution"
-    "Notification"
-    "Notification"
-    "Refactor"
-    "Refactor"
-    "Trends"
-    "Trends"
-    "Daily"
-    "Daily"
-    "Enhance"
-    "Enhance";
-}
-
-.grid-template__logout {
-  @apply grid w-full h-full gap-4;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(16, 111px);
-
-  grid-template-areas:
-    "Login"
-    "Profile"
-    "Profile"
-    "Language"
-    "Contribution"
-    "Contribution"
-    "Notification"
-    "Notification"
-    "Refactor"
-    "Refactor"
-    "Trends"
-    "Trends"
-    "Daily"
-    "Daily"
-    "Enhance"
-    "Enhance";
-}
-
-@media only screen and (min-width: 768px) {
-  .grid-template__login {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, 111px);
-    grid-template-areas:
-      'Profile Contribution'
-      'Profile Contribution'
-      'Profile Notification'
-      'Language Notification'
-      'Refactor Trends'
-      'Refactor Trends'
-      'Daily Enhance'
-      'Daily Enhance';
-  }
-
-  .grid-template__logout {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, 111px);
-    grid-template-areas:
-      'Login Contribution'
-      'Profile Contribution'
-      'Profile Notification'
-      'Language Notification'
-      'Refactor Trends'
-      'Refactor Trends'
-      'Daily Enhance'
-      'Daily Enhance';
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .grid-template__login {
-    height: 520px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-areas:
-      "Profile Contribution Notification Trends"
-      "Profile Contribution Notification Trends"
-      "Profile Refactor Daily Enhance"
-      "Language Refactor Daily Enhance";
-  }
-
-  .grid-template__logout {
-    height: 520px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-areas:
-      "Login Contribution Notification Trends"
-      "Profile Contribution Notification Trends"
-      "Profile Refactor Daily Enhance"
-      "Language Refactor Daily Enhance";
-  }
+    'Search'
+    'Profile'
+    'Profile'
+    'Notification'
+    'PullRequest'
+    'Contribution'
+    'Contribution'
+    'Contribution'
+    'Language'
+    'Language'
+    'Trends'
+    'Trends'
+    'Starred'
+    'Starred'
+    'Setting';
 }

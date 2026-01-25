@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from '@shared/apis/user';
-import FeatureSection from '@layout/components/FeatureSection';
+import SectionV2 from '@layout/components/SectionV2';
 import UserProfileDetail from './UserProfileDetail';
 
 type UserProfileCardProps = {
@@ -9,9 +9,9 @@ type UserProfileCardProps = {
 
 function UserProfileCard({ user }: UserProfileCardProps) {
   return (
-    <FeatureSection gridArea="Profile" summary={user.login}>
+    <SectionV2 gridArea="Profile">
       <UserProfileDetail user={user} />
-    </FeatureSection>
+    </SectionV2>
   );
 }
 

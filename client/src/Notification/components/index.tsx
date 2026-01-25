@@ -1,19 +1,34 @@
 import React from 'react';
-import FeatureSection from '@layout/components/FeatureSection';
-import useNotificationListQuery from '../queries/useNotificationListQuery';
-import NotificationList from './NotificationList';
+import { Notification as NotificationType } from '@shared/apis/notification/types';
+import NotificationInfiniteQuery from './NotificationInfiniteQuery';
+import NotificationSummary from './NotificationSummary';
+import { mockNotifications } from '../mocks/mockNotifications';
+import SectionV2 from '@layout/components/SectionV2';
+import { useBoard } from '@shared/contexts/BoardContext';
 
 function Notification() {
-  const { notificationList, notificationUnreadCount, isNotificationEmpty } =
-    useNotificationListQuery();
-
+  const { openNotificationBoard } = useBoard();
   return (
-    <FeatureSection summary={notificationUnreadCount} gridArea="Notification">
-      <NotificationList
-        notificationList={notificationList}
-        isNotificationEmpty={isNotificationEmpty}
-      />
-    </FeatureSection>
+    <NotificationInfiniteQuery
+      gridArea="Notification"
+      mockContent={<NotificationSummary notificationList={mockNotifications} />}
+    >
+      {({ data }) => {
+        const firstPage = (data as { pages?: Array<{ notifications: NotificationType[] }> })
+          ?.pages?.[0];
+        const notifications = firstPage?.notifications ?? [];
+
+        return (
+          <SectionV2
+            gridArea="Notification"
+            className="cursor-pointer"
+            onClick={openNotificationBoard}
+          >
+            <NotificationSummary notificationList={notifications} />
+          </SectionV2>
+        );
+      }}
+    </NotificationInfiniteQuery>
   );
 }
 

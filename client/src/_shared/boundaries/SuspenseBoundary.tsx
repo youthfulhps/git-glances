@@ -1,21 +1,22 @@
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
-import { tokenAtom } from '@shared/atoms/common';
+import { Suspense } from '@suspensive/react';
+import { useToken } from '@shared/contexts/TokenContext';
 import PulseSection from '@layout/components/PulseSection';
 import ErrorBoundary from './ErrorBoundary';
 
 type SuspenseBoundaryProps = {
   children: ReactNode;
   gridArea?: string;
+  mockContent?: ReactNode;
 };
 
-function SuspenseBoundary({ children, gridArea = '' }: SuspenseBoundaryProps) {
+function SuspenseBoundary({ children, gridArea = '', mockContent }: SuspenseBoundaryProps) {
   const { reset } = useQueryErrorResetBoundary();
-  const gitGlancesTokenValue = useRecoilValue(tokenAtom);
+  const { token } = useToken();
 
   return (
-    <ErrorBoundary reset={reset} gridArea={gridArea} hasToken={!!gitGlancesTokenValue}>
+    <ErrorBoundary reset={reset} gridArea={gridArea} hasToken={!!token} mockContent={mockContent}>
       <Suspense fallback={<PulseSection gridArea={gridArea} />}>{children}</Suspense>
     </ErrorBoundary>
   );

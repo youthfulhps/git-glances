@@ -1930,7 +1930,7 @@ export const languageDetailList: {
     url: 'https://github.com/trending?l=TXL',
   },
   TypeScript: {
-    color: '#2b7489',
+    color: '#007acc',
     url: 'https://github.com/trending?l=TypeScript',
   },
   'Unified Parallel C': {

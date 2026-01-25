@@ -1,8 +1,8 @@
-import React from 'react';
 import HomePage from '@layout/pages/Home';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RecoilRoot } from 'recoil';
+import { TokenProvider } from '@shared/contexts/TokenContext';
+import { BoardProvider } from '@shared/contexts/BoardContext';
 import './_shared/styles/index.css';
 
 function Extension() {
@@ -19,14 +19,15 @@ const queryClient = new QueryClient({
   },
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const container = document.getElementById('root');
+if (!container) throw new Error('Failed to find the root element');
 
-root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
+createRoot(container).render(
+  <QueryClientProvider client={queryClient}>
+    <TokenProvider>
+      <BoardProvider>
         <Extension />
-      </RecoilRoot>
-    </QueryClientProvider>
-  </React.StrictMode>
+      </BoardProvider>
+    </TokenProvider>
+  </QueryClientProvider>,
 );

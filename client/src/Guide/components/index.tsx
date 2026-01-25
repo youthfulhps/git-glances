@@ -1,17 +1,14 @@
-import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useState } from 'react';
 import GuideBadge from './GuideBadge';
-import { isGuideShowingAtom } from '../atoms';
 
 function Guide() {
-  const isGuideShowingValue = useRecoilValue(isGuideShowingAtom);
-  const setIsGuideShowingAtom = useSetRecoilState(isGuideShowingAtom);
+  const [isGuideShowing, setIsGuideShowing] = useState(false);
 
   const handleToogleGuide = () => {
-    setIsGuideShowingAtom((isGuideShowing) => !isGuideShowing);
+    setIsGuideShowing((prev) => !prev);
   };
 
-  return <GuideBadge onToggle={handleToogleGuide} isGuideShowing={isGuideShowingValue} />;
+  return <GuideBadge onToggle={handleToogleGuide} isGuideShowing={isGuideShowing} />;
 }
 
 export default Guide;

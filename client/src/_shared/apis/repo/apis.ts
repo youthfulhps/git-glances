@@ -1,6 +1,6 @@
 import { axiosInstance } from '@shared/apis';
-import { GetRepo, GetRepoList, GetTrendsRepoList, PostRepoIssue } from '@shared/apis/repo/types';
-import { GET_REPO_LIST_QUERY, getRepoQuery, getTrendsRepoListQuery } from './queries';
+import { GetRepo, GetRepoList, GetTrendsRepoList, GetStarredRepoList, PostRepoIssue } from '@shared/apis/repo/types';
+import { GET_REPO_LIST_QUERY, getRepoQuery, getTrendsRepoListQuery, getStarredRepoListQuery } from './queries';
 
 export const getRepoList: GetRepoList = () => {
   const body = {
@@ -18,9 +18,17 @@ export const getRepo: GetRepo = (repoName) => {
   return axiosInstance.post('/graphql', body);
 };
 
-export const getTrendsRepoList: GetTrendsRepoList = (language: string, created: string) => {
+export const getTrendsRepoList: GetTrendsRepoList = (language: string, created: string, after?: string) => {
   const body = {
-    query: getTrendsRepoListQuery(language, created),
+    query: getTrendsRepoListQuery(language, created, after),
+  };
+
+  return axiosInstance.post('/graphql', body);
+};
+
+export const getStarredRepoList: GetStarredRepoList = (after?: string) => {
+  const body = {
+    query: getStarredRepoListQuery(after),
   };
 
   return axiosInstance.post('/graphql', body);
