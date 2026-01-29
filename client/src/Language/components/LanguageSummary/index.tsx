@@ -11,7 +11,7 @@ function LanguageSummary({ languages }: LanguageSummaryProps) {
   const stats = getTotalStats(languages);
 
   return (
-    <div className="flex h-full w-full cursor-pointer flex-col gap-y-3">
+    <div className="flex w-full cursor-pointer flex-col gap-y-3">
       {/* Stacked Bar Chart */}
       <div className="flex flex-col gap-2">
         <div className="flex h-2 w-full overflow-hidden rounded-full bg-zinc-800/30">
@@ -39,16 +39,16 @@ function LanguageSummary({ languages }: LanguageSummaryProps) {
         </div>
 
         {/* Top Languages Legend */}
-        <div className="flex flex-wrap gap-x-3 gap-y-1">
+        <div className="flex gap-x-3 overflow-hidden">
           {topLanguages.slice(0, 3).map((language) => (
-            <div key={language.name} className="flex items-center gap-1.5">
+            <div key={language.name} className="flex min-w-0 items-center gap-1.5">
               <div
                 className="h-2 w-2 flex-shrink-0 rounded-full opacity-60"
                 style={{ backgroundColor: language.color }}
               />
 
-              <span className="text-xs text-zinc-400">{language.name}</span>
-              <span className="text-xs font-medium text-zinc-300">
+              <span className="truncate text-xs text-zinc-400">{language.name}</span>
+              <span className="flex-shrink-0 text-xs font-medium text-zinc-300">
                 {language.percentage.toFixed(1)}%
               </span>
             </div>
