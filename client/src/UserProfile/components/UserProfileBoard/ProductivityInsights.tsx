@@ -13,6 +13,10 @@ function ProductivityInsights({ events }: ProductivityInsightsProps) {
   thisWeekStart.setDate(now.getDate() - now.getDay()); // Start of this week (Sunday)
   thisWeekStart.setHours(0, 0, 0, 0);
 
+  const thisWeekEnd = new Date(thisWeekStart);
+  thisWeekEnd.setDate(thisWeekStart.getDate() + 7);
+  thisWeekEnd.setMilliseconds(-1);
+
   const lastWeekStart = new Date(thisWeekStart);
   lastWeekStart.setDate(thisWeekStart.getDate() - 7);
 
@@ -20,7 +24,9 @@ function ProductivityInsights({ events }: ProductivityInsightsProps) {
   lastWeekEnd.setMilliseconds(-1);
 
   // Filter events
-  const thisWeekEvents = events.filter((e) => new Date(e.created_at) >= thisWeekStart);
+  const thisWeekEvents = events.filter(
+    (e) => new Date(e.created_at) >= thisWeekStart && new Date(e.created_at) <= thisWeekEnd,
+  );
   const lastWeekEvents = events.filter(
     (e) => new Date(e.created_at) >= lastWeekStart && new Date(e.created_at) <= lastWeekEnd,
   );
