@@ -13,20 +13,19 @@ import {
   IssueOpenedIcon,
 } from '@primer/octicons-react';
 import { cn } from '@shared/lib/utils';
+import { createGithubOAuthUrl } from '@shared/utils/oauth';
 
-const GITHUB_OAUTH_URL =
-  `https://github.com/login/oauth/authorize` +
-  `?client_id=${process.env.GITHUB_OAUTH_CLIENT_ID}` +
-  `&redirect_uri=${process.env.GITHUB_OAUTH_REDIRECT_URL}` +
-  '&scope=notifications,repo,user';
+const GITHUB_OAUTH_SCOPE = 'notifications,repo,user';
+const GROQ_KEYS_URL = 'https://console.groq.com/keys';
 
 const GITHUB_REPO_URL = 'https://github.com/youthfulhps/git-glances';
 const GITHUB_ISSUES_URL = `${GITHUB_REPO_URL}/issues/new`;
 
 function SettingBoard() {
-  const { token, setToken, tokenError, clearTokenError } = useToken();
+  const { token, setToken, tokenError, clearTokenError, groqApiKey, setGroqApiKey } = useToken();
   const queryClient = useQueryClient();
   const [inputToken, setInputToken] = useState('');
+  const [inputGroqApiKey, setInputGroqApiKey] = useState('');
   const [showToken, setShowToken] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -45,15 +44,19 @@ function SettingBoard() {
     queryClient.clear();
   };
 
-  const handleClearCache = () => {
+  const handleSaveGroqApiKey = () => {
+    if (inputGroqApiKey.trim()) {
+      setGroqApiKey(inputGroqApiKey.trim());
+      setInputGroqApiKey('');
+    }
+  };
+
+  const handleClearCache = async () => {
     queryClient.clear();
     if (process.env.IS_WEB && window.localStorage) {
-      // Keep the token but clear other cached data
-      const currentToken = token;
+      // Keep credentials but clear other cached data
       window.localStorage.clear();
-      if (currentToken) {
-        setToken(currentToken);
-      }
+      await Promise.all([setToken(token), setGroqApiKey(groqApiKey)]);
     }
   };
 
@@ -72,6 +75,7 @@ function SettingBoard() {
   const handleDeleteAccount = () => {
     // Clear all data
     setToken('');
+    setGroqApiKey('');
     queryClient.clear();
     if (window.localStorage) {
       window.localStorage.clear();
@@ -151,13 +155,14 @@ function SettingBoard() {
               <p className="text-xs text-zinc-400">
                 Sign in with your GitHub account to access all features.
               </p>
-              <a
-                href={GITHUB_OAUTH_URL}
+              <button
+                type="button"
+                onClick={() => window.location.assign(createGithubOAuthUrl(GITHUB_OAUTH_SCOPE))}
                 className="flex items-center justify-center gap-2 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 px-4 py-2.5 text-xs text-zinc-200 transition-colors hover:border-zinc-600"
               >
                 <MarkGithubIcon size={12} />
                 Sign In with GitHub
-              </a>
+              </button>
             </div>
           ) : (
             <div className="flex flex-col gap-3 rounded-lg border border-zinc-700/50 bg-zinc-800/50 p-4">
@@ -225,6 +230,67 @@ function SettingBoard() {
               </button>
             </div>
           )}
+        </div>
+
+        {/* AI Features Section */}
+        <div className="flex flex-col gap-3">
+          <h3 className="text-sm font-medium text-zinc-200">AI Features</h3>
+
+          <div className="flex flex-col gap-3 rounded-lg border border-zinc-700/50 bg-zinc-800/50 p-4">
+            {groqApiKey ? (
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-1.5 text-xs text-emerald-400">
+                  <CheckIcon size={12} />
+                  Groq API key saved
+                </span>
+                <button
+                  onClick={() => setGroqApiKey('')}
+                  className="flex items-center gap-1 rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-zinc-800"
+                >
+                  <TrashIcon size={12} />
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-1">
+                <label className="text-xs text-zinc-400">Groq API Key</label>
+                <p className="mb-2 text-[10px] text-zinc-500">
+                  AI features use your own free Groq API key. It is stored only in this browser and
+                  sent only to Groq.
+                </p>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="password"
+                    value={inputGroqApiKey}
+                    onChange={(e) => setInputGroqApiKey(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSaveGroqApiKey()}
+                    placeholder="gsk_xxxxxxxxxxxxxxxxxxxx"
+                    autoComplete="off"
+                    className="flex-1 rounded-md border border-zinc-700 bg-zinc-900/50 px-3 py-2 text-xs text-zinc-300 placeholder:text-zinc-600 focus:border-zinc-600 focus:outline-none"
+                  />
+                  <button
+                    onClick={handleSaveGroqApiKey}
+                    disabled={!inputGroqApiKey.trim()}
+                    className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-xs text-zinc-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50 hover:bg-zinc-700"
+                  >
+                    Save
+                  </button>
+                </div>
+                <div className="mt-1 text-xs text-zinc-500">
+                  <KeyIcon size={12} className="mr-1 inline" />
+                  Get a free key from{' '}
+                  <a
+                    href={GROQ_KEYS_URL}
+                    target="_blank"
+                    className="text-emerald-600 underline transition-colors hover:text-emerald-500"
+                    rel="noreferrer"
+                  >
+                    Groq Console
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* App Settings Section */}

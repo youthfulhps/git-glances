@@ -64,7 +64,15 @@ module.exports = ({ ENV, TARGET }) => {
         hash: false,
       }),
       new webpack.DefinePlugin({
-        'process.env': JSON.stringify(process.env),
+        // 번들에 노출되므로 클라이언트에서 쓰는 공개 가능한 키만 나열할 것
+        ...Object.fromEntries(
+          [
+            'API_BASE_PATH',
+            'AUTH_BASE_URL',
+            'GITHUB_OAUTH_CLIENT_ID',
+            'GITHUB_OAUTH_REDIRECT_URL',
+          ].map((key) => [`process.env.${key}`, JSON.stringify(process.env[key])]),
+        ),
         'process.env.IS_WEB': JSON.stringify(isWeb),
         'process.env.VERSION': JSON.stringify(version),
       }),
