@@ -1,5 +1,6 @@
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateText } from 'ai';
+import { APICallError, RetryError, generateText } from 'ai';
+import { getStoredItem, STORAGE_KEYS } from '@shared/utils/storage';
 import {
   SummarizeRepository,
   GenerateContributionInsight,
@@ -9,14 +10,15 @@ import {
 } from './types';
 import { parseAIResponse } from './utils';
 
-export const summarizeRepository: SummarizeRepository = async (
-  repositoryName,
-  description,
-) => {
-  const apiKey = process.env.GROQ_API_KEY;
+// 모델 목록: https://console.groq.com/docs/models
+const GROQ_MODEL = 'openai/gpt-oss-120b';
+
+// 사용자가 설정에서 등록한 본인의 Groq API 키로 호출한다
+const generateGroqText = async ({ prompt, system }: { prompt: string; system: string }) => {
+  const apiKey = await getStoredItem(STORAGE_KEYS.GROQ_API_KEY);
 
   if (!apiKey) {
-    throw new Error('GROQ_API_KEY is not configured');
+    throw new Error('Add your free Groq API key in Settings to use AI features.');
   }
 
   const groq = createOpenAICompatible({
@@ -27,6 +29,28 @@ export const summarizeRepository: SummarizeRepository = async (
     },
   });
 
+  try {
+    const { text } = await generateText({ model: groq(GROQ_MODEL), prompt, system });
+    return text;
+  } catch (error) {
+    // 재시도 가능한 에러(429 등)는 재시도 후 RetryError로 감싸져 온다
+    const cause = RetryError.isInstance(error) ? error.lastError : error;
+    const statusCode = APICallError.isInstance(cause) ? cause.statusCode : undefined;
+
+    if (statusCode === 401) {
+      throw new Error('Your Groq API key is invalid. Please update it in Settings.');
+    }
+    if (statusCode === 429) {
+      throw new Error('Groq rate limit reached. Please try again in a moment.');
+    }
+    throw error;
+  }
+};
+
+export const summarizeRepository: SummarizeRepository = async (
+  repositoryName,
+  description,
+) => {
   const prompt = `Analyze this GitHub repository and provide a summary with relevant tags:
 Repository: ${repositoryName}
 Description: ${description || 'No description'}
@@ -39,8 +63,7 @@ Return ONLY a valid JSON object with this exact format:
 
 Provide 3-5 relevant technology tags (e.g., React, TypeScript, CLI, Web).`;
 
-  const { text } = await generateText({
-    model: groq('llama-3.3-70b-versatile'),
+  const text = await generateGroqText({
     prompt,
     system:
       'You are a helpful assistant that analyzes GitHub repositories. Always respond with valid JSON only, no additional text.',
@@ -67,20 +90,6 @@ export const generateContributionInsight: GenerateContributionInsight = async ({
   totalIssues,
   period,
 }) => {
-  const apiKey = process.env.GROQ_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('GROQ_API_KEY is not configured');
-  }
-
-  const groq = createOpenAICompatible({
-    name: 'groq',
-    baseURL: 'https://api.groq.com/openai/v1',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-  });
-
   const prompt = `Analyze this developer's GitHub contribution data and provide AI-powered productivity insights:
 
 Period: ${period}
@@ -102,8 +111,7 @@ Return ONLY a valid JSON object with this exact format:
 
 Tags should reflect the contribution style (e.g., "collaboration", "active-development", "code-review", "frontend", "backend").`;
 
-  const { text } = await generateText({
-    model: groq('llama-3.3-70b-versatile'),
+  const text = await generateGroqText({
     prompt,
     system:
       'You are a developer productivity coach that analyzes GitHub contributions. Always respond with valid JSON only, no additional text. Be encouraging but honest.',
@@ -124,20 +132,6 @@ Tags should reflect the contribution style (e.g., "collaboration", "active-devel
 };
 
 export const generateCodeReview: GenerateCodeReview = async ({ diff, commitMessage, prTitle }) => {
-  const apiKey = process.env.GROQ_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('GROQ_API_KEY is not configured');
-  }
-
-  const groq = createOpenAICompatible({
-    name: 'groq',
-    baseURL: 'https://api.groq.com/openai/v1',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-  });
-
   const contextInfo = [];
   if (commitMessage) contextInfo.push(`Commit Message: ${commitMessage}`);
   if (prTitle) contextInfo.push(`PR Title: ${prTitle}`);
@@ -174,8 +168,7 @@ Focus on:
 
 If the code looks good, include positive findings with type "improvement" and low severity.`;
 
-  const { text } = await generateText({
-    model: groq('llama-3.3-70b-versatile'),
+  const text = await generateGroqText({
     prompt,
     system:
       'You are an experienced senior software engineer conducting a code review. Always respond with valid JSON only, no additional text. Be thorough, constructive, and balanced in your feedback.',
@@ -205,20 +198,6 @@ export const generateLanguageInsight: GenerateLanguageInsight = async ({
   totalRepos,
   topLanguage,
 }) => {
-  const apiKey = process.env.GROQ_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('GROQ_API_KEY is not configured');
-  }
-
-  const groq = createOpenAICompatible({
-    name: 'groq',
-    baseURL: 'https://api.groq.com/openai/v1',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-  });
-
   const topLanguages = languages.slice(0, 5);
   const languageBreakdown = topLanguages
     .map(
@@ -248,8 +227,7 @@ Return ONLY a valid JSON object with this exact format:
 
 Tags should reflect the development style (e.g., "polyglot", "web-development", "backend-focused", "full-stack", "modern-javascript").`;
 
-  const { text } = await generateText({
-    model: groq('llama-3.3-70b-versatile'),
+  const text = await generateGroqText({
     prompt,
     system:
       'You are a technical career advisor that analyzes programming language usage. Always respond with valid JSON only, no additional text. Be encouraging and provide actionable insights.',
@@ -270,20 +248,6 @@ Tags should reflect the development style (e.g., "polyglot", "web-development", 
 };
 
 export const generateDeveloperPersona: GenerateDeveloperPersona = async ({ events, username }) => {
-  const apiKey = process.env.GROQ_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('GROQ_API_KEY is not configured');
-  }
-
-  const groq = createOpenAICompatible({
-    name: 'groq',
-    baseURL: 'https://api.groq.com/openai/v1',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-  });
-
   // Analyze activity patterns
   const eventsByDay: Record<string, number> = {};
   const eventsByHour: Record<number, number> = {};
@@ -355,8 +319,7 @@ Return ONLY a valid JSON object with this exact format:
 
 Traits should be positive characteristics (e.g., "Late night productivity", "Weekend dedication", "Consistent contributor").`;
 
-  const { text } = await generateText({
-    model: groq('llama-3.3-70b-versatile'),
+  const text = await generateGroqText({
     prompt,
     system:
       'You are a creative developer profiler that creates fun, accurate personas based on GitHub activity patterns. Always respond with valid JSON only, no additional text. Be creative and engaging while staying accurate to the data.',

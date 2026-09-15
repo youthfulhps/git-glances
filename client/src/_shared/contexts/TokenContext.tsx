@@ -1,80 +1,25 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { encryptToken, decryptToken, isCryptoSupported } from '@shared/utils/crypto';
+import { getStoredItem, setStoredItem, STORAGE_KEYS } from '@shared/utils/storage';
 
 interface TokenContextType {
   token: string;
-  setToken: (token: string) => void;
+  setToken: (token: string) => Promise<void>;
   tokenError: boolean;
   clearTokenError: () => void;
+  groqApiKey: string;
+  setGroqApiKey: (key: string) => Promise<void>;
 }
 
 const TokenContext = createContext<TokenContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'gitGlances:token';
-
-async function getStorageItem(key: string): Promise<string | null> {
-  if (process.env.IS_WEB) {
-    const encryptedToken = localStorage.getItem(key);
-    if (!encryptedToken) return null;
-
-    // Web Crypto API를 지원하면 복호화
-    if (isCryptoSupported()) {
-      return await decryptToken(encryptedToken);
-    }
-
-    // 지원하지 않으면 평문 그대로 반환
-    return encryptedToken;
-  }
-  // For extension, we'll use a simple sync approach
-  return null;
-}
-
-async function setStorageItem(key: string, value: string): Promise<void> {
-  if (process.env.IS_WEB) {
-    if (value) {
-      // Web Crypto API를 지원하면 암호화
-      const tokenToStore = isCryptoSupported() ? await encryptToken(value) : value;
-      localStorage.setItem(key, tokenToStore);
-    } else {
-      localStorage.removeItem(key);
-    }
-  } else {
-    // For Chrome extension - chrome.storage는 이미 안전하므로 암호화 불필요
-    if (typeof chrome !== 'undefined' && chrome.storage) {
-      if (value) {
-        chrome.storage.local.set({ [key]: value });
-      } else {
-        chrome.storage.local.remove(key);
-      }
-    }
-  }
-}
-
 export function TokenProvider({ children }: { children: ReactNode }) {
   const [token, setTokenState] = useState<string>('');
   const [tokenError, setTokenError] = useState<boolean>(false);
+  const [groqApiKey, setGroqApiKeyState] = useState<string>('');
 
   useEffect(() => {
-    // Initialize from storage
-    const loadToken = async () => {
-      const savedToken = await getStorageItem(STORAGE_KEY);
-      if (savedToken) {
-        setTokenState(savedToken);
-      }
-    };
-
-    if (process.env.IS_WEB) {
-      loadToken();
-    } else {
-      // For Chrome extension, load async
-      if (typeof chrome !== 'undefined' && chrome.storage) {
-        chrome.storage.local.get([STORAGE_KEY], (result) => {
-          if (result[STORAGE_KEY]) {
-            setTokenState(result[STORAGE_KEY]);
-          }
-        });
-      }
-    }
+    getStoredItem(STORAGE_KEYS.GITHUB_TOKEN).then(setTokenState);
+    getStoredItem(STORAGE_KEYS.GROQ_API_KEY).then(setGroqApiKeyState);
   }, []);
 
   useEffect(() => {
@@ -91,10 +36,16 @@ export function TokenProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  // 요청 인터셉터가 저장소에서 토큰을 읽으므로, state보다 저장을 먼저 끝낸다
   const setToken = async (newToken: string) => {
+    await setStoredItem(STORAGE_KEYS.GITHUB_TOKEN, newToken);
     setTokenState(newToken);
     setTokenError(false); // 새 토큰 입력 시 에러 클리어
-    await setStorageItem(STORAGE_KEY, newToken);
+  };
+
+  const setGroqApiKey = async (key: string) => {
+    await setStoredItem(STORAGE_KEYS.GROQ_API_KEY, key);
+    setGroqApiKeyState(key);
   };
 
   const clearTokenError = () => {
@@ -102,7 +53,9 @@ export function TokenProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <TokenContext.Provider value={{ token, setToken, tokenError, clearTokenError }}>
+    <TokenContext.Provider
+      value={{ token, setToken, tokenError, clearTokenError, groqApiKey, setGroqApiKey }}
+    >
       {children}
     </TokenContext.Provider>
   );

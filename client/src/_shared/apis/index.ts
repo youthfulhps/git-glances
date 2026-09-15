@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { getChromeStorageItem, removeChromeStorageItem } from '@shared/utils/chrome';
-import { decryptToken, isCryptoSupported } from '@shared/utils/crypto';
-import { parseAxiosError, ErrorCode } from '@shared/utils/errors';
+import { getStoredItem, setStoredItem, STORAGE_KEYS } from '@shared/utils/storage';
+import { parseAxiosError, ErrorCode, TOKEN_REQUIRED_CANCEL_MESSAGE } from '@shared/utils/errors';
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
@@ -29,26 +28,13 @@ axiosInstance.interceptors.request.use(async (config) => {
     return config;
   }
 
-  let accessToken = null;
-
-  if (process.env.IS_WEB) {
-    const encryptedToken = localStorage.getItem('gitGlances:token') || '';
-    // Web Crypto API를 지원하면 복호화
-    if (encryptedToken && isCryptoSupported()) {
-      accessToken = await decryptToken(encryptedToken);
-    } else {
-      accessToken = encryptedToken;
-    }
-  } else {
-    const token = await getChromeStorageItem<string>('gitGlances:token');
-    accessToken = token;
-  }
+  const accessToken = await getStoredItem(STORAGE_KEYS.GITHUB_TOKEN);
 
   if (!accessToken) {
     const { CancelToken } = axios;
     return {
       ...config,
-      cancelToken: new CancelToken((cancel) => cancel('Access token is required!')),
+      cancelToken: new CancelToken((cancel) => cancel(TOKEN_REQUIRED_CANCEL_MESSAGE)),
     };
   }
 
@@ -62,18 +48,21 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const parsedError = parseAxiosError(error);
 
+    // 요청에 쓴 토큰이 지금 저장된 토큰일 때만 무효 처리한다.
+    // (이전 토큰으로 보낸 요청의 늦은 401이 새로 입력한 토큰을 지우지 않도록)
+    const sentToken = String(error?.config?.headers?.Authorization ?? '').replace(/^Token /, '');
+    const isCurrentToken =
+      !!sentToken && sentToken === (await getStoredItem(STORAGE_KEYS.GITHUB_TOKEN));
+
     // Handle authentication errors
     if (
-      parsedError.code === ErrorCode.UNAUTHORIZED ||
-      parsedError.code === ErrorCode.FORBIDDEN ||
-      parsedError.code === ErrorCode.TOKEN_EXPIRED
+      isCurrentToken &&
+      (parsedError.code === ErrorCode.UNAUTHORIZED ||
+        parsedError.code === ErrorCode.FORBIDDEN ||
+        parsedError.code === ErrorCode.TOKEN_EXPIRED)
     ) {
       // Clear token from storage
-      if (process.env.IS_WEB) {
-        localStorage.removeItem('gitGlances:token');
-      } else {
-        await removeChromeStorageItem('gitGlances:token');
-      }
+      await setStoredItem(STORAGE_KEYS.GITHUB_TOKEN, '');
 
       // Dispatch a custom event to notify the app that token was cleared
       window.dispatchEvent(new CustomEvent('token-invalid'));
