@@ -14,5 +14,6 @@
   },
   "devDependencies": {
     "joi": "^17.2.1"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
