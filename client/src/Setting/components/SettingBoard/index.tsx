@@ -13,9 +13,7 @@ import {
   IssueOpenedIcon,
 } from '@primer/octicons-react';
 import { cn } from '@shared/lib/utils';
-import { createGithubOAuthUrl } from '@shared/utils/oauth';
-
-const GITHUB_OAUTH_SCOPE = 'notifications,repo,user';
+import { createGithubOAuthUrl, createGithubTokenUrl, GITHUB_SCOPES } from '@shared/utils/oauth';
 const GROQ_KEYS_URL = 'https://console.groq.com/keys';
 
 const GITHUB_REPO_URL = 'https://github.com/youthfulhps/git-glances';
@@ -157,7 +155,7 @@ function SettingBoard() {
               </p>
               <button
                 type="button"
-                onClick={() => window.location.assign(createGithubOAuthUrl(GITHUB_OAUTH_SCOPE))}
+                onClick={() => window.location.assign(createGithubOAuthUrl(GITHUB_SCOPES.PRIVATE))}
                 className="flex items-center justify-center gap-2 rounded-lg border border-zinc-700/50 bg-gradient-to-br from-zinc-900 via-zinc-900/80 to-zinc-950 px-4 py-2.5 text-xs text-zinc-200 transition-colors hover:border-zinc-600"
               >
                 <MarkGithubIcon size={12} />
@@ -199,9 +197,7 @@ function SettingBoard() {
                 <KeyIcon size={12} className="mr-1 inline" />
                 Generate token for{' '}
                 <a
-                  href={`https://github.com/settings/tokens/new?scopes=notifications,user,repo&description=${encodeURIComponent(
-                    'Token for GitGlances Extension',
-                  )}`}
+                  href={createGithubTokenUrl(GITHUB_SCOPES.PRIVATE)}
                   target="_blank"
                   className="text-emerald-600 underline transition-colors hover:text-emerald-500"
                   rel="noreferrer"
@@ -210,9 +206,7 @@ function SettingBoard() {
                 </a>{' '}
                 or{' '}
                 <a
-                  href={`https://github.com/settings/tokens/new?scopes=notifications,public_repo,read:user,user:email,user:follow&description=${encodeURIComponent(
-                    'Token for GitGlances Extension',
-                  )}`}
+                  href={createGithubTokenUrl(GITHUB_SCOPES.PUBLIC)}
                   target="_blank"
                   className="text-emerald-600 underline transition-colors hover:text-emerald-500"
                   rel="noreferrer"

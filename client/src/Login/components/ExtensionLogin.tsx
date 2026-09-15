@@ -1,6 +1,7 @@
 import { LogoGithub } from '@carbon/icons-react';
 import Input from '@shared/components/Input';
 import useLogin from '@shared/hooks/useLogin';
+import { createGithubTokenUrl, GITHUB_SCOPES } from '@shared/utils/oauth';
 
 function ExtensionLogin() {
   const { inputToken, onInputTokenChange, submitInputToken, isLoggedIn, onInputTokenKeyDown } =
@@ -24,9 +25,7 @@ function ExtensionLogin() {
       <div className="ml-9 p-2 text-xs font-thin text-zinc-300">
         Please create and enter a{' '}
         <a
-          href={`https://github.com/settings/tokens/new?scopes=notifications,user,repo&description=${encodeURIComponent(
-            'Token for GitGlances Extension'
-          )}`}
+          href={createGithubTokenUrl(GITHUB_SCOPES.PRIVATE)}
           target="_blank"
           className="text-emerald-300"
           rel="noreferrer"
@@ -35,9 +34,7 @@ function ExtensionLogin() {
         </a>
         , or a{' '}
         <a
-          href={`https://github.com/settings/tokens/new?scopes=notifications,public_repo,read:user,user:email,user:follow&description=${encodeURIComponent(
-            'Token for GitGlances Extension'
-          )}`}
+          href={createGithubTokenUrl(GITHUB_SCOPES.PUBLIC)}
           target="_blank"
           className="text-emerald-300"
           rel="noreferrer"

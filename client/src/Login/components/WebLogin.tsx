@@ -1,11 +1,11 @@
 import React from 'react';
 import { LogoGithub } from '@carbon/icons-react';
 import useLogin from '@shared/hooks/useLogin';
-import { createGithubOAuthUrl } from '@shared/utils/oauth';
+import { createGithubOAuthUrl, GITHUB_SCOPES } from '@shared/utils/oauth';
 
 const loginOptions = [
-  { type: 'public', scope: 'notifications,public_repo,read:user,user:email,user:follow' },
-  { type: 'private', scope: 'notifications,repo,user' },
+  { type: 'public', scope: GITHUB_SCOPES.PUBLIC },
+  { type: 'private', scope: GITHUB_SCOPES.PRIVATE },
 ];
 
 function Login() {
